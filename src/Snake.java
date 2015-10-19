@@ -1,6 +1,5 @@
 import java.awt.Color;
 
-
 public class Snake {
 	private node head;
 	private boolean isCrashed;
