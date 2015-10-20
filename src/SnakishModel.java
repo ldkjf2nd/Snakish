@@ -6,10 +6,6 @@ public class SnakishModel {
 		NEW_GAME, END_GAME
 	}
 	
-//	public enum PlayerState {
-//		PLAYER_ONE_TURN, PLAYER_TWO_TURN
-//	}
-	
 	public enum PlayingState {
 		GAME_WIN
 	}
