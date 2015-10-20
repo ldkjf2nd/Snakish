@@ -18,6 +18,7 @@ public class SnakishModel {
 	private Color playerColor = Color.blue;
 	private GameState gameState = null;
 	private PlayingState playingState = null;
+	private int dir1,dir2;
 	
 	/**
 	 * Constructor
@@ -30,8 +31,20 @@ public class SnakishModel {
 	 * Checks whether the snake's move is legal, return false if illegal, else true.
 	 * @return boolean
 	 */
-	public boolean verifyLegalMove() {
-		return false;
+	public boolean verifyLegalMove(int n) {
+		if (n == 1 & dir1 == 3) {
+			return false;
+		}
+		else if (n == 2 & dir1 == 4) {
+			return false;
+		}
+		else if (n == 3 & dir1 == 1) {
+			return false;
+		}
+		else if (n == 4 & dir1 == 2) {
+			return false;
+		}
+		return true;
 	}
 	
 	public void move() {

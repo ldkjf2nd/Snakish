@@ -17,6 +17,7 @@ public class Snake {
 	public void update() {
 		node temp = null;
 		if (direction == 1) {
+			
 		}
 		else if (direction == 2) {
 		}
