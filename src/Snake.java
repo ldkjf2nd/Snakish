@@ -1,37 +1,52 @@
 import java.awt.Color;
 
 public class Snake {
-	private int[][] body;
+	private node head;
 	private boolean isCrashed;
 	private int direction;
-	private int x = 1;// starting position will be changed later;
-	private int y = 1;
 	
 	public Snake() {
-		body = new int [x][y];
-				direction = 1;
+		head = new node();
+		head.x = 0;head.y=0;//initial position, will modify later
+		direction = 1;
 	}
-	public void move(int dir, int player) {
+	public void move(int dir) {
 		direction = dir;
-		update(dir, player);
+		update();
 	}
-	public void update(int dir, int player) {
+	public void update() {
+		node temp = null;
 		if (direction == 1) {
-			body[x+10][y] = player;
+			
 		}
 		else if (direction == 2) {
-			body[x][y+10] = player;
 		}
 		else if (direction ==3) {
-			body[x-10][y] = player;
 		}
 		else {
-			body[x][y-10] = player;
 		}
-
 		checkCrash();
 	}
 	public boolean checkCrash() {
 		return true;//will check if position of head overlaps with other things.
+	}
+	private class node {
+		private int x,y;
+		private node tail;
+		
+		public void node(int x, int y, node tail) {
+			this.x = x;
+			this.y = y;
+			this.tail = tail;
+		}
+		public int getX() {
+			return this.x;
+		}
+		public int gety() {
+			return this.y;
+		}
+		public node getTail() {
+			return this.tail;
+		}
 	}
 }
