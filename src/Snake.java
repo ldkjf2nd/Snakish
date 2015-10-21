@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 /**
  * 
  * @author Tian Guo, Xin Tong Hu
@@ -9,16 +7,19 @@ public class Snake {
 	private int[][] body;
 	private boolean isCrashed;
 	private int direction;
-	private int x = 1;// starting position will be changed later;
+	// initial position of the snake
+	private int x = 1;
 	private int y = 1;
+	// width of the board
+	private int w = 60;
 	
 	/**
-	 * Constructor
+	 * Constructor, initializes the snake.
 	 */
 	public Snake() {
-		direction = 1;
-		body = new int [x][y];
-		direction = 1;
+		body = new int [w][w];
+		isCrashed = false;
+		direction = 3;
 	}
 	
 	/**
@@ -37,27 +38,34 @@ public class Snake {
 	 * @param player
 	 */
 	public void update(int dir, int player) {
-		if (direction == 1) {
-			
-			body[x+10][y] = player;
+		switch (direction) {
+			case 1: checkCrash(x-1, y);
+					body[x-1][y] = player;
+				break;
+			case 2: checkCrash(x, y+1);
+					body[x][y+1] = player;
+				break;
+			case 3: checkCrash(x+1, y);
+					body[x+1][y] = player;
+				break;
+			case 4: checkCrash(x, y-1);
+					body[x][y-1] = player;
+				break;
+			default: break;
 		}
-		else if (direction == 2) {
-			body[x][y+10] = player;
-		}
-		else if (direction ==3) {
-			body[x-10][y] = player;
-		}
-		else {
-			body[x][y-10] = player;
-		}
-		checkCrash();
 	}
 	
 	/**
 	 * Checks if the position of the head overlaps with other things.
 	 * @return boolean
 	 */
-	public boolean checkCrash() {
-		return true;
+	public boolean checkCrash(int x, int y) {
+		if (x < 0 | x > 60 | y < 0 | y > 60) {	// checks if the snake crashes into the wall
+			return true;
+		}
+		else if (body[x][y] != 0) {				// checks if the snake crashes into itself or enemy
+			return true;
+		}
+		return false;
 	}
 }

@@ -9,5 +9,4 @@ public class SnakishView {
 		// TODO Auto-generated method stub
 
 	}
-
 }
