@@ -6,42 +6,59 @@ import java.awt.Color;
  *
  */
 public class Snake {
-	private node head;
+	private int[][] body;
 	private boolean isCrashed;
 	private int direction;
+	private int x = 1;// starting position will be changed later;
+	private int y = 1;
 	
 	/**
 	 * Constructor
 	 */
 	public Snake() {
-		head = new node();
-		head.x = 0;head.y=0;//initial position, will modify later
-		direction = 1;
+		body = new int [x][y];
+				direction = 1;
 	}
+<<<<<<< HEAD
+	public void move(int dir, int player) {
+=======
 	
 	/**
 	 * Captures the snake's movement.
 	 * @param dir
 	 */
 	public void move(int dir) {
+>>>>>>> master
 		direction = dir;
-		update();
+		update(dir, player);
 	}
+<<<<<<< HEAD
+	public void update(int dir, int player) {
+=======
 	
 	/**
 	 * Updates the position of the snake.
 	 */
 	public void update() {
 		node temp = null;
+>>>>>>> master
 		if (direction == 1) {
-			
+			body[x+10][y] = player;
 		}
 		else if (direction == 2) {
+			body[x][y+10] = player;
 		}
+<<<<<<< HEAD
+		else if (direction ==3) {
+			body[x-10][y] = player;
+=======
 		else if (direction == 3) {
+>>>>>>> master
 		}
 		else {
+			body[x][y-10] = player;
 		}
+
 		checkCrash();
 	}
 	
@@ -52,6 +69,9 @@ public class Snake {
 	public boolean checkCrash() {
 		return true;
 	}
+<<<<<<< HEAD
+}
+=======
 	
 	/**
 	 * A self-implemented modified linked-list.
@@ -97,3 +117,4 @@ public class Snake {
 		}
 	}
 }
+>>>>>>> master
