@@ -15,11 +15,14 @@ public class SnakishModel {
 		GAME_WIN
 	}
 	
-	private Color pcColor = Color.red;
-	private Color playerColor = Color.blue;
+	private Color pcColor = Color.RED;
+	private Color playerColor = Color.BLUE;
 	private GameState gameState = null;
 	private PlayingState playingState = null;
 	private int dir1,dir2;
+	private int unoccupied = 0;	// empty slot
+	private int player = 1;
+	private int pc = 2;
 	
 	/**
 	 * Constructor
