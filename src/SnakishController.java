@@ -5,6 +5,11 @@ import java.awt.event.*;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Tian Guo, Xin Tong Hu
+ *
+ */
 public class SnakishController {
 	private SnakishModel model = null;
 	private SnakishView view = null;
@@ -21,7 +26,7 @@ public class SnakishController {
 	private JPanel topPanel = null;
 	
 	/**
-	 * Constructor for SnakishController
+	 * Constructor for SnakishController.
 	 * @param model: the model it uses
 	 * @param view: the view it uses
 	 */
