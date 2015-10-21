@@ -1,5 +1,10 @@
 import java.awt.Color;
 
+/**
+ * 
+ * @author Tian Guo, Xin Tong Hu
+ *
+ */
 public class Snake {
 	private int[][] body;
 	private boolean isCrashed;
@@ -7,15 +12,30 @@ public class Snake {
 	private int x = 1;// starting position will be changed later;
 	private int y = 1;
 	
+	/**
+	 * Constructor
+	 */
 	public Snake() {
 		direction = 1;
 		body = new int [x][y];
 		direction = 1;
 	}
+	
+	/**
+	 * Captures the snake's movement.
+	 * @param dir
+	 * @param player
+	 */
 	public void move(int dir, int player) {
 		direction = dir;
 		update(dir, player);
 	}
+	
+	/**
+	 * Updates the position of the snake.
+	 * @param dir
+	 * @param player
+	 */
 	public void update(int dir, int player) {
 		if (direction == 1) {
 			
@@ -30,10 +50,14 @@ public class Snake {
 		else {
 			body[x][y-10] = player;
 		}
-
 		checkCrash();
 	}
+	
+	/**
+	 * Checks if the position of the head overlaps with other things.
+	 * @return boolean
+	 */
 	public boolean checkCrash() {
-		return true;//will check if position of head overlaps with other things.
+		return true;
 	}
 }
