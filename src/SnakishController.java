@@ -5,6 +5,11 @@ import java.awt.event.*;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ * 
+ * @author Tian Guo, Xin Tong Hu
+ *
+ */
 public class SnakishController {
 	private SnakishModel model = null;
 	private SnakishView view = null;

@@ -1,5 +1,10 @@
 import java.awt.Color;
 
+/**
+ * This class manages the data, logic and rules of the game.
+ * @author Tian Guo, Xin Tong Hu
+ *
+ */
 public class SnakishModel {
 	
 	public enum GameState {
@@ -22,9 +27,10 @@ public class SnakishModel {
 	public SnakishModel() {
 		
 	}
-	
+
 	/**
 	 * Checks whether the snake's move is legal, return false if illegal, else true.
+	 * @param n
 	 * @return boolean
 	 */
 	public boolean verifyLegalMove(int n) {
@@ -53,14 +59,14 @@ public class SnakishModel {
 	
 	/**
 	 * Checks if there is a collision, return true if there is, else false.
-	 * @return Boolean
+	 * @return boolean
 	 */
 	public boolean collision() {
 		return false;
 	}
 	
 	/**
-	 * Returns the current game state
+	 * Returns the current game state.
 	 * @return GameState
 	 */
 	public GameState getGameState() {
