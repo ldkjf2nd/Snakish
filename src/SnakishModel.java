@@ -58,7 +58,7 @@ public class SnakishModel {
 			dir1 = i;
 		}
 		else {
-			dir2 = j;
+			dir2 = i;
 		}
 	}
 	
