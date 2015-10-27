@@ -4,12 +4,12 @@
  *
  */
 public class Snake {
-	private int[][] body;
+	int[][] body;
 	private boolean isCrashed;
 	private int direction;
 	// initial position of the snake
-	private int x = 1;
-	private int y = 1;
+	int x = 1;
+	int y = 1;
 	// width of the board
 	private int w = 60;
 	
