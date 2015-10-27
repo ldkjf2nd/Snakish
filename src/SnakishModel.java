@@ -65,17 +65,21 @@ public class SnakishModel {
 	public void updateMove(int player) {
 		if (player == 1) {
 			switch (dir1) {
-			case 1: IsCollision(game.x-1, game.y);
-					game.body[game.x-1][game.y] = player;
+			case 1: if (IsCollision(game.x-1, game.y)) {
+						game.body[game.x-1][game.y] = player;
+			}
 				break;
-			case 2: IsCollision(game.x, game.y+1);
+			case 2: if (IsCollision(game.x, game.y+1)) {
 					game.body[game.x][game.y+1] = player;
+			}
 				break;
-			case 3: IsCollision(game.x+1, game.y);
+			case 3: if (IsCollision(game.x+1, game.y)) {
 					game.body[game.x+1][game.y] = player;
+			}
 				break;
-			case 4: IsCollision(game.x, game.y-1);
+			case 4: if (IsCollision(game.x, game.y-1)) {
 					game.body[game.x][game.y-1] = player;
+			}
 				break;
 			default: break;
 			}
