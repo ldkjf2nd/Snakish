@@ -23,6 +23,10 @@ public class SnakishModel {
 	private int unoccupied = 0;	// empty slot
 	private int player = 1;
 	private int pc = 2;
+	public int up = 1;
+	public int right = 2;
+	public int down = 3;
+	public int left = 4;
 	public Snake game = new Snake();
 	
 	/**
@@ -38,23 +42,23 @@ public class SnakishModel {
 	 * @return boolean
 	 */
 	public boolean verifyLegalMove(int n) {
-		if (n == 1 & dir1 == 3) {
+		if (n == up & dir1 == down) {
 			return false;
 		}
-		else if (n == 2 & dir1 == 4) {
+		else if (n == right & dir1 == left) {
 			return false;
 		}
-		else if (n == 3 & dir1 == 1) {
+		else if (n == down & dir1 == up) {
 			return false;
 		}
-		else if (n == 4 & dir1 == 2) {
+		else if (n == left & dir1 == right) {
 			return false;
 		}
 		return true;
 	}
 	
 	public void move(int i, int j) { // i is direction of movement, j represents either player or AI
-		if (j == 1) {
+		if (j == player) {
 			dir1 = i;
 		}
 		else {
@@ -94,7 +98,7 @@ public class SnakishModel {
 		if (x < 0 | x > 60 | y < 0 | y > 60) {	// checks if the snake crashes into the wall
 			return true;
 		}
-		else if (game.body[x][y] != 0) {				// checks if the snake crashes into itself or enemy
+		else if (game.body[x][y] != 0) {		// checks if the snake crashes into itself or enemy
 			return true;
 		}
 		return false;
