@@ -7,10 +7,11 @@ import javax.swing.*;
  *
  */
 public class SnakishView extends JFrame {
-	private JTextField tfName;				// Name of the Player
-	private JButton btnSG;					// Start game button
-	private JButton btnA;					// About button
-	private JButton btnE;					// Exit button
+	static JTextField tfName;				// Name of the Player
+	static JButton btnSG;					// Start game button
+	static JButton btnA;					// About button
+	static JButton btnE;					// Exit button
+	String name;							// Player's name
 	private int frameSizeX = 600;			// x size of the frame
 	private int frameSizeY = 600;			// y size of the frame
 	private int originX = 0;
@@ -48,6 +49,14 @@ public class SnakishView extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);			// Exit program if close-window button clicked
 	    setSize(frameSizeX, frameSizeY);						// Sets initial size
 	    setVisible(true);										// JFrame is visible
+	}
+	
+	public void player() {
+		name = tfName.getName();
+		if (name.length() == 0) {
+			name = "Unknown";
+		}
+		
 	}
 	
 	public static void main(String[] args) {
