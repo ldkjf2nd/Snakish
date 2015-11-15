@@ -6,20 +6,23 @@
 public class Snake {
 	int[][] body;
 	private boolean isCrashed;
+	// direction of the snake
 	private int direction;
 	// initial position of the snake
-	int x = 1;
-	int y = 1;
+	int x;
+	int y;
 	// width of the board
 	private int w = 60;
 	
 	/**
 	 * Constructor, initializes the snake.
 	 */
-	public Snake() {
+	public Snake(int x, int y, int Direction, int Player) {
 		body = new int [w][w];
 		isCrashed = false;
-		direction = 3;
+		this.x = x;
+		this.y = y;
+		direction = Direction;
 	}
 	
 	/**

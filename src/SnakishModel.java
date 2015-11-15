@@ -27,7 +27,12 @@ public class SnakishModel {
 	public int right = 2;
 	public int down = 3;
 	public int left = 4;
-	public Snake game = new Snake();
+	
+	public int x1 = 50;
+	public int y1 = 300;
+	public int x2 = 550;
+	public int y2 = 300;
+	public Snake game = new Snake(x1, y1, dir1, player);
 	
 	/**
 	 * Constructor
