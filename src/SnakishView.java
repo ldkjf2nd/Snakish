@@ -41,6 +41,7 @@ public class SnakishView extends JFrame {
 		
         //... finalize layout
         setContentPane(titlePage);
+		setLayout(null);
         setTitle("Snakish");							// Title
         // The window closing event should probably be passed to the 
         // Controller in a real program, but this is a short example.
