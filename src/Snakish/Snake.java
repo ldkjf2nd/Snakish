@@ -1,3 +1,4 @@
+package Snakish;
 /**
  * 
  * @author Tian Guo, Xin Tong Hu

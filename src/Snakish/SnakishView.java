@@ -1,5 +1,11 @@
+package Snakish;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+
+import Snakish.SnakishModel.GameState;
+import Snakish.SnakishModel.PlayingState;
+
 
 /**
  * 
@@ -7,6 +13,7 @@ import javax.swing.*;
  *
  */
 public class SnakishView extends JFrame {
+	private SnakishModel model;
 	static JTextField tfName;				// Name of the Player
 	static JButton btnSG;					// Start game button
 	static JButton btnA;					// About button
@@ -57,6 +64,21 @@ public class SnakishView extends JFrame {
 			name = "Unknown";
 		}
 		
+	}
+	
+	public void actionPerformed(ActionEvent evt) {
+		Object src = evt.getSource();
+		if (src == btnSG) {
+//			player();
+		}
+		else if (src == btnA) {
+//			remove();
+			add(btnE);
+			
+		}
+		else if (src == btnE) {
+			
+		}
 	}
 	
 	public static void main(String[] args) {
