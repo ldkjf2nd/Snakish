@@ -1,3 +1,4 @@
+package Snakish;
 import java.awt.Color;
 
 /**
@@ -8,7 +9,7 @@ import java.awt.Color;
 public class SnakishModel {
 	
 	public enum GameState {
-		NEW_GAME, END_GAME
+		NEW_GAME, ABOUT, EXIT, IN_PROGRESS, END_GAME
 	}
 	
 	public enum PlayingState {
