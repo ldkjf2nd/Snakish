@@ -39,9 +39,12 @@ public class SnakishView extends JFrame {
 		btnE.setBounds(tfName.getX(),tfName.getY()+40*3,120,30);
 		titlePage.add(btnE);
 		
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// Exit program if close-window button clicked
-	    setTitle("Snakish");							// Title
+        //... finalize layout
+        setContentPane(titlePage);
+        setTitle("Snakish");							// Title
+        // The window closing event should probably be passed to the 
+        // Controller in a real program, but this is a short example.
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	// Exit program if close-window button clicked
 	    setSize(frameSizeX, frameSizeY);				// Sets initial size
 	    setVisible(true);								// JFrame is visible
 	}
