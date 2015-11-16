@@ -1,11 +1,8 @@
 package Snakish;
+
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
-import Snakish.SnakishModel.GameState;
-import Snakish.SnakishModel.PlayingState;
 
 /**
  * 

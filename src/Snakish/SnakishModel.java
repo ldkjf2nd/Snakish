@@ -158,4 +158,12 @@ public class SnakishModel {
 	public void setGameState(GameState gs) {
 		gameState = gs;
 	}
+	
+	public PlayingState getPlayingState() {
+		return playingState;
+	}
+	
+	public void setPlayingState(PlayingState ps) {
+		playingState = ps;
+	}
 }
