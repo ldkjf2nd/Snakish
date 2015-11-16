@@ -1,11 +1,8 @@
 package Snakish;
+
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
-import Snakish.SnakishModel.GameState;
-import Snakish.SnakishModel.PlayingState;
 
 /**
  * 
@@ -32,7 +29,6 @@ public class SnakishView extends JFrame {
 	 */
 	private void initFrame() {
 		frame = new JFrame("Snakish");
-		model.setGameState(GameState.TITLE_PAGE);
 		//Default Close Action
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets Window Properties

@@ -2,10 +2,12 @@ package Snakish;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.text.*;
 
 import Snakish.SnakishModel.GameState;
+import Snakish.SnakishModel.PlayingState;
 
 /**
  * 
@@ -26,7 +28,7 @@ public class SnakishController {
 	private JButton btnE = new JButton("Exit");
 	private JPanel menuPanel = new JPanel();
 	private JFrame frame;
-	private JTextPane about = new JTextPane();
+	private JTextPane Text = new JTextPane();
 //	private JPanel boardPanel = null; 
 //	
 //	//Outputs to the view
@@ -41,6 +43,7 @@ public class SnakishController {
 	public SnakishController(SnakishModel model, SnakishView view) {
 		this.model = model;
 		this.view = view;
+		model.setGameState(GameState.TITLE_PAGE);
 		initialize();
 	}
 	
@@ -60,6 +63,7 @@ public class SnakishController {
 		btnSG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				model.setGameState(GameState.NEW_GAME);
+				clear();
 				startGame();
 			}
 		});
@@ -67,6 +71,8 @@ public class SnakishController {
 		btnA.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				model.setGameState(GameState.ABOUT);
+//				System.out.println("about peacefully");
+				clear();
 				about();
 			}
 		});
@@ -75,10 +81,12 @@ public class SnakishController {
 			public void actionPerformed(ActionEvent e){
 				if (model.getGameState() == GameState.ABOUT) {
 					model.setGameState(GameState.TITLE_PAGE);
-					menuPanel.remove(about);
-//					repaint();
+					clear();
+					menuPanel = new JPanel();
+					initializeMenu();
 				}
 				else if (model.getGameState() == GameState.TITLE_PAGE) {
+//					System.out.println("exited peacefully");
 					System.exit(0);
 				}
 			}
@@ -107,19 +115,12 @@ public class SnakishController {
 	}
 	
 	private void about() {
-		clear();
-		StyledDocument doc = about.getStyledDocument();
-		SimpleAttributeSet center = new SimpleAttributeSet();
-		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		about.setText("The objective of the game is to make the opponent crash. \n \n"
+		displayText("The objective of the game is to make the opponent crash. \n \n"
 				+ "Use top, down, left, right arrows to control the snake. \n \n"
 				+ "Design and Programmed by: \nTian Guo and Xin Tong Hu");
-		about.setBounds(100,tfName.getY(), 400, 200);
-		btnE.setBounds(tfName.getX(),tfName.getY()+40*3,120,30);
-		about.setVisible(true);
+		btnE.setBounds(tfName.getX(), tfName.getY()+40*3, 120, 30);
 		menuPanel.add(btnE);
-		menuPanel.add(about);
+		menuPanel.add(Text);
 	}
 	
 	void clear() {
@@ -127,7 +128,31 @@ public class SnakishController {
 		menuPanel.remove(btnSG);
 		menuPanel.remove(btnA);
 		menuPanel.remove(btnE);
-		menuPanel.remove(about);
+		menuPanel.remove(Text);
+	}
+	
+	private void displayText(String text) {
+		StyledDocument doc = Text.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		Text.setText(text);
+		Text.setBounds(100, tfName.getY(), 400, 200);
+		Text.setVisible(true);
+	}
+	
+	private void displayEndGame(){
+		if (model.getPlayingState() == PlayingState.PLAYER_WIN){
+			//display text on panel
+			displayText(model.name + " wins! \n \n"
+					+ "Press ESC to exit \n \n"
+					+ "Press ENTER to restart");
+		}
+		else if (model.getPlayingState() == PlayingState.PC_WIN){
+			displayText("PC wins! \n \n"
+					+ "Press ESC to exit \n \n"
+					+ "Press ENTER to restart");
+		}
 	}
 	
 //	private void repaint(){
