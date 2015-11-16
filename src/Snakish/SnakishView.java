@@ -32,6 +32,7 @@ public class SnakishView extends JFrame {
 	 */
 	private void initFrame() {
 		frame = new JFrame("Snakish");
+		model.setGameState(GameState.TITLE_PAGE);
 		//Default Close Action
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets Window Properties
