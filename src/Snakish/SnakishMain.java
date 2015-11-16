@@ -1,15 +1,15 @@
 package Snakish;
-import javax.swing.SwingUtilities;
 
 public class SnakishMain {
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
-		// Run the GUI construction in the Event-Dispatching thread for thread-safety
-		SwingUtilities.invokeLater(new Runnable() {
-		@Override
-		public void run() {
-			new SnakishView(); // Let the constructor do the job
-		}
-		});
+		//Start Connect Four Program
+		SnakishModel model = new SnakishModel();
+		SnakishView view = new SnakishView(model);
+		SnakishController controller = new SnakishController(model, view);
+		controller.initalize();
 	}
 }
