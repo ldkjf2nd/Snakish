@@ -69,25 +69,32 @@ public class SnakishView extends JFrame {
 	public void actionPerformed(ActionEvent evt) {
 		Object src = evt.getSource();
 		if (src == btnSG) {
-//			player();
+			player();
 		}
 		else if (src == btnA) {
-//			remove();
+			remove();
 			add(btnE);
-			
+			model.setGameState(GameState.ABOUT);
 		}
 		else if (src == btnE) {
-			
+			if (model.getGameState() == GameState.TITLE_PAGE) {
+				System.exit(0);
+			}
+			else if (model.getGameState() == GameState.ABOUT) {
+				remove(btnE);
+				initFrame();
+				model.setGameState(GameState.TITLE_PAGE);
+			}
 		}
 	}
 	
-	public static void main(String[] args) {
-		// Run the GUI construction in the Event-Dispatching thread for thread-safety
-		SwingUtilities.invokeLater(new Runnable() {
-		@Override
-		public void run() {
-			new SnakishView(); // Let the constructor do the job
-		}
-		});
+	private void remove() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void initFrame() {
+		// TODO Auto-generated method stub
+		
 	}
 }
