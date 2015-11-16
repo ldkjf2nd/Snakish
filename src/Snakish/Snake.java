@@ -1,4 +1,5 @@
 package Snakish;
+
 /**
  * 
  * @author Tian Guo, Xin Tong Hu
@@ -7,8 +8,10 @@ package Snakish;
 public class Snake {
 	int[][] body;
 	int unoccupied = 0;
-	int ID;
-	private boolean isCrashed;
+	int player;
+	String name;
+	private boolean isCrashed, pc;
+	Snake enemy;
 	// 4 directions
 	int up = 1;
 	int right = 2;
@@ -17,8 +20,7 @@ public class Snake {
 	// direction of the snake
 	private int direction;
 	// initial position of the snake
-	int x;
-	int y;
+	int x, y;
 	// width of the board
 	private int w = 60;
 	
@@ -28,7 +30,7 @@ public class Snake {
 	 */
 	public Snake(int x, int y, int Direction, int Player) {
 		body = new int [w][w];
-		ID = Player;
+		player = Player;
 		isCrashed = false;
 		this.x = x;
 		this.y = y;
@@ -78,17 +80,17 @@ public class Snake {
 		switch (direction) {
 			case 1: if(verifyLegalMove(dir)) {
 						crashStatus(x, y-1);
-						body[x][y-1] = ID;
+						body[x][y-1] = player;
 						}
 				break;
 			case 2: crashStatus(x, y+1);
-					body[x][y+1] = ID;
+					body[x][y+1] = player;
 				break;
 			case 3: crashStatus(x+1, y);
-					body[x+1][y] = ID;
+					body[x+1][y] = player;
 				break;
 			case 4: crashStatus(x, y-1);
-					body[x][y-1] = ID;
+					body[x][y-1] = player;
 				break;
 			default: break;
 		}
@@ -109,5 +111,12 @@ public class Snake {
 	
 	public boolean checkCrashed() {
 		return isCrashed;
+	}
+	
+	public void setPc(boolean bool){
+		pc = bool;
+	}
+	public void setOther(Snake enemy){
+		this.enemy = enemy;
 	}
 }

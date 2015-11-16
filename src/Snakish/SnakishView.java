@@ -1,11 +1,11 @@
 package Snakish;
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import Snakish.SnakishModel.GameState;
 import Snakish.SnakishModel.PlayingState;
-
 
 /**
  * 
@@ -25,18 +25,26 @@ public class SnakishView extends JFrame {
 	private int originY = 0;
 	
 	/**
-	 * Constructor for ConnectFourView
+	 * Constructor for ConnectFourView, initializes the frame
+	 */
+	public SnakishView(SnakishModel model) {
+		this.model = model;
+		initFrame();
+	}
+	
+	/**
 	 * This should initialize the JFrame
 	 */
-	public SnakishView() {
+	private void initFrame() {
 		JPanel titlePage = new JPanel();
 //		Container cp = getContentPane();
 		
+		// TextField for player's name
 		tfName = new JTextField("Enter Name");					// textfield for the player to enter name
 		tfName.setBounds(frameSizeX/2-60,originY+200,120,30);	// location of the textfield
 		tfName.setEditable(true);								// should be editable for player to enter name
 		titlePage.add(tfName);
-
+		// Button for Start Game, About and Exit
 		btnSG = new JButton("Start Game");						// button for Start Game
 		btnSG.setBounds(tfName.getX(),tfName.getY()+40,120,30);	// location of the button
 		titlePage.add(btnSG);
@@ -58,21 +66,13 @@ public class SnakishView extends JFrame {
 	    setVisible(true);										// JFrame is visible
 	}
 	
-	public void player() {
-		name = tfName.getName();
-		if (name.length() == 0) {
-			name = "Unknown";
-		}
-		
-	}
-	
 	public void actionPerformed(ActionEvent evt) {
 		Object src = evt.getSource();
 		if (src == btnSG) {
-			player();
+			model.player(this);
 		}
 		else if (src == btnA) {
-			remove();
+			clear();
 			add(btnE);
 			model.setGameState(GameState.ABOUT);
 		}
@@ -88,12 +88,19 @@ public class SnakishView extends JFrame {
 		}
 	}
 	
-	private void remove() {
-		// TODO Auto-generated method stub
-		
+	void clear() {
+		remove(tfName);
+		remove(btnSG);
+		remove(btnA);
+		remove(btnE);
 	}
 
-	private void initFrame() {
+	public Window getJFrame() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void remakeJFrame() {
 		// TODO Auto-generated method stub
 		
 	}

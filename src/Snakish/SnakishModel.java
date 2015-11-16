@@ -1,5 +1,9 @@
 package Snakish;
+
 import java.awt.Color;
+
+import Snakish.SnakishController;
+import Snakish.SnakishView;
 
 /**
  * This class manages the data, logic and rules of the game.
@@ -27,6 +31,7 @@ public class SnakishModel {
 	private int player = 1;
 	private int pc = 2;
 	
+	String name;							// Player's name
 	private boolean playerExists, demo;
 	
 	public int up = 1;
@@ -39,6 +44,8 @@ public class SnakishModel {
 	public int x2 = 550;
 	public int y2 = 300;
 	public Snake game = new Snake(x1, y1, dir1, player);
+	public Snake snakes[]=new Snake[2];
+	public Snake playerSnake;
 	
 	/**
 	 * Constructor
@@ -113,6 +120,31 @@ public class SnakishModel {
 			return true;
 		}
 		return false;
+	}
+	
+	private void start(){
+		snakes[0] = new Snake(x1, y1, right, player);
+		snakes[1] = new Snake(x2, y2, left, pc);
+		snakes[0].setOther(snakes[1]);
+		snakes[1].setOther(snakes[0]);
+		demo = false;
+	}
+	
+	public void player(SnakishView view) {
+		name = view.tfName.getName();
+		if (name.length() == 0) {
+			name = "Unknown";
+		}
+		playerExists = true;
+		start();
+		playerSnake = snakes[0];
+		playerSnake.setPc(false);
+		playerSnake.enemy.setPc(true);
+		playerSnake.name = name;
+		playerSnake.enemy.name="PC";
+		view.clear();
+//		requestFocus();
+		setGameState(gameState.NEW_GAME);
 	}
 	
 	/**
