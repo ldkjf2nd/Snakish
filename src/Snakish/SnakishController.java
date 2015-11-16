@@ -3,9 +3,9 @@ package Snakish;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.text.*;
 
 import Snakish.SnakishModel.GameState;
-
 
 /**
  * 
@@ -16,11 +16,17 @@ public class SnakishController {
 	private SnakishModel model = null;
 	private SnakishView view = null;
 	
+	private int frameSizeX = 600;			// x size of the frame
+	private int frameSizeY = 600;			// y size of the frame
+	
 //	//Inputs
-//	private JButton startGameButton = new JButton("Start Game");
-//	private JButton aboutButton = new JButton("About");
-//	private JButton exitButton = new JButton("Exit");
-	private JPanel menuPanel = null;
+	JTextField tfName = new JTextField("Enter Name");					// textfield for the player to enter name
+	private JButton btnSG = new JButton("Start Game");
+	private JButton btnA = new JButton("About");
+	private JButton btnE = new JButton("Exit");
+	private JPanel menuPanel = new JPanel();
+	private JFrame frame;
+	private JTextPane about = new JTextPane();
 //	private JPanel boardPanel = null; 
 //	
 //	//Outputs to the view
@@ -35,57 +41,111 @@ public class SnakishController {
 	public SnakishController(SnakishModel model, SnakishView view) {
 		this.model = model;
 		this.view = view;
-		view.addMouseListener(null);
+		initialize();
 	}
 	
 	/**
 	 * initializes main menu
 	 */
-	public void initalize(){
-		view.getJFrame().setVisible(true);
-		initalizeButtons();
+	public void initialize(){
+		frame = view.getJFrame();
+		initializeMenu();
 	}
 	
 	/**
 	 * creates buttons for main menu
 	 */
-	private void initalizeButtons(){
+	private void initializeMenu() {
 		//Setting button function
-		view.btnSG.addActionListener(new ActionListener(){
+		btnSG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				model.setGameState(GameState.NEW_GAME);
 				startGame();
 			}
 		});
 		
-		view.btnA.addActionListener(new ActionListener(){
+		btnA.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				model.setGameState(GameState.ABOUT);
-//				startGame();
+				about();
 			}
 		});
 		
-		view.btnE.addActionListener(new ActionListener(){
+		btnE.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				model.setGameState(GameState.END_GAME);
-//				startGame();
+				if (model.getGameState() == GameState.ABOUT) {
+					model.setGameState(GameState.TITLE_PAGE);
+					menuPanel.remove(about);
+//					repaint();
+				}
+				else if (model.getGameState() == GameState.TITLE_PAGE) {
+					System.exit(0);
+				}
 			}
 		});
 		
-		// Visualize title page
-		menuPanel = new JPanel();
-		menuPanel.add(view.tfName);
-		menuPanel.add(view.btnSG);
-		menuPanel.add(view.btnA);
-		menuPanel.add(view.btnE);
-
-		view.getJFrame().add(menuPanel,BorderLayout.CENTER);
+		tfName.setBounds(frameSizeX/2-60,200,120,30);				// location of the textfield
+		tfName.setEditable(true);									// should be editable for player to enter name
+		menuPanel.add(tfName);
+		btnSG.setBounds(tfName.getX(),tfName.getY()+40,120,30);		// location of the button
+		menuPanel.add(btnSG);
+		btnA.setBounds(tfName.getX(),tfName.getY()+40*2,120,30);	// location of the button
+		menuPanel.add(btnA);
+		btnE.setBounds(tfName.getX(),tfName.getY()+40*3,120,30);	// location of the button
+		menuPanel.add(btnE);
+		
+		menuPanel.setLayout(null);
+		frame.add(menuPanel);
+		frame.setVisible(true);
+		menuPanel.setVisible(true);
 	}
 	
 	private void startGame() {
-		if(model.getGameState()==GameState.NEW_GAME){
-			view.remakeJFrame();		
-			model.setGameState(GameState.IN_PROGRESS);
-		}
+		view.remakeJFrame();		
+		model.setGameState(GameState.IN_PROGRESS);
+		model.start();
+	}
+	
+	private void about() {
+		clear();
+		StyledDocument doc = about.getStyledDocument();
+		SimpleAttributeSet center = new SimpleAttributeSet();
+		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+		about.setText("The objective of the game is to make the opponent crash. \n \n"
+				+ "Use top, down, left, right arrows to control the snake. \n \n"
+				+ "Design and Programmed by: \nTian Guo and Xin Tong Hu");
+		about.setBounds(100,tfName.getY(), 400, 200);
+		btnE.setBounds(tfName.getX(),tfName.getY()+40*3,120,30);
+		about.setVisible(true);
+		menuPanel.add(btnE);
+		menuPanel.add(about);
+	}
+	
+	void clear() {
+		menuPanel.remove(tfName);
+		menuPanel.remove(btnSG);
+		menuPanel.remove(btnA);
+		menuPanel.remove(btnE);
+		menuPanel.remove(about);
+	}
+	
+//	private void repaint(){
+//		tfName.repaint();
+//		btnSG.repaint();
+//		about.repaint();
+//		btnA.repaint();
+//		btnE.repaint();
+//		tfName.requestFocus();
+//		btnSG.requestFocus();
+//		about.requestFocus();
+//		btnA.requestFocus();
+//		btnE.requestFocus();
+//	}
+	
+	public static void main(String[] args) {
+		SnakishModel model = new SnakishModel();
+		SnakishView view = new SnakishView(model);
+		SnakishController controller = new SnakishController(model, view);
 	}
 }

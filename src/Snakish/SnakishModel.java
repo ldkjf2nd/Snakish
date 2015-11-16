@@ -17,7 +17,7 @@ public class SnakishModel {
 	}
 	
 	public enum PlayingState {
-		GAME_WIN
+		PLAYER_WIN, PC_WIN
 	}
 	
 	private Color pcColor = Color.RED;
@@ -122,7 +122,7 @@ public class SnakishModel {
 		return false;
 	}
 	
-	private void start(){
+	void start(){
 		snakes[0] = new Snake(x1, y1, right, player);
 		snakes[1] = new Snake(x2, y2, left, pc);
 		snakes[0].setOther(snakes[1]);
@@ -130,8 +130,8 @@ public class SnakishModel {
 		demo = false;
 	}
 	
-	public void player(SnakishView view) {
-		name = view.tfName.getName();
+	public void player(SnakishController controller) {
+		name = controller.tfName.getName();
 		if (name.length() == 0) {
 			name = "Unknown";
 		}
@@ -142,7 +142,7 @@ public class SnakishModel {
 		playerSnake.enemy.setPc(true);
 		playerSnake.name = name;
 		playerSnake.enemy.name="PC";
-		view.clear();
+		controller.clear();
 //		requestFocus();
 		setGameState(gameState.NEW_GAME);
 	}
