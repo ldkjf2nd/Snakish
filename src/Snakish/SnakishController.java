@@ -2,6 +2,7 @@ package Snakish;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -41,6 +42,7 @@ public class SnakishController {
 	public SnakishController(SnakishModel model, SnakishView view) {
 		this.model = model;
 		this.view = view;
+		model.setGameState(GameState.TITLE_PAGE);
 		initialize();
 	}
 	
@@ -75,10 +77,12 @@ public class SnakishController {
 			public void actionPerformed(ActionEvent e){
 				if (model.getGameState() == GameState.ABOUT) {
 					model.setGameState(GameState.TITLE_PAGE);
-					menuPanel.remove(about);
-//					repaint();
+					clear();
+					menuPanel = new JPanel();
+					initializeMenu();
 				}
 				else if (model.getGameState() == GameState.TITLE_PAGE) {
+//					System.out.println("exited peacefully");
 					System.exit(0);
 				}
 			}
