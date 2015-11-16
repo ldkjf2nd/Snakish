@@ -1,3 +1,4 @@
+package Snakish;
 import java.awt.Color;
 
 /**
@@ -8,7 +9,7 @@ import java.awt.Color;
 public class SnakishModel {
 	
 	public enum GameState {
-		NEW_GAME, END_GAME
+		TITLE_PAGE, NEW_GAME, ABOUT, EXIT, IN_PROGRESS, END_GAME
 	}
 	
 	public enum PlayingState {
@@ -17,12 +18,17 @@ public class SnakishModel {
 	
 	private Color pcColor = Color.RED;
 	private Color playerColor = Color.BLUE;
+	
 	private GameState gameState = null;
 	private PlayingState playingState = null;
+	
 	private int dir1,dir2;
 	private int unoccupied = 0;	// empty slot
 	private int player = 1;
 	private int pc = 2;
+	
+	private boolean playerExists, demo;
+	
 	public int up = 1;
 	public int right = 2;
 	public int down = 3;
@@ -115,5 +121,9 @@ public class SnakishModel {
 	 */
 	public GameState getGameState() {
 		return gameState;
+	}
+	
+	public void setGameState(GameState gs) {
+		gameState = gs;
 	}
 }

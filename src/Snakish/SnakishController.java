@@ -1,3 +1,4 @@
+package Snakish;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -34,12 +35,5 @@ public class SnakishController {
 	}
 	
 	private void startGame() {
-	}
-	
-	public void actionPerformed(ActionEvent evt) {
-		Object src = evt.getSource();
-		if (src == SnakishView.btnSG) {
-			
-		}
 	}
 }

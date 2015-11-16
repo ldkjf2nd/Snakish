@@ -1,3 +1,4 @@
+package Snakish;
 /**
  * 
  * @author Tian Guo, Xin Tong Hu
@@ -75,7 +76,7 @@ public class Snake {
 	//public void update(int dir, int player) {
 	public void update(int dir) {
 		switch (direction) {
-			case 1: if(verifyLegalMove(dir)){
+			case 1: if(verifyLegalMove(dir)) {
 						crashStatus(x, y-1);
 						body[x][y-1] = ID;
 						}

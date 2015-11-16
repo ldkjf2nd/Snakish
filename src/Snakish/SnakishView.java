@@ -1,5 +1,11 @@
+package Snakish;
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
+
+import Snakish.SnakishModel.GameState;
+import Snakish.SnakishModel.PlayingState;
+
 
 /**
  * 
@@ -7,6 +13,7 @@ import javax.swing.*;
  *
  */
 public class SnakishView extends JFrame {
+	private SnakishModel model;
 	static JTextField tfName;				// Name of the Player
 	static JButton btnSG;					// Start game button
 	static JButton btnA;					// About button
@@ -59,13 +66,35 @@ public class SnakishView extends JFrame {
 		
 	}
 	
-	public static void main(String[] args) {
-		// Run the GUI construction in the Event-Dispatching thread for thread-safety
-		SwingUtilities.invokeLater(new Runnable() {
-		@Override
-		public void run() {
-			new SnakishView(); // Let the constructor do the job
+	public void actionPerformed(ActionEvent evt) {
+		Object src = evt.getSource();
+		if (src == btnSG) {
+			player();
 		}
-		});
+		else if (src == btnA) {
+			remove();
+			add(btnE);
+			model.setGameState(GameState.ABOUT);
+		}
+		else if (src == btnE) {
+			if (model.getGameState() == GameState.TITLE_PAGE) {
+				System.exit(0);
+			}
+			else if (model.getGameState() == GameState.ABOUT) {
+				remove(btnE);
+				initFrame();
+				model.setGameState(GameState.TITLE_PAGE);
+			}
+		}
+	}
+	
+	private void remove() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void initFrame() {
+		// TODO Auto-generated method stub
+		
 	}
 }
