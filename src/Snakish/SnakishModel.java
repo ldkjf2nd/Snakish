@@ -150,9 +150,9 @@ public class SnakishModel {
 	void start(){
 		snakes[0] = new Snake(x1, y1, right, player);
 		snakes[1] = new Snake(x2, y2, left, pc);
-		snakes[0].setOther(snakes[1]);
-		snakes[1].setOther(snakes[0]);
-		demo = false;
+//		snakes[0].setOther(snakes[1]);
+//		snakes[1].setOther(snakes[0]);
+//		demo = false;
 		board[5][30] = new Square(50, 300, playerColor);
 		board[55][30] = new Square(550, 300, pcColor);
 	}
