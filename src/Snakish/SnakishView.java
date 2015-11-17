@@ -10,7 +10,7 @@ import javax.swing.*;
  * @author Tian Guo, Xin Tong Hu
  *
  */
-public class SnakishView extends JFrame implements KeyListener {
+public class SnakishView extends JFrame {
 	private SnakishModel model;
 	private JFrame frame;
 	private int frameSizeX = 600;			// x size of the frame
@@ -33,7 +33,7 @@ public class SnakishView extends JFrame implements KeyListener {
 	 */
 	private void initFrame() {
 		frame = new JFrame("Snakish");
-		addKeyListener(this);
+		addKeyListener(new TAdapter());
 		//Default Close Action
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets Window Properties
@@ -55,7 +55,7 @@ public class SnakishView extends JFrame implements KeyListener {
 	 */
 	public void setJFrame(JFrame f){
 		frame = f;
-		addKeyListener(this);
+		addKeyListener(new TAdapter());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameSizeX,frameSizeY);	
 		frame.setVisible(true);
@@ -70,48 +70,48 @@ public class SnakishView extends JFrame implements KeyListener {
 		setJFrame(new JFrame("Snakish"));
 	}
 
-	@Override
-	public void keyTyped(KeyEvent e) {}
-
-	@Override
-	/**
-	 * 
-	 * @param e
-	 */
-	public void keyPressed(KeyEvent e){
-		int key=e.getKeyCode();
-		if (key == KeyEvent.VK_LEFT && !model.right) {
-			model.left = true;
-			model.up = false;
-			model.down = false;
+private class TAdapter extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
-		else if (key == KeyEvent.VK_RIGHT && !model.left) {
-			model.right = true;
-			model.up = false;
-			model.down = false;
-		}
-		else if (key == KeyEvent.VK_UP && !model.down) {
-			model.up = true;
-			model.left = false;
-			model.right = false;
-		}
-		else if (key == KeyEvent.VK_DOWN && !model.up) {
-			model.down = true;
-			model.left = false;
-			model.right = false;
-		}
-		else if(key == KeyEvent.VK_ESCAPE) {
-			esc = true;
-		}
-		else if(key == KeyEvent.VK_ENTER) {
-			enter = true;
-		}
-	}
 	
-	public void game(){
+		@Override
+		public void keyPressed(KeyEvent e){
+			int key=e.getKeyCode();
+			if (key == KeyEvent.VK_LEFT && !model.right) {
+				model.left = true;
+				model.up = false;
+				model.down = false;
+			}
+			else if (key == KeyEvent.VK_RIGHT && !model.left) {
+				model.right = true;
+				model.up = false;
+				model.down = false;
+			}
+			else if (key == KeyEvent.VK_UP && !model.down) {
+				model.up = true;
+				model.left = false;
+				model.right = false;
+			}
+			else if (key == KeyEvent.VK_DOWN && !model.up) {
+				model.down = true;
+				model.left = false;
+				model.right = false;
+			}
+			else if(key == KeyEvent.VK_ESCAPE) {
+				esc = true;
+			}
+			else if(key == KeyEvent.VK_ENTER) {
+				enter = true;
+			}
+		}
 		
+		@Override
+		public void keyReleased(KeyEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {}
 }

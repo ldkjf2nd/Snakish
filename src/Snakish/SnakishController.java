@@ -19,7 +19,7 @@ import Snakish.SnakishModel.PlayingState;
  * @author Tian Guo, Xin Tong Hu
  *
  */
-public class SnakishController implements KeyListener {
+public class SnakishController {
 	private SnakishModel model = null;
 	private SnakishView view = null;
 	
@@ -316,6 +316,7 @@ public class SnakishController implements KeyListener {
 					+ "Press ENTER to restart");
 		}
 	}
+<<<<<<< HEAD
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -373,4 +374,6 @@ public class SnakishController implements KeyListener {
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    }
 	}
+=======
+>>>>>>> master
 }
