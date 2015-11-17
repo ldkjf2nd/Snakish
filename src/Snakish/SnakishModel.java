@@ -1,12 +1,9 @@
 package Snakish;
 
 import java.awt.Color;
-<<<<<<< HEAD
-=======
 import java.awt.Graphics;
 import Snakish.SnakishController;
 import Snakish.SnakishView;
->>>>>>> master
 
 /**
  * This class manages the data, logic and rules of the game.
