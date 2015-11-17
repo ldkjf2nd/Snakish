@@ -44,9 +44,13 @@ public class Snake {
 	 */
 	//public void move(int dir, int player) {
 	public void move(int dir) {
-		direction = dir;
 		//update(dir, player);
-		update(direction);
+		if (verifyLegalMove(dir)){
+			update(dir);
+		}
+		else {
+			update(direction);
+		}
 	}
 	
 	/**
@@ -78,10 +82,8 @@ public class Snake {
 	//public void update(int dir, int player) {
 	public void update(int dir) {
 		switch (direction) {
-			case 1: if(verifyLegalMove(dir)) {
-						crashStatus(x, y-1);
-						body[x][y-1] = player;
-						}
+			case 1: crashStatus(x, y-1);
+					body[x][y-1] = player;
 				break;
 			case 2: crashStatus(x, y+1);
 					body[x][y+1] = player;
