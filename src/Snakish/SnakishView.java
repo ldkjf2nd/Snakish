@@ -15,6 +15,7 @@ public class SnakishView extends JFrame implements KeyListener {
 	private JFrame frame;
 	private int frameSizeX = 600;			// x size of the frame
 	private int frameSizeY = 600;			// y size of the frame
+	Container cp = getContentPane();
 	static boolean esc, enter;
 	
 	/**
@@ -23,6 +24,7 @@ public class SnakishView extends JFrame implements KeyListener {
 	 */
 	public SnakishView(SnakishModel model) {
 		this.model = model;
+		cp.setLayout(new GridLayout(60,60,0,0));
 		initFrame();
 	}
 	
@@ -95,6 +97,9 @@ public class SnakishView extends JFrame implements KeyListener {
 		else if(key == KeyEvent.VK_ENTER) {
 			enter = true;
 		}
+	}
+	public void game(){
+		
 	}
 
 	@Override
