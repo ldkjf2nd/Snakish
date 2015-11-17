@@ -119,7 +119,6 @@ public class SnakishController {
 			name = "Unknown";
 		}
 		view.remakeJFrame();
-<<<<<<< HEAD
 		model.playerExists = true;
 		model.start();
 		model.playerSnake = model.snakes[0];
@@ -127,7 +126,6 @@ public class SnakishController {
 		model.playerSnake.enemy.setPc(true);
 		model.playerSnake.name = name;
 		model.playerSnake.enemy.name="PC";
-=======
 		frame = view.getJFrame();
 		model.start();
 		
@@ -140,7 +138,6 @@ public class SnakishController {
 //		model.playerSnake = model.snakes[0];
 //		model.playerSnake.setPc(false);
 //		model.playerSnake.enemy.setPc(true);
->>>>>>> master
 	}
 	
 	/**
