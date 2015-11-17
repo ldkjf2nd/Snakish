@@ -188,6 +188,23 @@ public class SnakishController implements KeyListener {
 //		return tk.getImage(getClass().getResource(img));
 //	}
 	
+//	public void draw() {
+//		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        GraphicsDevice device = env.getDefaultScreenDevice();
+//        ibuffer=createImage(600,600);
+//		buffer=(Graphics2D)ibuffer.getGraphics();
+//		ibground=createImage(getWidth(),getHeight());
+//		bground=(Graphics2D)ibground.getGraphics();
+//		gr=(Graphics2D)getGraphics();
+//		model.snakes[0].paint(buffer);
+//		model.snakes[1].paint(buffer);
+//	}
+//	
+//	private Image obtImage(String img){
+//		Toolkit tk=Toolkit.getDefaultToolkit();
+//		return tk.getImage(getClass().getResource(img));
+//	}
+	
 //	public void run(){
 //		long time,temp,max = 40;
 //		while(true) {
