@@ -123,6 +123,7 @@ public class SnakishController implements KeyListener {
 	private void startGame() {
 		model.setGameState(GameState.NEW_GAME);
 		view.remakeJFrame();
+		frame = view.getJFrame();
 		model.start();
 		
 		frame.add(model.board[5][30]);
