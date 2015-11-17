@@ -16,7 +16,7 @@ public class SnakishView extends JFrame {
 	private int frameSizeY = 600;			// y size of the frame
 	
 	/**
-	 * Constructor for ConnectFourView, initializes the frame
+	 * Constructor for SnakishView, initializes the frame
 	 * @param model
 	 */
 	public SnakishView(SnakishModel model) {

@@ -2,7 +2,6 @@ package Snakish;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -18,10 +17,10 @@ public class SnakishController {
 	private SnakishModel model = null;
 	private SnakishView view = null;
 	
-	private int frameSizeX = 600;			// x size of the frame
-	private int frameSizeY = 600;			// y size of the frame
+	private int frameSizeX = 600;										// x size of the frame
+	private int frameSizeY = 600;										// y size of the frame
 	
-	public int up = 1;						// 4 directions of where the snake can move
+	public int up = 1;													// 4 directions of where the snake can move
 	public int right = 2;
 	public int down = 3;
 	public int left = 4;
@@ -35,7 +34,7 @@ public class SnakishController {
 	private JPanel menuPanel = new JPanel();							// JPanel for menu
 	private JFrame frame;												// The frame of the name
 	private JTextPane Text = new JTextPane();							// JTextPane to display text
-	
+
 	/**
 	 * Constructor for SnakishController.
 	 * @param model: the model it uses
