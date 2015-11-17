@@ -1,7 +1,6 @@
 package Snakish;
 
 import java.awt.Color;
-
 import java.awt.Graphics;
 
 import Snakish.SnakishController;
@@ -30,13 +29,14 @@ public class SnakishModel {
 	
 	int dir1;
 	private int dir2;
+	int counter;
 	private int unoccupied = 0;	// empty slot
 	private int player = 1;
 	private int pc = 2;
 	
 	String name;							// Player's name
 	boolean playerExists;
-	private boolean demo;
+	boolean demo;
 	
 	public int up = 1;
 	public int right = 2;
@@ -149,24 +149,6 @@ public class SnakishModel {
 		snakes[0].setOther(snakes[1]);
 		snakes[1].setOther(snakes[0]);
 		demo = false;
-	}
-	
-
-	public void player(SnakishController controller) {
-		name = controller.tfName.getName();
-		if (name.length() == 0) {
-			name = "Unknown";
-		}
-		playerExists = true;
-		start();
-		playerSnake = snakes[0];
-		playerSnake.setPc(false);
-		playerSnake.enemy.setPc(true);
-		playerSnake.name = name;
-		playerSnake.enemy.name="PC";
-		controller.clear();
-//		requestFocus();
-		setGameState(gameState.NEW_GAME);
 	}
 	
 	public void paint(Graphics g) {
