@@ -8,8 +8,7 @@ public class SnakishMain {
 	public static void main(String[] args) {
 		//Start Connect Four Program
 		SnakishModel model = new SnakishModel();
-//		SnakishView view = new SnakishView(model);
-//		SnakishController controller = new SnakishController(model, view);
-//		controller.initalize();
+		SnakishView view = new SnakishView(model);
+		SnakishController controller = new SnakishController(model, view);
 	}
 }

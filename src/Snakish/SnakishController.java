@@ -44,7 +44,7 @@ public class SnakishController {
 	public SnakishController(SnakishModel model, SnakishView view) {
 		this.model = model;
 		this.view = view;
-		model.setGameState(GameState.TITLE_PAGE);
+		this.model.setGameState(GameState.TITLE_PAGE);
 		initialize();
 	}
 	
