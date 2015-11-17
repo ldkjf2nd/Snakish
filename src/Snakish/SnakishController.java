@@ -33,6 +33,7 @@ public class SnakishController {
 	private JButton btnA = new JButton("About");						// about button
 	private JButton btnE = new JButton("Exit");							// exit button
 	private JPanel menuPanel = new JPanel();							// JPanel for menu
+	private JPanel gamePanel = new JPanel();
 	private JFrame frame;												// The frame of the name
 	private JTextPane Text = new JTextPane();							// JTextPane to display text
 
@@ -118,6 +119,7 @@ public class SnakishController {
 			name = "Unknown";
 		}
 		view.remakeJFrame();
+<<<<<<< HEAD
 		model.playerExists = true;
 		model.start();
 		model.playerSnake = model.snakes[0];
@@ -125,6 +127,20 @@ public class SnakishController {
 		model.playerSnake.enemy.setPc(true);
 		model.playerSnake.name = name;
 		model.playerSnake.enemy.name="PC";
+=======
+		frame = view.getJFrame();
+		model.start();
+		
+		gamePanel.add(model.board[5][30]);
+		gamePanel.add(model.board[55][30]);
+		gamePanel.setLayout(null);
+		gamePanel.setVisible(true);
+		frame.add(gamePanel);
+//		model.playerExists = true;
+//		model.playerSnake = model.snakes[0];
+//		model.playerSnake.setPc(false);
+//		model.playerSnake.enemy.setPc(true);
+>>>>>>> master
 	}
 	
 	/**
