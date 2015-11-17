@@ -10,7 +10,8 @@ public class Snake {
 	int unoccupied = 0;
 	int player;
 	String name;
-	private boolean isCrashed, pc;
+	boolean isCrashed;
+	private boolean pc;
 	Snake enemy;
 	// 4 directions
 	int up = 1;
@@ -111,13 +112,26 @@ public class Snake {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean checkCrashed() {
 		return isCrashed;
 	}
 	
+	/**
+	 * 
+	 * @param bool
+	 */
 	public void setPc(boolean bool){
 		pc = bool;
 	}
+	
+	/**
+	 * 
+	 * @param enemy
+	 */
 	public void setOther(Snake enemy){
 		this.enemy = enemy;
 	}
