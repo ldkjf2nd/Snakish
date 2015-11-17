@@ -1,7 +1,9 @@
 package Snakish;
 
 import java.awt.Color;
+
 import java.awt.Graphics;
+
 import Snakish.SnakishController;
 import Snakish.SnakishView;
 
