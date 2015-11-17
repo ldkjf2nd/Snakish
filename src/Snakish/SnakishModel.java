@@ -1,6 +1,12 @@
 package Snakish;
 
 import java.awt.Color;
+<<<<<<< HEAD
+=======
+import java.awt.Graphics;
+import Snakish.SnakishController;
+import Snakish.SnakishView;
+>>>>>>> master
 
 /**
  * This class manages the data, logic and rules of the game.
@@ -43,6 +49,8 @@ public class SnakishModel {
 	public int x2 = 550;
 	public int y2 = 300;
 	
+	public int w = 60;
+	
 	public Snake snakes[]=new Snake[2];
 	public Snake playerSnake;
 	
@@ -73,6 +81,12 @@ public class SnakishModel {
 			return false;
 		}
 		return true;
+	}
+	
+	public void gameBegin(int dire1, int dire2) {
+		setGameState(GameState.IN_PROGRESS);
+		dir1 = dire1;
+		dir2 = dire2;
 	}
 	
 	public void move(int i, int j) { // i is direction of movement, j represents either player or AI
@@ -138,6 +152,37 @@ public class SnakishModel {
 		demo = false;
 	}
 	
+
+	public void player(SnakishController controller) {
+		name = controller.tfName.getName();
+		if (name.length() == 0) {
+			name = "Unknown";
+		}
+		playerExists = true;
+		start();
+		playerSnake = snakes[0];
+		playerSnake.setPc(false);
+		playerSnake.enemy.setPc(true);
+		playerSnake.name = name;
+		playerSnake.enemy.name="PC";
+		controller.clear();
+//		requestFocus();
+		setGameState(gameState.NEW_GAME);
+	}
+	
+	public void paint(Graphics g) {
+		for (int i = 0; i < 60; i++){
+			for (int j = 0; j < 60; j++){
+				if (snakes[0].body[i][j] != 0) {
+					g.setColor(Color.RED);
+					g.drawRect(i*w, j*w, w,w);
+					g.fillRect(i*w, j*w, w,w);
+				}
+			}
+		}
+	}
+	
+
 	/**
 	 * Returns the current game state
 	 * @return GameState
