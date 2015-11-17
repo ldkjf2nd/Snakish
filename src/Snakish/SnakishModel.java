@@ -154,6 +154,7 @@ public class SnakishModel {
 		snakes[1].setOther(snakes[0]);
 		demo = false;
 	}
+	
 	public void paint() {
 		for (int i = 0; i < 60; i++) {
 			for (int j = 0; i < 60; j++) {
