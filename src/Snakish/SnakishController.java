@@ -63,6 +63,7 @@ public class SnakishController {
 		//Setting button function
 		btnSG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				model.setGameState(GameState.NEW_GAME);
 				clear();
 				startGame();
 			}
@@ -112,16 +113,15 @@ public class SnakishController {
 	 * 
 	 */
 	private void startGame() {
-		model.setGameState(GameState.NEW_GAME);
-		name = tfName.getName();
-		if (name.length() == 0) {
-			name = "Unknown";
-		}
+//		name = tfName.getName();
+//		if (name.length() == 0) {
+//			name = "Unknown";
+//		}
 		view.remakeJFrame();
-//		model.playerExists = true;
 		model.start();
 		frame.add(model.board[5][30]);
 		frame.add(model.board[55][30]);
+//		model.playerExists = true;
 //		model.playerSnake = model.snakes[0];
 //		model.playerSnake.setPc(false);
 //		model.playerSnake.enemy.setPc(true);
@@ -150,30 +150,30 @@ public class SnakishController {
 		menuPanel.remove(Text);
 	}
 	
-	public void run(){
-		long time,temp,max = 40;
-		while(true) {
-			time = System.currentTimeMillis();
-			update();
-//			point();
-			temp = System.currentTimeMillis() - time;
-			time = max - temp;
-			try{
-				if (time > 0) Thread.sleep(time);
-			}catch(Exception e){}
-		}
-	}
+//	public void run(){
+//		long time,temp,max = 40;
+//		while(true) {
+//			time = System.currentTimeMillis();
+//			update();
+////			point();
+//			temp = System.currentTimeMillis() - time;
+//			time = max - temp;
+//			try{
+//				if (time > 0) Thread.sleep(time);
+//			}catch(Exception e){}
+//		}
+//	}
 	
 	public void update() {
-		if (model.getGameState() == GameState.TITLE_PAGE) {
-			model.counter++;
-			if(model.counter==500){
-				model.counter=0;
-				model.setGameState(GameState.DEMO);
-				demo();
-			}
-		}
-		else if (model.getGameState() == GameState.IN_PROGRESS) {
+//		if (model.getGameState() == GameState.TITLE_PAGE) {
+//			model.counter++;
+//			if(model.counter==500){
+//				model.counter=0;
+//				model.setGameState(GameState.DEMO);
+//				demo();
+//			}
+//		}
+		if (model.getGameState() == GameState.IN_PROGRESS) {
 			if (!model.snakes[0].isCrashed && !model.snakes[1].isCrashed) {
 				model.verifyLegalMove(model.dir1);
 			}
@@ -184,13 +184,13 @@ public class SnakishController {
 		}
 	}
 	
-	private void demo(){
-		model.start();
-		model.demo=true;
-		model.snakes[0].setPc(true);
-		model.snakes[1].setPc(true);
-		clear();
-	}
+//	private void demo(){
+//		model.start();
+//		model.demo=true;
+//		model.snakes[0].setPc(true);
+//		model.snakes[1].setPc(true);
+//		clear();
+//	}
 	
 	/**
 	 * 
