@@ -19,7 +19,7 @@ import Snakish.SnakishModel.PlayingState;
  * @author Tian Guo, Xin Tong Hu
  *
  */
-public class SnakishController implements KeyListener {
+public class SnakishController {
 	private SnakishModel model = null;
 	private SnakishView view = null;
 	
@@ -316,47 +316,5 @@ public class SnakishController implements KeyListener {
 					+ "Press ESC to exit \n \n"
 					+ "Press ENTER to restart");
 		}
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e){
-		int key=e.getKeyCode();
-		if (key == KeyEvent.VK_LEFT && !model.right) {
-			model.left = true;
-			model.up = false;
-			model.down = false;
-		}
-		else if (key == KeyEvent.VK_RIGHT && !model.left) {
-			model.right = true;
-			model.up = false;
-			model.down = false;
-		}
-		else if (key == KeyEvent.VK_UP && !model.down) {
-			model.up = true;
-			model.left = false;
-			model.right = false;
-		}
-		else if (key == KeyEvent.VK_DOWN && !model.up) {
-			model.down = true;
-			model.left = false;
-			model.right = false;
-		}
-		else if(key == KeyEvent.VK_ESCAPE) {
-			esc = true;
-		}
-		else if(key == KeyEvent.VK_ENTER) {
-			enter = true;
-		}
-	}
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
 	}
 }
