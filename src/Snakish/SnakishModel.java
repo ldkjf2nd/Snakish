@@ -13,7 +13,7 @@ import Snakish.SnakishView;
 public class SnakishModel {
 	
 	public enum GameState {
-		TITLE_PAGE, NEW_GAME, ABOUT, EXIT, IN_PROGRESS, END_GAME
+		TITLE_PAGE, NEW_GAME, DEMO, ABOUT, EXIT, IN_PROGRESS, END_GAME
 	}
 	
 	public enum PlayingState {
@@ -26,7 +26,8 @@ public class SnakishModel {
 	private GameState gameState = null;
 	private PlayingState playingState = null;
 	
-	private int dir1,dir2;
+	int dir1;
+	private int dir2;
 	private int unoccupied = 0;	// empty slot
 	private int player = 1;
 	private int pc = 2;

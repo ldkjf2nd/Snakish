@@ -21,19 +21,20 @@ public class SnakishController {
 	private int frameSizeX = 600;			// x size of the frame
 	private int frameSizeY = 600;			// y size of the frame
 	
-//	//Inputs
+	public int up = 1;						// 4 directions of where the snake can move
+	public int right = 2;
+	public int down = 3;
+	public int left = 4;
+	
+	static boolean esc, enter;
+	
 	JTextField tfName = new JTextField("Enter Name");					// textfield for the player to enter name
-	private JButton btnSG = new JButton("Start Game");
-	private JButton btnA = new JButton("About");
-	private JButton btnE = new JButton("Exit");
-	private JPanel menuPanel = new JPanel();
-	private JFrame frame;
-	private JTextPane Text = new JTextPane();
-//	private JPanel boardPanel = null; 
-//	
-//	//Outputs to the view
-//	private JPanel textPanel = null;
-//	private JPanel topPanel = null;
+	private JButton btnSG = new JButton("Start Game");					// start game button
+	private JButton btnA = new JButton("About");						// about button
+	private JButton btnE = new JButton("Exit");							// exit button
+	private JPanel menuPanel = new JPanel();							// JPanel for menu
+	private JFrame frame;												// The frame of the name
+	private JTextPane Text = new JTextPane();							// JTextPane to display text
 	
 	/**
 	 * Constructor for SnakishController.
@@ -56,7 +57,7 @@ public class SnakishController {
 	}
 	
 	/**
-	 * creates buttons for main menu
+	 * creates buttons and textfield for main menu
 	 */
 	private void initializeMenu() {
 		//Setting button function
@@ -108,12 +109,18 @@ public class SnakishController {
 		menuPanel.setVisible(true);
 	}
 	
+	/**
+	 * 
+	 */
 	private void startGame() {
 		view.remakeJFrame();		
 		model.setGameState(GameState.IN_PROGRESS);
 		model.start();
 	}
 	
+	/**
+	 * 
+	 */
 	private void about() {
 		displayText("The objective of the game is to make the opponent crash. \n \n"
 				+ "Use top, down, left, right arrows to control the snake. \n \n"
@@ -123,6 +130,9 @@ public class SnakishController {
 		menuPanel.add(Text);
 	}
 	
+	/**
+	 * 
+	 */
 	void clear() {
 		menuPanel.remove(tfName);
 		menuPanel.remove(btnSG);
@@ -131,6 +141,10 @@ public class SnakishController {
 		menuPanel.remove(Text);
 	}
 	
+	/**
+	 * 
+	 * @param text
+	 */
 	private void displayText(String text) {
 		StyledDocument doc = Text.getStyledDocument();
 		SimpleAttributeSet center = new SimpleAttributeSet();
@@ -141,6 +155,9 @@ public class SnakishController {
 		Text.setVisible(true);
 	}
 	
+	/**
+	 * 
+	 */
 	private void displayEndGame(){
 		if (model.getPlayingState() == PlayingState.PLAYER_WIN){
 			//display text on panel
@@ -155,22 +172,29 @@ public class SnakishController {
 		}
 	}
 	
-//	private void repaint(){
-//		tfName.repaint();
-//		btnSG.repaint();
-//		about.repaint();
-//		btnA.repaint();
-//		btnE.repaint();
-//		tfName.requestFocus();
-//		btnSG.requestFocus();
-//		about.requestFocus();
-//		btnA.requestFocus();
-//		btnE.requestFocus();
-//	}
-	
-	public static void main(String[] args) {
-		SnakishModel model = new SnakishModel();
-		SnakishView view = new SnakishView(model);
-		SnakishController controller = new SnakishController(model, view);
+	/**
+	 * 
+	 * @param evt
+	 */
+	private void keyPressed(KeyEvent evt){
+		int key=evt.getKeyCode();
+		if(key == KeyEvent.VK_LEFT) {
+			model.dir1 = left;
+		}
+		else if(key == KeyEvent.VK_RIGHT) {
+			model.dir1 = right;
+		}
+		else if(key == KeyEvent.VK_UP) {
+			model.dir1 = up;
+		}
+		else if(key == KeyEvent.VK_DOWN) {
+			model.dir1 = down;
+		}
+		else if(key == KeyEvent.VK_ESCAPE) {
+			esc = true;
+		}
+		else if(key == KeyEvent.VK_ENTER) {
+			enter = true;
+		}
 	}
 }
