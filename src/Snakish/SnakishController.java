@@ -3,11 +3,6 @@ package Snakish;
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.swing.JFrame;
-
-import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.text.*;
 
