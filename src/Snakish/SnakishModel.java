@@ -44,7 +44,7 @@ public class SnakishModel {
 	public int y1 = 300;
 	public int x2 = 550;
 	public int y2 = 300;
-	public Snake game = new Snake(x1, y1, dir1, player);
+	
 	public Snake snakes[]=new Snake[2];
 	public Snake playerSnake;
 	
@@ -60,6 +60,7 @@ public class SnakishModel {
 	 * @param n
 	 * @return boolean
 	 */
+	
 	public boolean verifyLegalMove(int n) {
 		if (n == up & dir1 == down) {
 			return false;
@@ -85,28 +86,29 @@ public class SnakishModel {
 		}
 	}
 	
-	public void updateMove(int player) {
-		if (player == 1) {
-			switch (dir1) {
-			case 1: if (IsCollision(game.x-1, game.y)) {
-						game.body[game.x-1][game.y] = player;
-			}
-				break;
-			case 2: if (IsCollision(game.x, game.y+1)) {
-					game.body[game.x][game.y+1] = player;
-			}
-				break;
-			case 3: if (IsCollision(game.x+1, game.y)) {
-					game.body[game.x+1][game.y] = player;
-			}
-				break;
-			case 4: if (IsCollision(game.x, game.y-1)) {
-					game.body[game.x][game.y-1] = player;
-			}
-				break;
-			default: break;
-			}
-		}
+	public void updateMove(Snake snake, int dir) {
+//		if (player == 1) {
+//			switch (dir1) {
+//			case 1: if (IsCollision(game.x-1, game.y)) {
+//						game.body[game.x-1][game.y] = player;
+//			}
+//				break;
+//			case 2: if (IsCollision(game.x, game.y+1)) {
+//					game.body[game.x][game.y+1] = player;
+//			}
+//				break;
+//			case 3: if (IsCollision(game.x+1, game.y)) {
+//					game.body[game.x+1][game.y] = player;
+//			}
+//				break;
+//			case 4: if (IsCollision(game.x, game.y-1)) {
+//					game.body[game.x][game.y-1] = player;
+//			}
+//				break;
+//			default: break;
+//			}
+//		}
+		snake.move(dir);
 	}
 	
 	/**
