@@ -118,13 +118,12 @@ public class SnakishController {
 			name = "Unknown";
 		}
 		view.remakeJFrame();
-		model.playerExists = true;
+//		model.playerExists = true;
 		model.start();
-		model.playerSnake = model.snakes[0];
-		model.playerSnake.setPc(false);
-		model.playerSnake.enemy.setPc(true);
-		model.playerSnake.name = name;
-		model.playerSnake.enemy.name="PC";
+		frame.add(model.board);
+//		model.playerSnake = model.snakes[0];
+//		model.playerSnake.setPc(false);
+//		model.playerSnake.enemy.setPc(true);
 	}
 	
 	/**
