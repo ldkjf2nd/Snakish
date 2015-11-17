@@ -2,6 +2,7 @@ package Snakish;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -24,8 +25,8 @@ public class SnakishController {
 	public int right = 2;
 	public int down = 3;
 	public int left = 4;
-	
-	static boolean esc, enter;
+
+	String name;														// Player's name
 	
 	JTextField tfName = new JTextField("Enter Name");					// textfield for the player to enter name
 	private JButton btnSG = new JButton("Start Game");					// start game button
@@ -112,9 +113,19 @@ public class SnakishController {
 	 * 
 	 */
 	private void startGame() {
-		view.remakeJFrame();		
-		model.setGameState(GameState.IN_PROGRESS);
+		name = tfName.getName();
+		if (name.length() == 0) {
+			name = "Unknown";
+		}
+		view.remakeJFrame();
+		model.playerExists = true;
 		model.start();
+		model.playerSnake = model.snakes[0];
+		model.playerSnake.setPc(false);
+		model.playerSnake.enemy.setPc(true);
+		model.playerSnake.name = name;
+		model.playerSnake.enemy.name="PC";
+		model.setGameState(GameState.IN_PROGRESS);
 	}
 	
 	/**
@@ -168,32 +179,6 @@ public class SnakishController {
 			displayText("PC wins! \n \n"
 					+ "Press ESC to exit \n \n"
 					+ "Press ENTER to restart");
-		}
-	}
-	
-	/**
-	 * 
-	 * @param evt
-	 */
-	private void keyPressed(KeyEvent evt){
-		int key=evt.getKeyCode();
-		if(key == KeyEvent.VK_LEFT) {
-			model.dir1 = left;
-		}
-		else if(key == KeyEvent.VK_RIGHT) {
-			model.dir1 = right;
-		}
-		else if(key == KeyEvent.VK_UP) {
-			model.dir1 = up;
-		}
-		else if(key == KeyEvent.VK_DOWN) {
-			model.dir1 = down;
-		}
-		else if(key == KeyEvent.VK_ESCAPE) {
-			esc = true;
-		}
-		else if(key == KeyEvent.VK_ENTER) {
-			enter = true;
 		}
 	}
 }
