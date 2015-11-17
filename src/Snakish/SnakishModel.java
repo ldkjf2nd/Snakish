@@ -3,6 +3,7 @@ package Snakish;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import Snakish.SnakishController;
 import Snakish.SnakishView;
@@ -146,6 +147,17 @@ public class SnakishModel {
 //		}
 //		return false;
 //	}
+	
+	public void paint(Graphics2D g){
+		for(int i=0;i<snakes[i].body.length;i++) {
+			for(int j=0;j<snakes[i].body[i].length;j++) {
+				if(snakes[i].body[i][j] == player) {
+					g.setColor(i*w==snakes[i].x&&j*w==snakes[i].y?Color.GREEN:snakes[i].color);
+					g.fillRect(i*w,j*w,w,w);
+				}
+			}
+		}
+	}
 	
 	void start(){
 		snakes[0] = new Snake(x1, y1, right, player);
