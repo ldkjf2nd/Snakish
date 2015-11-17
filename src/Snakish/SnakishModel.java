@@ -86,7 +86,7 @@ public class SnakishModel {
 		}
 	}
 	
-	public void updateMove(Snake snake, int dir) {
+	public void updateMove(int dire1, int dire2) {
 //		if (player == 1) {
 //			switch (dir1) {
 //			case 1: if (IsCollision(game.x-1, game.y)) {
@@ -108,22 +108,29 @@ public class SnakishModel {
 //			default: break;
 //			}
 //		}
-		snake.move(dir);
+		snakes[0].move(dire1);
+		snakes[1].move(dire2);
+		if(snakes[0].checkCrashed()){
+			setPlayingState(PlayingState.PLAYER_WIN);
+		}
+		else if(snakes[1].checkCrashed()){
+			setPlayingState(PlayingState.PC_WIN);
+		}
 	}
 	
 	/**
 	 * Checks if there is a collision, return true if there is, else false.
 	 * @return boolean
 	 */
-	public boolean IsCollision(int x, int y) {
-		if (x < 0 | x > 60 | y < 0 | y > 60) {	// checks if the snake crashes into the wall
-			return true;
-		}
-		else if (game.body[x][y] != 0) {		// checks if the snake crashes into itself or enemy
-			return true;
-		}
-		return false;
-	}
+//	public boolean IsCollision(int x, int y) {
+//		if (x < 0 | x > 60 | y < 0 | y > 60) {	// checks if the snake crashes into the wall
+//			return true;
+//		}
+//		else if (game.body[x][y] != 0) {		// checks if the snake crashes into itself or enemy
+//			return true;
+//		}
+//		return false;
+//	}
 	
 	void start(){
 		snakes[0] = new Snake(x1, y1, right, player);
