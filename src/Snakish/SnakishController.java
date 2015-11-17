@@ -120,7 +120,8 @@ public class SnakishController {
 		view.remakeJFrame();
 //		model.playerExists = true;
 		model.start();
-		frame.add(model.board);
+		frame.add(model.board[5][30]);
+		frame.add(model.board[55][30]);
 //		model.playerSnake = model.snakes[0];
 //		model.playerSnake.setPc(false);
 //		model.playerSnake.enemy.setPc(true);
