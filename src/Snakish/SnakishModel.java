@@ -52,6 +52,7 @@ public class SnakishModel {
 	
 	public int w = 60;
 	
+	public Square[][] board = new Square[60][60];
 	public Snake snakes[]=new Snake[2];
 	public Snake playerSnake;
 	
@@ -59,7 +60,8 @@ public class SnakishModel {
 	 * Constructor
 	 */
 	public SnakishModel() {
-		
+		board[5][30] = new Square(50,300,playerColor);
+		board[55][30] = new Square(550,300,pcColor);
 	}
 	
 	/**
@@ -151,6 +153,18 @@ public class SnakishModel {
 		snakes[0].setOther(snakes[1]);
 		snakes[1].setOther(snakes[0]);
 		demo = false;
+	}
+	public void paint() {
+		for (int i = 0; i < 60; i++) {
+			for (int j = 0; i < 60; j++) {
+				if(snakes[0].body[i][j] != 0){
+					board[i][j] = new Square(i*10,j*10,playerColor);
+				}
+				else if(snakes[1].body[i][j] !=0){
+					board[i][j] = new Square(i*10,j*10,pcColor);
+				}
+			}
+		}
 	}
 
 	/**
