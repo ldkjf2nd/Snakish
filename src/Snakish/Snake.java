@@ -44,10 +44,12 @@ public class Snake {
 	 */
 	//public void move(int dir, int player) {
 	public void move(int dir) {
-		direction = dir;
 		//update(dir, player);
 		if (verifyLegalMove(dir)){
 			update(dir);
+		}
+		else {
+			update(direction);
 		}
 	}
 	
