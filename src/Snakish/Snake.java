@@ -1,11 +1,14 @@
 package Snakish;
 
+import java.awt.Color;
+
 /**
  * 
  * @author Tian Guo, Xin Tong Hu
  *
  */
 public class Snake {
+	Color color;
 	int[][] body;
 	int unoccupied = 0;
 	int player;
