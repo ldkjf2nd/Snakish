@@ -42,10 +42,12 @@ public class SnakishModel {
 	boolean playerExists;
 	boolean demo;
 	
-	public int up = 1;
-	public int right = 2;
-	public int down = 3;
-	public int left = 4;
+//	public int up = 1;
+//	public int right = 2;
+//	public int down = 3;
+//	public int left = 4;
+	
+	public boolean up, down, left, right;
 	
 	public int x1 = 50;
 	public int y1 = 300;
@@ -65,27 +67,27 @@ public class SnakishModel {
 		
 	}
 	
-	/**
-	 * Checks whether the snake's move is legal, return false if illegal, else true.
-	 * @param n
-	 * @return boolean
-	 */
-	
-	public boolean verifyLegalMove(int n) {
-		if (n == up & dir1 == down) {
-			return false;
-		}
-		else if (n == right & dir1 == left) {
-			return false;
-		}
-		else if (n == down & dir1 == up) {
-			return false;
-		}
-		else if (n == left & dir1 == right) {
-			return false;
-		}
-		return true;
-	}
+//	/**
+//	 * Checks whether the snake's move is legal, return false if illegal, else true.
+//	 * @param n
+//	 * @return boolean
+//	 */
+//	
+//	public boolean verifyLegalMove(int n) {
+//		if (n == up & dir1 == down) {
+//			return false;
+//		}
+//		else if (n == right & dir1 == left) {
+//			return false;
+//		}
+//		else if (n == down & dir1 == up) {
+//			return false;
+//		}
+//		else if (n == left & dir1 == right) {
+//			return false;
+//		}
+//		return true;
+//	}
 	
 	public void gameBegin(int dire1, int dire2) {
 		setGameState(GameState.IN_PROGRESS);
@@ -160,8 +162,8 @@ public class SnakishModel {
 	}
 	
 	void start(){
-		snakes[0] = new Snake(x1, y1, right, player);
-		snakes[1] = new Snake(x2, y2, left, pc);
+//		snakes[0] = new Snake(x1, y1, right, player);
+//		snakes[1] = new Snake(x2, y2, left, pc);
 //		snakes[0].setOther(snakes[1]);
 //		snakes[1].setOther(snakes[0]);
 //		demo = false;

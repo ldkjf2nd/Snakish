@@ -24,7 +24,7 @@ public class SnakishView extends JFrame implements KeyListener {
 	 */
 	public SnakishView(SnakishModel model) {
 		this.model = model;
-		cp.setLayout(new GridLayout(60,60,0,0));
+//		cp.setLayout(new GridLayout(60,60,0,0));
 		initFrame();
 	}
 	
@@ -37,6 +37,7 @@ public class SnakishView extends JFrame implements KeyListener {
 		//Default Close Action
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets Window Properties
+//		frame.setPreferredSize(new Dimension(frameSizeX,frameSizeY));
 		frame.setSize(frameSizeX,frameSizeY);
 	}
 	
@@ -79,17 +80,25 @@ public class SnakishView extends JFrame implements KeyListener {
 	 */
 	public void keyPressed(KeyEvent e){
 		int key=e.getKeyCode();
-		if(key == KeyEvent.VK_LEFT) {
-			model.dir1 = model.left;
+		if (key == KeyEvent.VK_LEFT && !model.right) {
+			model.left = true;
+			model.up = false;
+			model.down = false;
 		}
-		else if(key == KeyEvent.VK_RIGHT) {
-			model.dir1 = model.right;
+		else if (key == KeyEvent.VK_RIGHT && !model.left) {
+			model.right = true;
+			model.up = false;
+			model.down = false;
 		}
-		else if(key == KeyEvent.VK_UP) {
-			model.dir1 = model.up;
+		else if (key == KeyEvent.VK_UP && !model.down) {
+			model.up = true;
+			model.left = false;
+			model.right = false;
 		}
-		else if(key == KeyEvent.VK_DOWN) {
-			model.dir1 = model.down;
+		else if (key == KeyEvent.VK_DOWN && !model.up) {
+			model.down = true;
+			model.left = false;
+			model.right = false;
 		}
 		else if(key == KeyEvent.VK_ESCAPE) {
 			esc = true;
@@ -98,6 +107,7 @@ public class SnakishView extends JFrame implements KeyListener {
 			enter = true;
 		}
 	}
+	
 	public void game(){
 		
 	}

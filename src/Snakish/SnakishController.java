@@ -28,6 +28,9 @@ public class SnakishController implements KeyListener {
 
 	static boolean esc, enter;
 	String name;														// Player's name
+    private Image player;
+    private Image pc;
+    private Image head;
 	
 	JTextField tfName = new JTextField("Enter Name");					// textfield for the player to enter name
 	private JButton btnSG = new JButton("Start Game");					// start game button
@@ -113,6 +116,17 @@ public class SnakishController implements KeyListener {
 		frame.setVisible(true);
 		menuPanel.setVisible(true);
 	}
+	
+	private void loadImages() {
+        ImageIcon iip = new ImageIcon("player.png");
+        player = iip.getImage();
+
+        ImageIcon iipc = new ImageIcon("pc.png");
+        pc = iipc.getImage();
+
+        ImageIcon iih = new ImageIcon("head.png");
+        head = iih.getImage();
+    }
 	
 	/**
 	 * 
@@ -200,7 +214,7 @@ public class SnakishController implements KeyListener {
 //		}
 		if (model.getGameState() == GameState.IN_PROGRESS) {
 			if (!model.snakes[0].isCrashed && !model.snakes[1].isCrashed) {
-				model.verifyLegalMove(model.dir1);
+//				model.verifyLegalMove(model.dir1);
 			}
 			else {
 				model.setGameState(GameState.END_GAME);
@@ -281,18 +295,25 @@ public class SnakishController implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e){
 		int key=e.getKeyCode();
-		if(key == KeyEvent.VK_LEFT) {
-			System.out.println("lllllll");
-			model.dir1 = model.left;
+		if (key == KeyEvent.VK_LEFT && !model.right) {
+			model.left = true;
+			model.up = false;
+			model.down = false;
 		}
-		else if(key == KeyEvent.VK_RIGHT) {
-			model.dir1 = model.right;
+		else if (key == KeyEvent.VK_RIGHT && !model.left) {
+			model.right = true;
+			model.up = false;
+			model.down = false;
 		}
-		else if(key == KeyEvent.VK_UP) {
-			model.dir1 = model.up;
+		else if (key == KeyEvent.VK_UP && !model.down) {
+			model.up = true;
+			model.left = false;
+			model.right = false;
 		}
-		else if(key == KeyEvent.VK_DOWN) {
-			model.dir1 = model.down;
+		else if (key == KeyEvent.VK_DOWN && !model.up) {
+			model.down = true;
+			model.left = false;
+			model.right = false;
 		}
 		else if(key == KeyEvent.VK_ESCAPE) {
 			esc = true;
