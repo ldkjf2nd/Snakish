@@ -2,6 +2,7 @@ package Snakish;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 /**
@@ -9,11 +10,12 @@ import javax.swing.*;
  * @author Tian Guo, Xin Tong Hu
  *
  */
-public class SnakishView extends JFrame {
+public class SnakishView extends JFrame implements KeyListener {
 	private SnakishModel model;
 	private JFrame frame;
 	private int frameSizeX = 600;			// x size of the frame
 	private int frameSizeY = 600;			// y size of the frame
+	static boolean esc, enter;
 	
 	/**
 	 * Constructor for SnakishView, initializes the frame
@@ -29,6 +31,7 @@ public class SnakishView extends JFrame {
 	 */
 	private void initFrame() {
 		frame = new JFrame("Snakish");
+		addKeyListener(this);
 		//Default Close Action
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets Window Properties
@@ -49,6 +52,7 @@ public class SnakishView extends JFrame {
 	 */
 	public void setJFrame(JFrame f){
 		frame = f;
+		addKeyListener(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameSizeX,frameSizeY);	
 		frame.setVisible(true);
@@ -62,4 +66,37 @@ public class SnakishView extends JFrame {
 		frame.dispose();
 		setJFrame(new JFrame("Snakish"));
 	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+	@Override
+	/**
+	 * 
+	 * @param e
+	 */
+	public void keyPressed(KeyEvent e){
+		int key=e.getKeyCode();
+		if(key == KeyEvent.VK_LEFT) {
+			model.dir1 = model.left;
+		}
+		else if(key == KeyEvent.VK_RIGHT) {
+			model.dir1 = model.right;
+		}
+		else if(key == KeyEvent.VK_UP) {
+			model.dir1 = model.up;
+		}
+		else if(key == KeyEvent.VK_DOWN) {
+			model.dir1 = model.down;
+		}
+		else if(key == KeyEvent.VK_ESCAPE) {
+			esc = true;
+		}
+		else if(key == KeyEvent.VK_ENTER) {
+			enter = true;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
 }

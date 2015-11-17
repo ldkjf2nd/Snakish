@@ -33,7 +33,8 @@ public class SnakishModel {
 	private int pc = 2;
 	
 	String name;							// Player's name
-	private boolean playerExists, demo;
+	boolean playerExists;
+	private boolean demo;
 	
 	public int up = 1;
 	public int right = 2;
@@ -148,6 +149,7 @@ public class SnakishModel {
 		demo = false;
 	}
 	
+<<<<<<< HEAD
 	public void player(SnakishController controller) {
 		name = controller.tfName.getName();
 		if (name.length() == 0) {
@@ -177,6 +179,8 @@ public class SnakishModel {
 		}
 	}
 	
+=======
+>>>>>>> master
 	/**
 	 * Returns the current game state
 	 * @return GameState
