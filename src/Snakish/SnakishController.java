@@ -164,6 +164,9 @@ public class SnakishController {
 		Text.setVisible(true);
 	}
 	
+	/**
+	 * 
+	 */
 	private void checkEndGame() {
 		if (view.esc) {
 			if (model.getGameState() == GameState.NEW_GAME || model.getGameState() == GameState.IN_PROGRESS) {
