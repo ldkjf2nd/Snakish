@@ -135,13 +135,12 @@ public class SnakishController implements KeyListener {
 	 * 
 	 */
 	private void startGame() {
-		model.setGameState(GameState.NEW_GAME);
-		view.remakeJFrame();
-		frame = view.getJFrame();
-		model.start();
+		clear();
 		
-		frame.add(model.board[5][30]);
-		frame.add(model.board[55][30]);
+		frame = new game();
+		frame.setVisible(true);
+        
+        
 
 //		model.playerExists = true;
 //		model.playerSnake = model.snakes[0];
@@ -358,5 +357,20 @@ public class SnakishController implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public class game extends JFrame {
+
+	    public game() {
+
+	        add(new Board());
+	        
+	        setResizable(false);
+	        pack();
+	        
+	        setTitle("Snake");
+	        setLocationRelativeTo(null);
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    }
 	}
 }
