@@ -316,15 +316,12 @@ public class SnakishController {
 					+ "Press ENTER to restart");
 		}
 	}
-<<<<<<< HEAD
 
-	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void keyPressed(KeyEvent e){
 		int key=e.getKeyCode();
 		if (key == KeyEvent.VK_LEFT && !model.right) {
@@ -354,7 +351,6 @@ public class SnakishController {
 			enter = true;
 		}
 	}
-	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
@@ -374,6 +370,4 @@ public class SnakishController {
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    }
 	}
-=======
->>>>>>> master
 }
