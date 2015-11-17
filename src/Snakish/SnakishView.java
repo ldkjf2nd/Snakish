@@ -1,11 +1,8 @@
 package Snakish;
+
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
-import Snakish.SnakishModel.GameState;
-import Snakish.SnakishModel.PlayingState;
 
 /**
  * 
@@ -15,12 +12,12 @@ import Snakish.SnakishModel.PlayingState;
 public class SnakishView extends JFrame {
 	private SnakishModel model;
 	private JFrame frame;
-	String name;							// Player's name
 	private int frameSizeX = 600;			// x size of the frame
 	private int frameSizeY = 600;			// y size of the frame
 	
 	/**
 	 * Constructor for ConnectFourView, initializes the frame
+	 * @param model
 	 */
 	public SnakishView(SnakishModel model) {
 		this.model = model;
@@ -32,20 +29,23 @@ public class SnakishView extends JFrame {
 	 */
 	private void initFrame() {
 		frame = new JFrame("Snakish");
-		model.setGameState(GameState.TITLE_PAGE);
 		//Default Close Action
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets Window Properties
 		frame.setSize(frameSizeX,frameSizeY);
 	}
-
+	
+	/**
+	 * Method to return JFrame of the view
+	 * @return JFrame: JFrame of the view
+	 */
 	public JFrame getJFrame() {
 		return frame;
 	}
 	
 	/**
 	 * Method to overwrite the previous JFrame
-	 * @param frame
+	 * @param f
 	 */
 	public void setJFrame(JFrame f){
 		frame = f;
@@ -54,6 +54,9 @@ public class SnakishView extends JFrame {
 		frame.setVisible(true);
 	}
 
+	/**
+	 * Method to remake JFrame
+	 */
 	public void remakeJFrame() {
 		frame.setVisible(false);
 		frame.dispose();
