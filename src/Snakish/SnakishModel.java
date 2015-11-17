@@ -2,9 +2,6 @@ package Snakish;
 
 import java.awt.Color;
 
-import Snakish.SnakishController;
-import Snakish.SnakishView;
-
 /**
  * This class manages the data, logic and rules of the game.
  * @author Tian Guo, Xin Tong Hu

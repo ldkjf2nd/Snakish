@@ -63,7 +63,6 @@ public class SnakishController {
 		//Setting button function
 		btnSG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				model.setGameState(GameState.NEW_GAME);
 				clear();
 				startGame();
 			}
@@ -113,6 +112,7 @@ public class SnakishController {
 	 * 
 	 */
 	private void startGame() {
+		model.setGameState(GameState.NEW_GAME);
 		name = tfName.getName();
 		if (name.length() == 0) {
 			name = "Unknown";
@@ -125,7 +125,6 @@ public class SnakishController {
 		model.playerSnake.enemy.setPc(true);
 		model.playerSnake.name = name;
 		model.playerSnake.enemy.name="PC";
-		model.setGameState(GameState.IN_PROGRESS);
 	}
 	
 	/**
@@ -165,10 +164,30 @@ public class SnakishController {
 		Text.setVisible(true);
 	}
 	
+	private void checkEndGame() {
+		if (view.esc) {
+			if (model.getGameState() == GameState.NEW_GAME || model.getGameState() == GameState.IN_PROGRESS) {
+				model.setGameState(GameState.TITLE_PAGE);
+				clear();
+				menuPanel = new JPanel();
+				initializeMenu();
+			}
+			else if (model.getGameState() == GameState.END_GAME) {
+				System.exit(0);
+			}
+		}
+		else if (view.enter) {
+			if (model.getGameState() == GameState.END_GAME) {
+				clear();
+				startGame();
+			}
+		}
+	}
+	
 	/**
 	 * 
 	 */
-	private void displayEndGame(){
+	private void displayEndGame() {
 		if (model.getPlayingState() == PlayingState.PLAYER_WIN){
 			//display text on panel
 			displayText(model.name + " wins! \n \n"
