@@ -149,7 +149,7 @@ public class SnakishModel {
 		demo = false;
 	}
 	
-<<<<<<< HEAD
+
 	public void player(SnakishController controller) {
 		name = controller.tfName.getName();
 		if (name.length() == 0) {
@@ -179,8 +179,7 @@ public class SnakishModel {
 		}
 	}
 	
-=======
->>>>>>> master
+
 	/**
 	 * Returns the current game state
 	 * @return GameState
