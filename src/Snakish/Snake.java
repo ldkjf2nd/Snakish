@@ -106,7 +106,7 @@ public class Snake {
 		if (x < 0 | x > 60 | y < 0 | y > 60) {	// checks if the snake crashes into the wall
 			isCrashed = true;
 		}
-		else if (body[x][y] != 0) {				// checks if the snake crashes into itself or enemy
+		else if (body[x][y] != 0 || enemy.body[x][y] != 0) {				// checks if the snake crashes into itself or enemy
 			isCrashed = true;
 		}
 	}
