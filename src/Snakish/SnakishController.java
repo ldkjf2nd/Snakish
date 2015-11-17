@@ -150,6 +150,48 @@ public class SnakishController {
 		menuPanel.remove(Text);
 	}
 	
+	public void run(){
+		long time,temp,max = 40;
+		while(true) {
+			time = System.currentTimeMillis();
+			update();
+//			point();
+			temp = System.currentTimeMillis() - time;
+			time = max - temp;
+			try{
+				if (time > 0) Thread.sleep(time);
+			}catch(Exception e){}
+		}
+	}
+	
+	public void update() {
+		if (model.getGameState() == GameState.TITLE_PAGE) {
+			model.counter++;
+			if(model.counter==500){
+				model.counter=0;
+				model.setGameState(GameState.DEMO);
+				demo();
+			}
+		}
+		else if (model.getGameState() == GameState.IN_PROGRESS) {
+			if (!model.snakes[0].isCrashed && !model.snakes[1].isCrashed) {
+				model.verifyLegalMove(model.dir1);
+			}
+			else {
+				model.setGameState(GameState.END_GAME);
+				endGame();
+			}
+		}
+	}
+	
+	private void demo(){
+		model.start();
+		model.demo=true;
+		model.snakes[0].setPc(true);
+		model.snakes[1].setPc(true);
+		clear();
+	}
+	
 	/**
 	 * 
 	 * @param text
@@ -167,7 +209,8 @@ public class SnakishController {
 	/**
 	 * 
 	 */
-	private void checkEndGame() {
+	private void endGame() {
+		displayEndGame();
 		if (view.esc) {
 			if (model.getGameState() == GameState.NEW_GAME || model.getGameState() == GameState.IN_PROGRESS) {
 				model.setGameState(GameState.TITLE_PAGE);

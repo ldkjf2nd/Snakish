@@ -1,7 +1,6 @@
 package Snakish;
 
 import java.awt.Color;
-
 import java.awt.Graphics;
 
 import Snakish.SnakishController;
@@ -24,19 +23,22 @@ public class SnakishModel {
 	
 	private Color pcColor = Color.RED;
 	private Color playerColor = Color.BLUE;
+	private Color head = Color.GREEN;
+	private Square s;
 	
 	private GameState gameState = null;
 	private PlayingState playingState = null;
 	
 	int dir1;
 	private int dir2;
+	int counter;
 	private int unoccupied = 0;	// empty slot
 	private int player = 1;
 	private int pc = 2;
 	
 	String name;							// Player's name
 	boolean playerExists;
-	private boolean demo;
+	boolean demo;
 	
 	public int up = 1;
 	public int right = 2;
@@ -150,37 +152,6 @@ public class SnakishModel {
 		snakes[1].setOther(snakes[0]);
 		demo = false;
 	}
-	
-
-	public void player(SnakishController controller) {
-		name = controller.tfName.getName();
-		if (name.length() == 0) {
-			name = "Unknown";
-		}
-		playerExists = true;
-		start();
-		playerSnake = snakes[0];
-		playerSnake.setPc(false);
-		playerSnake.enemy.setPc(true);
-		playerSnake.name = name;
-		playerSnake.enemy.name="PC";
-		controller.clear();
-//		requestFocus();
-		setGameState(gameState.NEW_GAME);
-	}
-	
-	public void paint(Graphics g) {
-		for (int i = 0; i < 60; i++){
-			for (int j = 0; j < 60; j++){
-				if (snakes[0].body[i][j] != 0) {
-					g.setColor(Color.RED);
-					g.drawRect(i*w, j*w, w,w);
-					g.fillRect(i*w, j*w, w,w);
-				}
-			}
-		}
-	}
-	
 
 	/**
 	 * Returns the current game state
