@@ -23,6 +23,8 @@ public class SnakishModel {
 	
 	private Color pcColor = Color.RED;
 	private Color playerColor = Color.BLUE;
+	private Color head = Color.GREEN;
+	private Square s;
 	
 	private GameState gameState = null;
 	private PlayingState playingState = null;
@@ -150,19 +152,6 @@ public class SnakishModel {
 		snakes[1].setOther(snakes[0]);
 		demo = false;
 	}
-	
-	public void paint(Graphics g) {
-		for (int i = 0; i < 60; i++){
-			for (int j = 0; j < 60; j++){
-				if (snakes[0].body[i][j] != 0) {
-					g.setColor(Color.RED);
-					g.drawRect(i*w, j*w, w,w);
-					g.fillRect(i*w, j*w, w,w);
-				}
-			}
-		}
-	}
-	
 
 	/**
 	 * Returns the current game state
