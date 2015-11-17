@@ -3,6 +3,11 @@ package Snakish;
 import java.awt.*;
 import java.awt.event.*;
 
+import javax.swing.JFrame;
+
+import java.awt.*;
+import java.awt.event.*;
+
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -37,7 +42,6 @@ public class SnakishController implements KeyListener {
 	private JButton btnA = new JButton("About");						// about button
 	private JButton btnE = new JButton("Exit");							// exit button
 	private JPanel menuPanel = new JPanel();							// JPanel for menu
-	private JPanel gamePanel = new JPanel();
 	private JFrame frame;												// The frame of the name
 	private JTextPane Text = new JTextPane();							// JTextPane to display text
 	
@@ -71,7 +75,6 @@ public class SnakishController implements KeyListener {
 		//Setting button function
 		btnSG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
-				model.setGameState(GameState.NEW_GAME);
 				clear();
 				startGame();
 			}
@@ -132,10 +135,7 @@ public class SnakishController implements KeyListener {
 	 * 
 	 */
 	private void startGame() {
-//		name = tfName.getName();
-//		if (name.length() == 0) {
-//			name = "Unknown";
-//		}
+		model.setGameState(GameState.NEW_GAME);
 		view.remakeJFrame();
 		frame = view.getJFrame();
 		model.start();
@@ -171,6 +171,37 @@ public class SnakishController implements KeyListener {
 		menuPanel.remove(btnE);
 		menuPanel.remove(Text);
 	}
+
+	public void run(){
+		long time,temp,max = 40;
+		while(true) {
+			time = System.currentTimeMillis();
+			update();
+//			point();
+			temp = System.currentTimeMillis() - time;
+			time = max - temp;
+			try{
+				if (time > 0) Thread.sleep(time);
+			}catch(Exception e){}
+		}
+	}
+
+//	public void draw() {
+//		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        GraphicsDevice device = env.getDefaultScreenDevice();
+//        ibuffer=createImage(600,600);
+//		buffer=(Graphics2D)ibuffer.getGraphics();
+//		ibground=createImage(getWidth(),getHeight());
+//		bground=(Graphics2D)ibground.getGraphics();
+//		gr=(Graphics2D)getGraphics();
+//		model.snakes[0].paint(buffer);
+//		model.snakes[1].paint(buffer);
+//	}
+//	
+//	private Image obtImage(String img){
+//		Toolkit tk=Toolkit.getDefaultToolkit();
+//		return tk.getImage(getClass().getResource(img));
+//	}
 	
 //	public void draw() {
 //		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -202,17 +233,18 @@ public class SnakishController implements KeyListener {
 //			}catch(Exception e){}
 //		}
 //	}
+
 	
 	public void update() {
-//		if (model.getGameState() == GameState.TITLE_PAGE) {
-//			model.counter++;
-//			if(model.counter==500){
-//				model.counter=0;
-//				model.setGameState(GameState.DEMO);
-//				demo();
-//			}
-//		}
-		if (model.getGameState() == GameState.IN_PROGRESS) {
+		if (model.getGameState() == GameState.TITLE_PAGE) {
+			model.counter++;
+			if(model.counter==500){
+				model.counter=0;
+				model.setGameState(GameState.DEMO);
+				demo();
+			}
+		}
+		else if (model.getGameState() == GameState.IN_PROGRESS) {
 			if (!model.snakes[0].isCrashed && !model.snakes[1].isCrashed) {
 //				model.verifyLegalMove(model.dir1);
 			}
@@ -223,13 +255,13 @@ public class SnakishController implements KeyListener {
 		}
 	}
 	
-//	private void demo(){
-//		model.start();
-//		model.demo=true;
-//		model.snakes[0].setPc(true);
-//		model.snakes[1].setPc(true);
-//		clear();
-//	}
+	private void demo(){
+		model.start();
+		model.demo=true;
+		model.snakes[0].setPc(true);
+		model.snakes[1].setPc(true);
+		clear();
+	}
 	
 	/**
 	 * 
