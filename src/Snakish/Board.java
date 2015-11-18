@@ -28,9 +28,7 @@ public class Board extends JPanel implements ActionListener {
     private final int x[] = new int[ALL_DOTS];
     private final int y[] = new int[ALL_DOTS];
 
-    private int dots;
-    private int apple_x;
-    private int apple_y;
+    private int length;
 
     private boolean leftDirection = false;
     private boolean rightDirection = true;
@@ -68,14 +66,14 @@ public class Board extends JPanel implements ActionListener {
 
     private void initGame() {
 
-        dots = 1;
+        length = 1;
 
-        for (int z = 0; z < dots; z++) {
+        for (int z = 0; z < length; z++) {
             x[z] = 50 - z * 10;
             y[z] = 50;
         }
 
-        locateApple();
+//        locateApple();
 
         timer = new Timer(DELAY, this);
         timer.start();
@@ -92,9 +90,9 @@ public class Board extends JPanel implements ActionListener {
         
         if (inGame) {
 
-            g.drawImage(apple, apple_x, apple_y, this);
+//            g.drawImage(apple, apple_x, apple_y, this);
 
-            for (int z = 0; z < dots; z++) {
+            for (int z = 0; z < length; z++) {
                 if (z == 0) {
                     g.drawImage(head, x[z], y[z], this);
                 } else {
@@ -121,18 +119,18 @@ public class Board extends JPanel implements ActionListener {
         g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
     }
 
-    private void checkApple() {
+    private void increment() {
 
-        if ((x[0] == apple_x) && (y[0] == apple_y)) {
+//        if ((x[0] == apple_x) && (y[0] == apple_y)) {
 
-            dots++;
-            locateApple();
-        }
+            length++;
+//            locateApple();
+//        }
     }
 
     private void move() {
 
-        for (int z = dots; z > 0; z--) {
+        for (int z = length; z > 0; z--) {
             x[z] = x[(z - 1)];
             y[z] = y[(z - 1)];
         }
@@ -156,7 +154,7 @@ public class Board extends JPanel implements ActionListener {
 
     private void checkCollision() {
 
-        for (int z = dots; z > 0; z--) {
+        for (int z = length; z > 0; z--) {
 
             if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
                 inGame = false;
@@ -184,21 +182,21 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private void locateApple() {
-
-        int r = (int) (Math.random() * RAND_POS);
-        apple_x = ((r * DOT_SIZE));
-
-        r = (int) (Math.random() * RAND_POS);
-        apple_y = ((r * DOT_SIZE));
-    }
+//    private void locateApple() {
+//
+//        int r = (int) (Math.random() * RAND_POS);
+//        apple_x = ((r * DOT_SIZE));
+//
+//        r = (int) (Math.random() * RAND_POS);
+//        apple_y = ((r * DOT_SIZE));
+//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if (inGame) {
 
-            checkApple();
+            increment();
             checkCollision();
             move();
         }
