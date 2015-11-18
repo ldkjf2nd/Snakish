@@ -120,9 +120,9 @@ public class SnakishController extends JPanel implements ActionListener {
 	 */
 	private void startGame() {
 		clear();
-		initGame();
-//		frame = new game();
-//		frame.setVisible(true);
+		frame = new game();
+		frame.setVisible(true);
+//		initGame();
 		
 //		model.playerExists = true;
 //		model.playerSnake = model.snakes[0];
@@ -130,50 +130,50 @@ public class SnakishController extends JPanel implements ActionListener {
 //		model.playerSnake.enemy.setPc(true);
 	}
 	
-    private void initGame() {
-        model.playerSnake.length = 1;
-        model.pcSnake.length = 1;
-
-        for (int z = 0; z < model.playerSnake.length; z++) {
-            model.playerSnake.x[z] = 50 - z * 10;
-            model.playerSnake.y[z] = 50;
-        }
-        
-        for (int z = 0; z < model.pcSnake.length; z++) {
-            model.pcSnake.x[z] = 50 - z * 10;
-            model.pcSnake.y[z] = 50;
-        }
-        
-        model.playerSnake.timer = new Timer(model.DELAY, this);
-        model.playerSnake.timer.start();
-        
-        model.pcSnake.timer = new Timer(model.DELAY, this);
-        model.pcSnake.timer.start();
-    }
+//    private void initGame() {
+//        model.playerSnake.length = 1;
+//        model.pcSnake.length = 1;
+//
+//        for (int z = 0; z < model.playerSnake.length; z++) {
+//            model.playerSnake.x[z] = 50 - z * 10;
+//            model.playerSnake.y[z] = 50;
+//        }
+//        
+//        for (int z = 0; z < model.pcSnake.length; z++) {
+//            model.pcSnake.x[z] = 50 - z * 10;
+//            model.pcSnake.y[z] = 50;
+//        }
+//        
+//        model.playerSnake.timer = new Timer(model.DELAY, this);
+//        model.playerSnake.timer.start();
+//        
+//        model.pcSnake.timer = new Timer(model.DELAY, this);
+//        model.pcSnake.timer.start();
+//    }
     
-    @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        doDrawing(g, s);
-    }
+//    @Override
+//    public void paintComponent(Graphics g) {
+//        super.paintComponent(g);
+//        doDrawing(g, s);
+//    }
     
-    private void doDrawing(Graphics g, Snake s) {
-    	if (model.getGameState() == GameState.IN_PROGRESS) {
-    		for (int z = 0; z < s.length; z++) {
-    			if (z == 0) {
-    				g.drawImage(head, s.x[z], s.y[z], this);
-                }
-                else {
-                    g.drawImage(player, s.x[z], s.y[z], this);
-                }
-            }
-            Toolkit.getDefaultToolkit().sync();
-        }
-        else {
-        	model.setGameState(GameState.END_GAME);
-        	endGame();
-        }        
-    }
+//    private void doDrawing(Graphics g, Snake s) {
+//    	if (model.getGameState() == GameState.IN_PROGRESS) {
+//    		for (int z = 0; z < s.length; z++) {
+//    			if (z == 0) {
+//    				g.drawImage(head, s.x[z], s.y[z], this);
+//                }
+//                else {
+//                    g.drawImage(player, s.x[z], s.y[z], this);
+//                }
+//            }
+//            Toolkit.getDefaultToolkit().sync();
+//        }
+//        else {
+//        	model.setGameState(GameState.END_GAME);
+//        	endGame();
+//        }        
+//    }
 	
 //	private void loadImages() {
 //        ImageIcon iip = new ImageIcon("player.png");
@@ -404,7 +404,7 @@ public class SnakishController extends JPanel implements ActionListener {
 	
 	public class game extends JFrame {
 	    public game() {
-	        add(new Board());
+	        add(new Snake());
 	        setResizable(false);
 	        pack();
 	        setTitle("Snake");
