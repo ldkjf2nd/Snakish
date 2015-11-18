@@ -21,16 +21,16 @@ public class SnakishController extends JPanel implements ActionListener {
 	private int frameSizeX = 600;										// x size of the frame
 	private int frameSizeY = 600;										// y size of the frame
 	
-	public int up = 1;													// 4 directions of where the snake can move
-	public int right = 2;
-	public int down = 3;
-	public int left = 4;
+//	public int up = 1;													// 4 directions of where the snake can move
+//	public int right = 2;
+//	public int down = 3;
+//	public int left = 4;
 
 	static boolean esc, enter;
 	String name;														// Player's name
-    private Image player;
-    private Image pc;
-    private Image head;
+//    private Image player;
+//    private Image pc;
+//    private Image head;
 	
 	JTextField tfName = new JTextField("Enter Name");					// textfield for the player to enter name
 	private JButton btnSG = new JButton("Start Game");					// start game button
