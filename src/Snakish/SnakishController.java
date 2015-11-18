@@ -23,6 +23,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import java.util.Random;
+
 import Snakish.SnakishModel.GameState;
 import Snakish.SnakishModel.PlayingState;
 
@@ -319,7 +321,7 @@ public class SnakishController extends JPanel {
 	    private final int frameSizeY = 600;
 	    private final int w = 10;
 	    private final int maxSize = 1800;
-	    private final int DELAY = 40;
+	    private final int DELAY = 140;
 
 	    private final int x[] = new int[maxSize];
 	    private final int y[] = new int[maxSize];
@@ -332,6 +334,10 @@ public class SnakishController extends JPanel {
 	    private boolean right = false;
 	    private boolean up = false;
 	    private boolean down = true;
+	    private boolean leftAI = true;
+	    private boolean rightAI = false;
+	    private boolean upAI = false;
+	    private boolean downAI = false;
 	    private boolean ai[] = new boolean[4];
 	    private boolean inGame = true;
 
@@ -405,7 +411,7 @@ public class SnakishController extends JPanel {
 	    }
 
 	    private void gameOver(Graphics g) {
-	        String msg = "ESC back to exit. Enter restart";
+	        String msg = "press ESC to exit, press Enter to restart";
 	        Font small = new Font("Helvetica", Font.BOLD, 14);
 	        FontMetrics metr = getFontMetrics(small);
 
@@ -415,57 +421,88 @@ public class SnakishController extends JPanel {
 	    }
 
 	    private void move() {
-
 	        for (int z = length; z > 0; z--) {
 	            x[z] = x[(z - 1)];
 	            y[z] = y[(z - 1)];
 	            a[z] = a[(z - 1)];
 	            b[z] = b[(z - 1)];
 	        }
-
 	        if (left) {
+	            x[0] -= w;
+	        }
+	        else if (right) {
 	            x[0] += w;
+	        }
+	        else if (up) {
+	            y[0] -= w;
+	        }
+	        else if (down) {
+	            y[0] += w;
+	        }
+	        if (leftAI) {
 	            a[0] -= w;
 	        }
-
-	        if (right) {
-	            x[0] += w;
-	            a[0] += w;
+	        else if (rightAI) {
+	        	a[0] += w;
 	        }
-
-	        if (up) {
-//	            y[0] -= w;
-	        	x[0] += w;
+	        else if (upAI) {
 	            b[0] -= w;
 	        }
-
-	        if (down) {
-//	            y[0] += w;
-	        	x[0] += w;
+	        else if (downAI) {
 	            b[0] += w;
 	        }
 	    }
-	    private void AiMove(int Ai) {
-	    	 if (ai[0]) {
-		            a[0] -= w;
-		            ai[0] = false;
-		            
-		        }
-
-		        if (ai[1]) {
-		            a[0] += w;
-		            ai[1] = false;
-		        }
-
-		        if (ai[2]) {
-		            b[0] -= w;
-		            ai[2] = false;
-		        }
-
-		        if (ai[3]) {
-		            b[0] += w;
-		            ai[3] = false;
-		        }
+	    
+//	    private void AiMove(int Ai) {
+//	    	 if (ai[0]) {
+//		            a[0] -= w;
+//		            ai[0] = false;
+//		            
+//		        }
+//
+//		        if (ai[1]) {
+//		            a[0] += w;
+//		            ai[1] = false;
+//		        }
+//
+//		        if (ai[2]) {
+//		            b[0] -= w;
+//		            ai[2] = false;
+//		        }
+//
+//		        if (ai[3]) {
+//		            b[0] += w;
+//		            ai[3] = false;
+//		        }
+//	    }
+	    
+	    private void aiMove() {
+            Random rn = new Random();
+            int answer = rn.nextInt(4) + 1;
+            if (answer == 1) {
+            	leftAI = true;
+            	rightAI = false;
+            	upAI = false;
+            	downAI = false;
+            }
+            else if (answer == 2) {
+            	rightAI = true;
+            	leftAI = false;
+            	upAI = false;
+            	downAI = false;
+            }
+            else if (answer == 3) {
+            	upAI = true;
+            	rightAI = false;
+            	leftAI = false;
+            	downAI = false;
+            }
+            else if (answer == 4) {
+            	downAI = true;
+            	upAI = false;
+            	rightAI = false;
+            	leftAI = false;
+            }
 	    }
 
 	    private void checkCollision() {
@@ -498,9 +535,9 @@ public class SnakishController extends JPanel {
 	    public void actionPerformed(ActionEvent e) {
 
 	        if (inGame) {
-
 	            length++;
 	            checkCollision();
+	            aiMove();
 	            move();
 	        }
 
