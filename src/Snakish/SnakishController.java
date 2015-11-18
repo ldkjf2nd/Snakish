@@ -145,17 +145,17 @@ public class SnakishController extends JPanel implements ActionListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        doDrawing(g);
+        doDrawing(g, s);
     }
     
-    private void doDrawing(Graphics g) {
+    private void doDrawing(Graphics g, Snake s) {
     	if (model.getGameState() == GameState.IN_PROGRESS) {
-    		for (int z = 0; z < model.length; z++) {
+    		for (int z = 0; z < s.length; z++) {
     			if (z == 0) {
-    				g.drawImage(head, model.x[z], model.y[z], this);
+    				g.drawImage(head, s.x[z], s.y[z], this);
                 }
                 else {
-                    g.drawImage(player, model.x[z], model.y[z], this);
+                    g.drawImage(player, s.x[z], s.y[z], this);
                 }
             }
             Toolkit.getDefaultToolkit().sync();
