@@ -33,7 +33,6 @@ public class SnakishView extends JFrame {
 	 */
 	private void initFrame() {
 		frame = new JFrame("Snakish");
-		addKeyListener(new TAdapter());
 		//Default Close Action
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Sets Window Properties
@@ -55,7 +54,6 @@ public class SnakishView extends JFrame {
 	 */
 	public void setJFrame(JFrame f){
 		frame = f;
-		addKeyListener(new TAdapter());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameSizeX,frameSizeY);	
 		frame.setVisible(true);
@@ -68,50 +66,5 @@ public class SnakishView extends JFrame {
 		frame.setVisible(false);
 		frame.dispose();
 		setJFrame(new JFrame("Snakish"));
-	}
-
-private class TAdapter extends KeyAdapter {
-		@Override
-		public void keyTyped(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-	
-		@Override
-		public void keyPressed(KeyEvent e){
-			int key=e.getKeyCode();
-			if (key == KeyEvent.VK_LEFT && !model.right) {
-				model.left = true;
-				model.up = false;
-				model.down = false;
-			}
-			else if (key == KeyEvent.VK_RIGHT && !model.left) {
-				model.right = true;
-				model.up = false;
-				model.down = false;
-			}
-			else if (key == KeyEvent.VK_UP && !model.down) {
-				model.up = true;
-				model.left = false;
-				model.right = false;
-			}
-			else if (key == KeyEvent.VK_DOWN && !model.up) {
-				model.down = true;
-				model.left = false;
-				model.right = false;
-			}
-			else if(key == KeyEvent.VK_ESCAPE) {
-				esc = true;
-			}
-			else if(key == KeyEvent.VK_ENTER) {
-				enter = true;
-			}
-		}
-		
-		@Override
-		public void keyReleased(KeyEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
 	}
 }

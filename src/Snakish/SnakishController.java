@@ -6,6 +6,22 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.text.*;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
 import Snakish.SnakishModel.GameState;
 import Snakish.SnakishModel.PlayingState;
 
@@ -70,6 +86,7 @@ public class SnakishController extends JPanel {
 		//Setting button function
 		btnSG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
+				model.setGameState(GameState.NEW_GAME);
 				clear();
 				startGame();
 			}
@@ -122,71 +139,9 @@ public class SnakishController extends JPanel {
 		clear();
 		frame.setVisible(false);
 		frame.dispose();
-		frame.add(new Snake(model));
+		frame.add(new Snake());
 		frame.setVisible(true);
-//		initGame();
-		
-//		model.playerExists = true;
-//		model.playerSnake = model.snakes[0];
-//		model.playerSnake.setPc(false);
-//		model.playerSnake.enemy.setPc(true);
 	}
-	
-//    private void initGame() {
-//        model.playerSnake.length = 1;
-//        model.pcSnake.length = 1;
-//
-//        for (int z = 0; z < model.playerSnake.length; z++) {
-//            model.playerSnake.x[z] = 50 - z * 10;
-//            model.playerSnake.y[z] = 50;
-//        }
-//        
-//        for (int z = 0; z < model.pcSnake.length; z++) {
-//            model.pcSnake.x[z] = 50 - z * 10;
-//            model.pcSnake.y[z] = 50;
-//        }
-//        
-//        model.playerSnake.timer = new Timer(model.DELAY, this);
-//        model.playerSnake.timer.start();
-//        
-//        model.pcSnake.timer = new Timer(model.DELAY, this);
-//        model.pcSnake.timer.start();
-//    }
-    
-//    @Override
-//    public void paintComponent(Graphics g) {
-//        super.paintComponent(g);
-//        doDrawing(g, s);
-//    }
-    
-//    private void doDrawing(Graphics g, Snake s) {
-//    	if (model.getGameState() == GameState.IN_PROGRESS) {
-//    		for (int z = 0; z < s.length; z++) {
-//    			if (z == 0) {
-//    				g.drawImage(head, s.x[z], s.y[z], this);
-//                }
-//                else {
-//                    g.drawImage(player, s.x[z], s.y[z], this);
-//                }
-//            }
-//            Toolkit.getDefaultToolkit().sync();
-//        }
-//        else {
-//        	model.setGameState(GameState.END_GAME);
-//        	endGame();
-//        }        
-//    }
-	
-//	private void loadImages() {
-//        ImageIcon iip = new ImageIcon("player.png");
-//        player = iip.getImage();
-//
-//        ImageIcon iipc = new ImageIcon("pc.png");
-//        pc = iipc.getImage();
-//
-//        ImageIcon iih = new ImageIcon("head.png");
-//        head = iih.getImage();
-//    }
 	
 	/**
 	 * 
@@ -224,40 +179,6 @@ public class SnakishController extends JPanel {
 //			}catch(Exception e){}
 //		}
 //	}
-
-//	public void draw() {
-//		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//        GraphicsDevice device = env.getDefaultScreenDevice();
-//        ibuffer=createImage(600,600);
-//		buffer=(Graphics2D)ibuffer.getGraphics();
-//		ibground=createImage(getWidth(),getHeight());
-//		bground=(Graphics2D)ibground.getGraphics();
-//		gr=(Graphics2D)getGraphics();
-//		model.snakes[0].paint(buffer);
-//		model.snakes[1].paint(buffer);
-//	}
-//	
-//	private Image obtImage(String img){
-//		Toolkit tk=Toolkit.getDefaultToolkit();
-//		return tk.getImage(getClass().getResource(img));
-//	}
-	
-//	public void draw() {
-//		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//        GraphicsDevice device = env.getDefaultScreenDevice();
-//        ibuffer=createImage(600,600);
-//		buffer=(Graphics2D)ibuffer.getGraphics();
-//		ibground=createImage(getWidth(),getHeight());
-//		bground=(Graphics2D)ibground.getGraphics();
-//		gr=(Graphics2D)getGraphics();
-//		model.snakes[0].paint(buffer);
-//		model.snakes[1].paint(buffer);
-//	}
-//	
-//	private Image obtImage(String img){
-//		Toolkit tk=Toolkit.getDefaultToolkit();
-//		return tk.getImage(getClass().getResource(img));
-//	}
 	
 //	public void run(){
 //		long time,temp,max = 40;
@@ -272,7 +193,6 @@ public class SnakishController extends JPanel {
 //			}catch(Exception e){}
 //		}
 //	}
-
 	
 //	public void update() {
 //		if (model.getGameState() == GameState.TITLE_PAGE) {
@@ -320,6 +240,10 @@ public class SnakishController extends JPanel {
 	 * 
 	 */
 	void endGame() {
+		model.setPlayingState(PlayingState.PLAYER_WIN);
+		model.setGameState(GameState.END_GAME);
+		frame.dispose();
+		frame = view.getJFrame();
 		displayEndGame();
 		if (view.esc) {
 			checkEsc();
@@ -336,17 +260,22 @@ public class SnakishController extends JPanel {
 	 * 
 	 */
 	 void displayEndGame() {
-		if (model.getPlayingState() == PlayingState.PLAYER_WIN){
+		System.out.println("urgh");
+//		if (model.getPlayingState() == PlayingState.PLAYER_WIN){
 			//display text on panel
 			displayText(model.name + " wins! \n \n"
 					+ "Press ESC to exit \n \n"
 					+ "Press ENTER to restart");
-		}
-		else if (model.getPlayingState() == PlayingState.PC_WIN){
-			displayText("PC wins! \n \n"
-					+ "Press ESC to exit \n \n"
-					+ "Press ENTER to restart");
-		}
+			frame.add(Text);
+//			frame.setVisible(true);
+			System.out.println("urghhhh");
+//		}
+//		else if (model.getPlayingState() == PlayingState.PC_WIN){
+//			displayText("PC wins! \n \n"
+//					+ "Press ESC to exit \n \n"
+//					+ "Press ENTER to restart");
+//			frame.add(Text);
+//		}
 	}
 	
 	/**
@@ -363,45 +292,209 @@ public class SnakishController extends JPanel {
 			System.exit(0);
 		}
 	}
+
+	public class Snake extends JPanel implements ActionListener {
+	    private final int frameSizeX = 600;
+	    private final int frameSizeY = 600;
+	    private final int w = 10;
+	    private final int maxSize = 1800;
+	    private final int DELAY = 40;
+
+	    private final int x[] = new int[maxSize];
+	    private final int y[] = new int[maxSize];
+	    private final int a[] = new int[maxSize];
+	    private final int b[] = new int[maxSize];
+	    
+	    private int length;
+
+	    private boolean left = false;
+	    private boolean right = false;
+	    private boolean up = false;
+	    private boolean down = true;
+	    private boolean inGame = true;
+
+	    private Timer timer;
+	    private Image player;
+	    private Image AI;
+	    private Image head;
+
+	    public Snake() {
+//	        addKeyListener(new TAdapter());
+	        setFocusable(true);
+	        setPreferredSize(new Dimension(frameSizeX, frameSizeY));
+	        loadImages();
+	        initGame();
+	    }
+
+	    private void loadImages() {
+	        ImageIcon iip = new ImageIcon("src/player.png");
+	        player = iip.getImage();
+
+	        ImageIcon iia = new ImageIcon("src/pc.png");
+	        AI = iia.getImage();
+
+	        ImageIcon iih = new ImageIcon("src/head.png");
+	        head = iih.getImage();
+	    }
+
+	    private void initGame() {
+//	    	addKeyListener(new TAdapter());
+	        x[0] = model.x1;
+	        y[0] = model.y1;
+	        a[0] = model.x2;
+	        b[0] = model.y2;
+	        
+	        timer = new Timer(DELAY, this);
+	    	addKeyListener(new TAdapter());
+	    	model.setGameState(GameState.IN_PROGRESS);
+	        if (left == true || right == true || up == true || down == true) {
+	        	timer.start();
+	        }
+	    }
+
+	    @Override
+	    public void paintComponent(Graphics g) {
+	        super.paintComponent(g);
+
+	        doDrawing(g);
+	    }
+	    
+	    private void doDrawing(Graphics g) {
+	        if (inGame) {
+	            for (int z = 0; z < length; z++) {
+	                if (z == 0) {
+	                    g.drawImage(head, x[z], y[z], this);
+	                } else {
+	                    g.drawImage(player, x[z], y[z], this);
+	                }
+	            }
+	            for (int z = 0; z < length; z++) {
+	                if (z == 0) {
+	                    g.drawImage(head, a[z], b[z], this);
+	                } else {
+	                    g.drawImage(AI, a[z], b[z], this);
+	                }
+	            }
+	            Toolkit.getDefaultToolkit().sync();
+	        }
+	        else {
+	            endGame();
+	        }        
+	    }
+
+//	    private void gameOver(Graphics g) {
+//	        String msg = "Game Over";
+//	        Font small = new Font("Helvetica", Font.BOLD, 14);
+//	        FontMetrics metr = getFontMetrics(small);
 //
-//	public void keyPressed(KeyEvent e){
-//		int key=e.getKeyCode();
-//		if (key == KeyEvent.VK_LEFT && !model.right) {
-//			model.left = true;
-//			model.up = false;
-//			model.down = false;
-//		}
-//		else if (key == KeyEvent.VK_RIGHT && !model.left) {
-//			model.right = true;
-//			model.up = false;
-//			model.down = false;
-//		}
-//		else if (key == KeyEvent.VK_UP && !model.down) {
-//			model.up = true;
-//			model.left = false;
-//			model.right = false;
-//		}
-//		else if (key == KeyEvent.VK_DOWN && !model.up) {
-//			model.down = true;
-//			model.left = false;
-//			model.right = false;
-//		}
-//		else if(key == KeyEvent.VK_ESCAPE) {
-//			esc = true;
-//		}
-//		else if(key == KeyEvent.VK_ENTER) {
-//			enter = true;
-//		}
-//	}
-	
-//	public class game extends JFrame {
-//	    public game() {
-//	        add(new Snake());
-//	        setResizable(false);
-//	        pack();
-//	        setTitle("Snakish");
-////	        setLocationRelativeTo(null);
-//	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	        g.setColor(Color.white);
+//	        g.setFont(small);
+//	        g.drawString(msg, (frameSizeX - metr.stringWidth(msg)) / 2, frameSizeY / 2);
 //	    }
-//	}
+
+	    private void move() {
+
+	        for (int z = length; z > 0; z--) {
+	            x[z] = x[(z - 1)];
+	            y[z] = y[(z - 1)];
+	            a[z] = a[(z - 1)];
+	            b[z] = b[(z - 1)];
+	        }
+
+	        if (left) {
+	            x[0] += w;
+	            a[0] -= w;
+	        }
+
+	        if (right) {
+	            x[0] += w;
+	            a[0] += w;
+	        }
+
+	        if (up) {
+//	            y[0] -= w;
+	        	x[0] += w;
+	            b[0] -= w;
+	        }
+
+	        if (down) {
+//	            y[0] += w;
+	        	x[0] += w;
+	            b[0] += w;
+	        }
+	    }
+
+	    private void checkCollision() {
+	        for (int z = 1; z < length; z++) {
+	            if ((z > 4) && ((x[0] == x[z]) && (y[0] == y[z])) || ((a[0] == a[z]) && (b[0] == b[z]))) {
+	                inGame = false;
+	            }
+	            else if (((x[0] == a[z]) && (y[0] == b[z])) || ((a[0] == x[z]) && (b[0] == y[z])) || ((x[0] == a[0]) && (y[0] == b[0])) || ((a[0] == x[0]) && (b[0] == y[0]))){
+	            	inGame = false;
+	            }
+	        }
+	        if ((y[0] >= frameSizeY) || (b[0] >= frameSizeY)) {
+	            inGame = false;
+	        }
+	        else if ((y[0] < 0) || (b[0] < 0)) {
+	            inGame = false;
+	        }
+	        else if ((x[0] >= frameSizeX) || (a[0] >= frameSizeX)) {
+	            inGame = false;
+	        }
+	        else if ((x[0] < 0) || (a[0] < 0)) {
+	            inGame = false;
+	        }
+	        if(!inGame) {
+	            timer.stop();
+	            endGame();
+	        }
+	    }
+
+	    @Override
+	    public void actionPerformed(ActionEvent e) {
+
+	        if (inGame) {
+
+	            length++;
+	            checkCollision();
+	            move();
+	        }
+
+	        repaint();
+	    }
+
+	    private class TAdapter extends KeyAdapter {
+
+	        @Override
+	        public void keyPressed(KeyEvent e) {
+
+	            int key = e.getKeyCode();
+
+	            if ((key == KeyEvent.VK_LEFT) && (!right)) {
+	                left = true;
+	                up = false;
+	                down = false;
+	            }
+
+	            if ((key == KeyEvent.VK_RIGHT) && (!left)) {
+	                right = true;
+	                up = false;
+	                down = false;
+	            }
+
+	            if ((key == KeyEvent.VK_UP) && (!down)) {
+	                up = true;
+	                right = false;
+	                left = false;
+	            }
+
+	            if ((key == KeyEvent.VK_DOWN) && (!up)) {
+	                down = true;
+	                right = false;
+	                left = false;
+	            }
+	        }
+	    }
+	}
 }
