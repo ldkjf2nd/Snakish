@@ -29,8 +29,8 @@ public class SnakishModel {
 	private GameState gameState = null;
 	private PlayingState playingState = null;
 	
-	int dir1;
-	private int dir2;
+//	int dir1;
+//	private int dir2;
 	int counter;
 //	private int unoccupied = 0;	// empty slot
 //	private int player = 1;
@@ -51,26 +51,31 @@ public class SnakishModel {
 	private int frameSizeY = 600;										// y size of the frame
 	public int w = 10;													// width of the frame
 	
-	final int x[] = new int[frameSizeX/w];
-    final int y[] = new int[frameSizeY/w];
-
-    int length;
+//	final int x[] = new int[frameSizeX/w];
+//    final int y[] = new int[frameSizeY/w];
+//
+//    int length;
     final int DELAY = 140;
     
-    Timer timer;
+//    Timer timer;
     private Image player;
     private Image pc;
     private Image head;
+    
+    private Snake playerSnake;
+    private Snake pcSnake;
 	
 //	public Square[][] board = new Square[60][60];
 //	public Snake snakes[]=new Snake[2];
-//	public Snake playerSnake;
 	
 	/**
 	 * Constructor
 	 */
 	public SnakishModel() {}
 	
+	/**
+	 * 
+	 */
 	private void loadImages() {
         ImageIcon iip = new ImageIcon("src/player.png");
         player = iip.getImage();
@@ -104,11 +109,11 @@ public class SnakishModel {
 //		return true;
 //	}
 	
-	public void gameBegin(int dire1, int dire2) {
-		setGameState(GameState.IN_PROGRESS);
-		dir1 = dire1;
-		dir2 = dire2;
-	}
+//	public void gameBegin(int dire1, int dire2) {
+//		setGameState(GameState.IN_PROGRESS);
+//		dir1 = dire1;
+//		dir2 = dire2;
+//	}
 	
 //	public void move(int i, int j) { // i is direction of movement, j represents either player or AI
 //		if (j == player) {
