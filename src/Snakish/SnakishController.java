@@ -48,9 +48,9 @@ public class SnakishController extends JPanel {
 
 //	static boolean esc, enter;
 	String name;														// Player's name
-//    private Image player;
-//    private Image pc;
-//    private Image head;
+//	private Image player;
+//	private Image pc;
+//	private Image head;
 	
 	JTextField tfName = new JTextField("Enter Name");					// textfield for the player to enter name
 	private JButton btnSG = new JButton("Start Game");					// start game button
@@ -145,6 +145,7 @@ public class SnakishController extends JPanel {
 	 * 
 	 */
 	private void startGame() {
+		model.setGameState(GameState.IN_PROGRESS);
 		runGame = true;
 		clear();
 		frame.setVisible(false);
@@ -176,12 +177,14 @@ public class SnakishController extends JPanel {
 		menuPanel.remove(btnE);
 		menuPanel.remove(Text);
 	}
+	
 	void clearAll() {
 		frame.setVisible(false);
 		frame.remove(s);
 		frame = new JFrame();
 		initialize();
 	}
+	
 	void clearGame() {
 		frame.setVisible(false);
 		frame.remove(s);
@@ -189,20 +192,6 @@ public class SnakishController extends JPanel {
 		startGame();
 	}
 
-//	public void run(){
-//		long time,temp,max = 40;
-//		while(true) {
-//			time = System.currentTimeMillis();
-//			update();
-////			point();
-//			temp = System.currentTimeMillis() - time;
-//			time = max - temp;
-//			try{
-//				if (time > 0) Thread.sleep(time);
-//			}catch(Exception e){}
-//		}
-//	}
-	
 //	public void run(){
 //		long time,temp,max = 40;
 //		while(true) {
