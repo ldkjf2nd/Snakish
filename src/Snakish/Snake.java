@@ -15,10 +15,15 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
+import Snakish.SnakishModel.GameState;
+import Snakish.SnakishModel.PlayingState;
 
 public class Snake extends JPanel implements ActionListener {
-
+	private SnakishModel model;
     private final int frameSizeX = 600;
     private final int frameSizeY = 600;
     private final int w = 10;
@@ -33,9 +38,9 @@ public class Snake extends JPanel implements ActionListener {
     private int length;
 
     private boolean left = false;
-    private boolean right = true;
+    private boolean right = false;
     private boolean up = false;
-    private boolean down = false;
+    private boolean down = true;
     private boolean inGame = true;
 
     private Timer timer;
@@ -43,10 +48,10 @@ public class Snake extends JPanel implements ActionListener {
     private Image AI;
     private Image head;
 
-    public Snake() {
-        addKeyListener(new TAdapter());
+    public Snake(SnakishModel model) {
+//        addKeyListener(new TAdapter());
         setFocusable(true);
-
+        this.model = model;
         setPreferredSize(new Dimension(frameSizeX, frameSizeY));
         loadImages();
         initGame();
@@ -64,18 +69,17 @@ public class Snake extends JPanel implements ActionListener {
     }
 
     private void initGame() {
-        length = 1;
-        for (int z = 0; z < length; z++) {
-            x[z] = 50 - z * 10;
-            y[z] = 400;
-            a[z] = 350 - z *10;
-            b[z] = 200;
-        }
-
-//        locateApple();
-
+//    	addKeyListener(new TAdapter());
+        x[0] = model.x1;
+        y[0] = model.y1;
+        a[0] = model.x2;
+        b[0] = model.y2;
+        
         timer = new Timer(DELAY, this);
-        timer.start();
+    	addKeyListener(new TAdapter());
+        if (left == true || right == true || up == true || down == true) {
+        	timer.start();
+        }
     }
 
     @Override
@@ -87,9 +91,6 @@ public class Snake extends JPanel implements ActionListener {
     
     private void doDrawing(Graphics g) {
         if (inGame) {
-
-//            g.drawImage(AI, apple_x, apple_y, this);
-
             for (int z = 0; z < length; z++) {
                 if (z == 0) {
                     g.drawImage(head, x[z], y[z], this);
@@ -104,17 +105,77 @@ public class Snake extends JPanel implements ActionListener {
                     g.drawImage(AI, a[z], b[z], this);
                 }
             }
-
             Toolkit.getDefaultToolkit().sync();
-
-        } else {
-
-            gameOver(g);
+        }
+        else {
+            endGame();
         }        
     }
+    
+//    /**
+//	 * 
+//	 * @param text
+//	 */
+//	private void displayText(String text) {
+//		StyledDocument doc = Text.getStyledDocument();
+//		SimpleAttributeSet center = new SimpleAttributeSet();
+//		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+//		doc.setParagraphAttributes(0, doc.getLength(), center, false);
+//		Text.setText(text);
+//		Text.setBounds(100, tfName.getY(), 400, 200);
+//		Text.setVisible(true);
+//	}
+	
+	/**
+	 * 
+	 */
+	void endGame() {
+		displayEndGame();
+//		if (esc) {
+//			checkEsc();
+//		}
+//		else if (enter) {
+//			if (model.getGameState() == GameState.END_GAME) {
+//				clear();
+//				startGame();
+//			}
+//		}
+	}
+	
+	/**
+	 * 
+	 */
+	 void displayEndGame() {
+		 System.out.println("work");
+//		if (model.getPlayingState() == PlayingState.PLAYER_WIN){
+//			//display text on panel
+//			displayText(model.name + " wins! \n \n"
+//					+ "Press ESC to exit \n \n"
+//					+ "Press ENTER to restart");
+//		}
+//		else if (model.getPlayingState() == PlayingState.PC_WIN){
+//			displayText("PC wins! \n \n"
+//					+ "Press ESC to exit \n \n"
+//					+ "Press ENTER to restart");
+//		}
+	}
+	
+//	/**
+//	 * 
+//	 */
+//	private void checkEsc() {
+//		if (model.getGameState() == GameState.NEW_GAME || model.getGameState() == GameState.IN_PROGRESS) {
+//			model.setGameState(GameState.TITLE_PAGE);
+//			clear();
+//			menuPanel = new JPanel();
+//			initializeMenu();
+//		}
+//		else if (model.getGameState() == GameState.END_GAME) {
+//			System.exit(0);
+//		}
+//	}
 
     private void gameOver(Graphics g) {
-        
         String msg = "Game Over";
         Font small = new Font("Helvetica", Font.BOLD, 14);
         FontMetrics metr = getFontMetrics(small);
@@ -144,13 +205,13 @@ public class Snake extends JPanel implements ActionListener {
         }
 
         if (up) {
-//            y[0] -= DOT_SIZE;
+//            y[0] -= w;
         	x[0] += w;
             b[0] -= w;
         }
 
         if (down) {
-//            y[0] += DOT_SIZE;
+//            y[0] += w;
         	x[0] += w;
             b[0] += w;
         }
@@ -182,15 +243,6 @@ public class Snake extends JPanel implements ActionListener {
             timer.stop();
         }
     }
-
-//    private void locateApple() {
-//
-//        int r = (int) (Math.random() * RAND_POS);
-//        apple_x = ((r * DOT_SIZE));
-//
-//        r = (int) (Math.random() * RAND_POS);
-//        apple_y = ((r * DOT_SIZE));
-//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

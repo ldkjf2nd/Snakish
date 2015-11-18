@@ -1,6 +1,7 @@
 package Snakish;
 
 import java.awt.*;
+
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -47,13 +48,10 @@ public class SnakishModel {
 	public int x2 = 550;
 	public int y2 = 300;
 	
-	private int frameSizeX = 600;										// x size of the frame
-	private int frameSizeY = 600;										// y size of the frame
-	public int w = 10;													// width of the frame
-	
-//	final int x[] = new int[frameSizeX/w];
-//    final int y[] = new int[frameSizeY/w];
-//
+//	private int frameSizeX = 600;										// x size of the frame
+//	private int frameSizeY = 600;										// y size of the frame
+//	public int w = 10;													// width of the frame
+
 //    int length;
     final int DELAY = 140;
     
@@ -61,10 +59,7 @@ public class SnakishModel {
     private Image player;
     private Image pc;
     private Image head;
-    
-    Snake playerSnake;
-    Snake pcSnake;
-	
+
 //	public Square[][] board = new Square[60][60];
 //	public Snake snakes[]=new Snake[2];
 	
@@ -73,19 +68,19 @@ public class SnakishModel {
 	 */
 	public SnakishModel() {}
 	
-	/**
-	 * 
-	 */
-	private void loadImages() {
-        ImageIcon iip = new ImageIcon("src/player.png");
-        player = iip.getImage();
-
-        ImageIcon iipc = new ImageIcon("src/pc.png");
-        pc = iipc.getImage();
-
-        ImageIcon iih = new ImageIcon("src/head.png");
-        head = iih.getImage();
-    }
+//	/**
+//	 * 
+//	 */
+//	private void loadImages() {
+//        ImageIcon iip = new ImageIcon("src/player.png");
+//        player = iip.getImage();
+//
+//        ImageIcon iipc = new ImageIcon("src/pc.png");
+//        pc = iipc.getImage();
+//
+//        ImageIcon iih = new ImageIcon("src/head.png");
+//        head = iih.getImage();
+//    }
 	
 //	/**
 //	 * Checks whether the snake's move is legal, return false if illegal, else true.
