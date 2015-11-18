@@ -19,26 +19,23 @@ import javax.swing.Timer;
 
 public class Snake extends JPanel implements ActionListener {
 
-    private final int B_WIDTH = 600;
-    private final int B_HEIGHT = 600;
-    private final int DOT_SIZE = 10;
-    private final int ALL_DOTS = 1800;
-    private final int RAND_POS = 29;
-    private final int DELAY = 140;
+    private final int frameSizeX = 600;
+    private final int frameSizeY = 600;
+    private final int w = 10;
+    private final int maxSize = 1800;
+    private final int DELAY = 40;
 
-    private final int x[] = new int[ALL_DOTS];
-    private final int y[] = new int[ALL_DOTS];
-    private final int a[] = new int[ALL_DOTS];
-    private final int b[] = new int[ALL_DOTS];
+    private final int x[] = new int[maxSize];
+    private final int y[] = new int[maxSize];
+    private final int a[] = new int[maxSize];
+    private final int b[] = new int[maxSize];
     
     private int length;
-    private int apple_x;
-    private int apple_y;
 
-    private boolean leftDirection = false;
-    private boolean rightDirection = true;
-    private boolean upDirection = false;
-    private boolean downDirection = false;
+    private boolean left = false;
+    private boolean right = true;
+    private boolean up = false;
+    private boolean down = false;
     private boolean inGame = true;
 
     private Timer timer;
@@ -47,20 +44,17 @@ public class Snake extends JPanel implements ActionListener {
     private Image head;
 
     public Snake() {
-
         addKeyListener(new TAdapter());
-//        setBackground(Color.black);
         setFocusable(true);
 
-        setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
+        setPreferredSize(new Dimension(frameSizeX, frameSizeY));
         loadImages();
         initGame();
     }
 
     private void loadImages() {
-
-        ImageIcon iid = new ImageIcon("src/player.png");
-        player = iid.getImage();
+        ImageIcon iip = new ImageIcon("src/player.png");
+        player = iip.getImage();
 
         ImageIcon iia = new ImageIcon("src/pc.png");
         AI = iia.getImage();
@@ -70,9 +64,7 @@ public class Snake extends JPanel implements ActionListener {
     }
 
     private void initGame() {
-
         length = 1;
-
         for (int z = 0; z < length; z++) {
             x[z] = 50 - z * 10;
             y[z] = 400;
@@ -94,7 +86,6 @@ public class Snake extends JPanel implements ActionListener {
     }
     
     private void doDrawing(Graphics g) {
-        
         if (inGame) {
 
 //            g.drawImage(AI, apple_x, apple_y, this);
@@ -130,12 +121,7 @@ public class Snake extends JPanel implements ActionListener {
 
         g.setColor(Color.white);
         g.setFont(small);
-        g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2, B_HEIGHT / 2);
-    }
-
-    private void increment() {
-
-           length++;
+        g.drawString(msg, (frameSizeX - metr.stringWidth(msg)) / 2, frameSizeY / 2);
     }
 
     private void move() {
@@ -147,57 +133,51 @@ public class Snake extends JPanel implements ActionListener {
             b[z] = b[(z - 1)];
         }
 
-        if (leftDirection) {
-            x[0] += DOT_SIZE;
-            a[0] -= DOT_SIZE;
+        if (left) {
+            x[0] += w;
+            a[0] -= w;
         }
 
-        if (rightDirection) {
-            x[0] += DOT_SIZE;
-            a[0] += DOT_SIZE;
+        if (right) {
+            x[0] += w;
+            a[0] += w;
         }
 
-        if (upDirection) {
+        if (up) {
 //            y[0] -= DOT_SIZE;
-        	x[0] += DOT_SIZE;
-            b[0] -= DOT_SIZE;
+        	x[0] += w;
+            b[0] -= w;
         }
 
-        if (downDirection) {
+        if (down) {
 //            y[0] += DOT_SIZE;
-        	x[0] += DOT_SIZE;
-            b[0] += DOT_SIZE;
+        	x[0] += w;
+            b[0] += w;
         }
     }
 
     private void checkCollision() {
 
-        for (int z = length; z > 0; z--) {
-
+        for (int z = 1; z < length; z++) {
             if ((z > 4) && ((x[0] == x[z]) && (y[0] == y[z])) || ((a[0] == a[z]) && (b[0] == b[z]))) {
                 inGame = false;
             }
-            if (((x[0] == a[z]) && (y[0] == y[z])) || ((a[0] == a[z]) && (b[0] == b[z])) || ((x[z] == a[z]) && (y[z] == b[z]))){
-        
+            else if (((x[0] == a[z]) && (y[0] == b[z])) || ((a[0] == x[z]) && (b[0] == y[z])) || ((x[0] == a[0]) && (y[0] == b[0])) || ((a[0] == x[0]) && (b[0] == y[0]))){
+            	inGame = false;
             }
         }
-
-        if ((y[0] >= B_HEIGHT) || (b[0] >= B_HEIGHT)) {
+        if ((y[0] >= frameSizeY) || (b[0] >= frameSizeY)) {
             inGame = false;
         }
-
-        if ((y[0] < 0) || (b[0] < 0)) {
+        else if ((y[0] < 0) || (b[0] < 0)) {
             inGame = false;
         }
-
-        if ((x[0] >= B_WIDTH) || (a[0] >= B_WIDTH)) {
+        else if ((x[0] >= frameSizeX) || (a[0] >= frameSizeX)) {
             inGame = false;
         }
-
-        if ((x[0] < 0) || (a[0] < 0)) {
+        else if ((x[0] < 0) || (a[0] < 0)) {
             inGame = false;
         }
-        
         if(!inGame) {
             timer.stop();
         }
@@ -217,7 +197,7 @@ public class Snake extends JPanel implements ActionListener {
 
         if (inGame) {
 
-            increment();
+            length++;
             checkCollision();
             move();
         }
@@ -232,28 +212,28 @@ public class Snake extends JPanel implements ActionListener {
 
             int key = e.getKeyCode();
 
-            if ((key == KeyEvent.VK_LEFT) && (!rightDirection)) {
-                leftDirection = true;
-                upDirection = false;
-                downDirection = false;
+            if ((key == KeyEvent.VK_LEFT) && (!right)) {
+                left = true;
+                up = false;
+                down = false;
             }
 
-            if ((key == KeyEvent.VK_RIGHT) && (!leftDirection)) {
-                rightDirection = true;
-                upDirection = false;
-                downDirection = false;
+            if ((key == KeyEvent.VK_RIGHT) && (!left)) {
+                right = true;
+                up = false;
+                down = false;
             }
 
-            if ((key == KeyEvent.VK_UP) && (!downDirection)) {
-                upDirection = true;
-                rightDirection = false;
-                leftDirection = false;
+            if ((key == KeyEvent.VK_UP) && (!down)) {
+                up = true;
+                right = false;
+                left = false;
             }
 
-            if ((key == KeyEvent.VK_DOWN) && (!upDirection)) {
-                downDirection = true;
-                rightDirection = false;
-                leftDirection = false;
+            if ((key == KeyEvent.VK_DOWN) && (!up)) {
+                down = true;
+                right = false;
+                left = false;
             }
         }
     }

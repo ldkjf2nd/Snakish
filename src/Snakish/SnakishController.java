@@ -14,7 +14,7 @@ import Snakish.SnakishModel.PlayingState;
  * @author Tian Guo, Xin Tong Hu
  *
  */
-public class SnakishController extends JPanel implements ActionListener {
+public class SnakishController extends JPanel {
 	private SnakishModel model = null;
 	private SnakishView view = null;
 	
@@ -120,7 +120,7 @@ public class SnakishController extends JPanel implements ActionListener {
 	 */
 	private void startGame() {
 		clear();
-		frame = new game();
+		frame.add(new Snake());
 		frame.setVisible(true);
 //		initGame();
 		
@@ -361,61 +361,45 @@ public class SnakishController extends JPanel implements ActionListener {
 			System.exit(0);
 		}
 	}
-
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void keyPressed(KeyEvent e){
-		int key=e.getKeyCode();
-		if (key == KeyEvent.VK_LEFT && !model.right) {
-			model.left = true;
-			model.up = false;
-			model.down = false;
-		}
-		else if (key == KeyEvent.VK_RIGHT && !model.left) {
-			model.right = true;
-			model.up = false;
-			model.down = false;
-		}
-		else if (key == KeyEvent.VK_UP && !model.down) {
-			model.up = true;
-			model.left = false;
-			model.right = false;
-		}
-		else if (key == KeyEvent.VK_DOWN && !model.up) {
-			model.down = true;
-			model.left = false;
-			model.right = false;
-		}
-		else if(key == KeyEvent.VK_ESCAPE) {
-			esc = true;
-		}
-		else if(key == KeyEvent.VK_ENTER) {
-			enter = true;
-		}
-	}
+//
+//	public void keyPressed(KeyEvent e){
+//		int key=e.getKeyCode();
+//		if (key == KeyEvent.VK_LEFT && !model.right) {
+//			model.left = true;
+//			model.up = false;
+//			model.down = false;
+//		}
+//		else if (key == KeyEvent.VK_RIGHT && !model.left) {
+//			model.right = true;
+//			model.up = false;
+//			model.down = false;
+//		}
+//		else if (key == KeyEvent.VK_UP && !model.down) {
+//			model.up = true;
+//			model.left = false;
+//			model.right = false;
+//		}
+//		else if (key == KeyEvent.VK_DOWN && !model.up) {
+//			model.down = true;
+//			model.left = false;
+//			model.right = false;
+//		}
+//		else if(key == KeyEvent.VK_ESCAPE) {
+//			esc = true;
+//		}
+//		else if(key == KeyEvent.VK_ENTER) {
+//			enter = true;
+//		}
+//	}
 	
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public class game extends JFrame {
-	    public game() {
-	        add(new Snake());
-	        setResizable(false);
-	        pack();
-	        setTitle("Snake");
-	        setLocationRelativeTo(null);
-	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    }
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+//	public class game extends JPanel {
+//	    public game() {
+//	        add(new Snake());
+////	        setResizable(false);
+////	        pack();
+////	        setTitle("Snake");
+////	        setLocationRelativeTo(null);
+////	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	    }
+//	}
 }
