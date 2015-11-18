@@ -19,6 +19,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -36,6 +37,7 @@ public class SnakishController extends JPanel {
 	
 	private int frameSizeX = 600;										// x size of the frame
 	private int frameSizeY = 600;										// y size of the frame
+	private boolean runGame;
 	
 //	public int up = 1;													// 4 directions of where the snake can move
 //	public int right = 2;
@@ -67,7 +69,6 @@ public class SnakishController extends JPanel {
 	public SnakishController(SnakishModel model, SnakishView view) {
 		this.model = model;
 		this.view = view;
-		this.model.setGameState(GameState.TITLE_PAGE);
 		initialize();
 	}
 	
@@ -75,8 +76,12 @@ public class SnakishController extends JPanel {
 	 * initializes main menu
 	 */
 	public void initialize(){
+
+		this.model.setGameState(GameState.TITLE_PAGE);
 		System.out.println("start");
-		frame = view.getJFrame();
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(frameSizeX,frameSizeY);
 		initializeMenu();
 	}
 	
@@ -138,6 +143,7 @@ public class SnakishController extends JPanel {
 	 * 
 	 */
 	private void startGame() {
+		runGame = true;
 		clear();
 		frame.setVisible(false);
 		frame.dispose();
@@ -171,8 +177,14 @@ public class SnakishController extends JPanel {
 	void clearAll() {
 		frame.setVisible(false);
 		frame.remove(s);
-		frame.dispose();
+		frame = new JFrame();
 		initialize();
+	}
+	void clearGame() {
+		frame.setVisible(false);
+		frame.remove(s);
+		frame.dispose();
+		startGame();
 	}
 
 //	public void run(){
@@ -320,6 +332,7 @@ public class SnakishController extends JPanel {
 	    private boolean right = false;
 	    private boolean up = false;
 	    private boolean down = true;
+	    private boolean ai[] = new boolean[4];
 	    private boolean inGame = true;
 
 	    private Timer timer;
@@ -392,7 +405,7 @@ public class SnakishController extends JPanel {
 	    }
 
 	    private void gameOver(Graphics g) {
-	        String msg = "ESC back to menu. Enter restart";
+	        String msg = "ESC back to exit. Enter restart";
 	        Font small = new Font("Helvetica", Font.BOLD, 14);
 	        FontMetrics metr = getFontMetrics(small);
 
@@ -431,6 +444,28 @@ public class SnakishController extends JPanel {
 	        	x[0] += w;
 	            b[0] += w;
 	        }
+	    }
+	    private void AiMove(int Ai) {
+	    	 if (ai[0]) {
+		            a[0] -= w;
+		            ai[0] = false;
+		            
+		        }
+
+		        if (ai[1]) {
+		            a[0] += w;
+		            ai[1] = false;
+		        }
+
+		        if (ai[2]) {
+		            b[0] -= w;
+		            ai[2] = false;
+		        }
+
+		        if (ai[3]) {
+		            b[0] += w;
+		            ai[3] = false;
+		        }
 	    }
 
 	    private void checkCollision() {
@@ -503,13 +538,20 @@ public class SnakishController extends JPanel {
 	                left = false;
 	            }
 	            
-	            if (key == KeyEvent.VK_ESCAPE) {
-	            	System.out.println("exit");
-	            	clearAll();
+	            if (key == KeyEvent.VK_ESCAPE && runGame) {
+	            	runGame = false;
+	            	if(inGame){
+		            	System.out.println("exit");
+		            	clearAll();
+	            	}
+	            	else {
+	            		System.exit(0);
+	            	}
 	            }
 	            
-	            if ((key == KeyEvent.VK_ENTER) && (!inGame)) {
-	            	initGame();
+	            if ((key == KeyEvent.VK_ENTER) && (!inGame) && runGame) {
+	            	runGame = false;
+	            	clearGame();
 	            }
 	        }
 	    }
