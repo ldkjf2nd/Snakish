@@ -3,11 +3,6 @@ package Snakish;
 import java.awt.*;
 import java.awt.event.*;
 
-import javax.swing.JFrame;
-
-import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -19,7 +14,7 @@ import Snakish.SnakishModel.PlayingState;
  * @author Tian Guo, Xin Tong Hu
  *
  */
-public class SnakishController {
+public class SnakishController extends JPanel implements ActionListener {
 	private SnakishModel model = null;
 	private SnakishView view = null;
 	
@@ -120,33 +115,67 @@ public class SnakishController {
 		menuPanel.setVisible(true);
 	}
 	
-	private void loadImages() {
-        ImageIcon iip = new ImageIcon("player.png");
-        player = iip.getImage();
-
-        ImageIcon iipc = new ImageIcon("pc.png");
-        pc = iipc.getImage();
-
-        ImageIcon iih = new ImageIcon("head.png");
-        head = iih.getImage();
-    }
-	
 	/**
 	 * 
 	 */
 	private void startGame() {
 		clear();
+		initGame();
+//		frame = new game();
+//		frame.setVisible(true);
 		
-		frame = new game();
-		frame.setVisible(true);
-        
-        
-
 //		model.playerExists = true;
 //		model.playerSnake = model.snakes[0];
 //		model.playerSnake.setPc(false);
 //		model.playerSnake.enemy.setPc(true);
 	}
+	
+    private void initGame() {
+        model.length = 1;
+
+        for (int z = 0; z < model.length; z++) {
+            model.x[z] = 50 - z * 10;
+            model.y[z] = 50;
+        }
+
+        model.timer = new Timer(model.DELAY, this);
+        model.timer.start();
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        doDrawing(g, s);
+    }
+    
+    private void doDrawing(Graphics g, Snake s) {
+    	if (model.getGameState() == GameState.IN_PROGRESS) {
+    		for (int z = 0; z < s.length; z++) {
+    			if (z == 0) {
+    				g.drawImage(head, s.x[z], s.y[z], this);
+                }
+                else {
+                    g.drawImage(player, s.x[z], s.y[z], this);
+                }
+            }
+            Toolkit.getDefaultToolkit().sync();
+        }
+        else {
+        	model.setGameState(GameState.END_GAME);
+        	endGame();
+        }        
+    }
+	
+//	private void loadImages() {
+//        ImageIcon iip = new ImageIcon("player.png");
+//        player = iip.getImage();
+//
+//        ImageIcon iipc = new ImageIcon("pc.png");
+//        pc = iipc.getImage();
+//
+//        ImageIcon iih = new ImageIcon("head.png");
+//        head = iih.getImage();
+//    }
 	
 	/**
 	 * 
@@ -171,19 +200,19 @@ public class SnakishController {
 		menuPanel.remove(Text);
 	}
 
-	public void run(){
-		long time,temp,max = 40;
-		while(true) {
-			time = System.currentTimeMillis();
-			update();
-//			point();
-			temp = System.currentTimeMillis() - time;
-			time = max - temp;
-			try{
-				if (time > 0) Thread.sleep(time);
-			}catch(Exception e){}
-		}
-	}
+//	public void run(){
+//		long time,temp,max = 40;
+//		while(true) {
+//			time = System.currentTimeMillis();
+//			update();
+////			point();
+//			temp = System.currentTimeMillis() - time;
+//			time = max - temp;
+//			try{
+//				if (time > 0) Thread.sleep(time);
+//			}catch(Exception e){}
+//		}
+//	}
 
 //	public void draw() {
 //		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -234,33 +263,33 @@ public class SnakishController {
 //	}
 
 	
-	public void update() {
-		if (model.getGameState() == GameState.TITLE_PAGE) {
-			model.counter++;
-			if(model.counter==500){
-				model.counter=0;
-				model.setGameState(GameState.DEMO);
-				demo();
-			}
-		}
-		else if (model.getGameState() == GameState.IN_PROGRESS) {
-			if (!model.snakes[0].isCrashed && !model.snakes[1].isCrashed) {
-//				model.verifyLegalMove(model.dir1);
-			}
-			else {
-				model.setGameState(GameState.END_GAME);
-				endGame();
-			}
-		}
-	}
+//	public void update() {
+//		if (model.getGameState() == GameState.TITLE_PAGE) {
+//			model.counter++;
+//			if(model.counter==500){
+//				model.counter=0;
+//				model.setGameState(GameState.DEMO);
+//				demo();
+//			}
+//		}
+//		else if (model.getGameState() == GameState.IN_PROGRESS) {
+//			if (!model.snakes[0].isCrashed && !model.snakes[1].isCrashed) {
+////				model.verifyLegalMove(model.dir1);
+//			}
+//			else {
+//				model.setGameState(GameState.END_GAME);
+//				endGame();
+//			}
+//		}
+//	}
 	
-	private void demo(){
-		model.start();
-		model.demo=true;
-		model.snakes[0].setPc(true);
-		model.snakes[1].setPc(true);
-		clear();
-	}
+//	private void demo(){
+//		model.start();
+//		model.demo=true;
+//		model.snakes[0].setPc(true);
+//		model.snakes[1].setPc(true);
+//		clear();
+//	}
 	
 	/**
 	 * 
@@ -282,15 +311,7 @@ public class SnakishController {
 	private void endGame() {
 		displayEndGame();
 		if (view.esc) {
-			if (model.getGameState() == GameState.NEW_GAME || model.getGameState() == GameState.IN_PROGRESS) {
-				model.setGameState(GameState.TITLE_PAGE);
-				clear();
-				menuPanel = new JPanel();
-				initializeMenu();
-			}
-			else if (model.getGameState() == GameState.END_GAME) {
-				System.exit(0);
-			}
+			checkEsc();
 		}
 		else if (view.enter) {
 			if (model.getGameState() == GameState.END_GAME) {
@@ -314,6 +335,21 @@ public class SnakishController {
 			displayText("PC wins! \n \n"
 					+ "Press ESC to exit \n \n"
 					+ "Press ENTER to restart");
+		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void checkEsc() {
+		if (model.getGameState() == GameState.NEW_GAME || model.getGameState() == GameState.IN_PROGRESS) {
+			model.setGameState(GameState.TITLE_PAGE);
+			clear();
+			menuPanel = new JPanel();
+			initializeMenu();
+		}
+		else if (model.getGameState() == GameState.END_GAME) {
+			System.exit(0);
 		}
 	}
 
@@ -351,23 +387,26 @@ public class SnakishController {
 			enter = true;
 		}
 	}
+	
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 	
 	public class game extends JFrame {
-
 	    public game() {
-
 	        add(new Board());
-	        
 	        setResizable(false);
 	        pack();
-	        
 	        setTitle("Snake");
 	        setLocationRelativeTo(null);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    }
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
