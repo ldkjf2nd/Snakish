@@ -9,18 +9,21 @@ public class AI {
 		boolean[] rest = new boolean[4];
 		if(x-10 < 0){
 			if(y-10 < 0){
-				if()
+//				if(true)
 				return generateMove();
 			}
 		}
 		else if (y-10< 0){
-			return generateMove(direction,2);
+			return generateMove();
 		}
+		return 0;
 	}
 	public int generateMove(){
+		return 0;
 		
 	}
 	public int generateMove(int direction, boolean up, boolean down, boolean left, boolean right) {
+		return 0;
 		
 	}
 }
