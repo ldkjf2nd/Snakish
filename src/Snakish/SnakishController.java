@@ -55,7 +55,7 @@ public class SnakishController extends JPanel {
 	private JPanel menuPanel = new JPanel();							// JPanel for menu
 	private JFrame frame;												// The frame of the name
 	private JTextPane Text = new JTextPane();							// JTextPane to display text
-	
+	private Snake s;
 //	Graphics2D buffer,bground,gr;
 //	Image ibuffer,head,grass,ibground;
 
@@ -75,6 +75,7 @@ public class SnakishController extends JPanel {
 	 * initializes main menu
 	 */
 	public void initialize(){
+		System.out.println("start");
 		frame = view.getJFrame();
 		initializeMenu();
 	}
@@ -84,6 +85,7 @@ public class SnakishController extends JPanel {
 	 */
 	private void initializeMenu() {
 		//Setting button function
+		System.out.println("menu");
 		btnSG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
 				model.setGameState(GameState.NEW_GAME);
@@ -139,7 +141,8 @@ public class SnakishController extends JPanel {
 		clear();
 		frame.setVisible(false);
 		frame.dispose();
-		frame.add(new Snake());
+		s = new Snake();
+		frame.add(s);
 		frame.setVisible(true);
 	}
 	
@@ -164,6 +167,12 @@ public class SnakishController extends JPanel {
 		menuPanel.remove(btnA);
 		menuPanel.remove(btnE);
 		menuPanel.remove(Text);
+	}
+	void clearAll() {
+		frame.setVisible(false);
+		frame.remove(s);
+		frame.dispose();
+		initialize();
 	}
 
 //	public void run(){
@@ -378,19 +387,19 @@ public class SnakishController extends JPanel {
 	            Toolkit.getDefaultToolkit().sync();
 	        }
 	        else {
-	            endGame();
+	            gameOver(g);;
 	        }        
 	    }
 
-//	    private void gameOver(Graphics g) {
-//	        String msg = "Game Over";
-//	        Font small = new Font("Helvetica", Font.BOLD, 14);
-//	        FontMetrics metr = getFontMetrics(small);
-//
-//	        g.setColor(Color.white);
-//	        g.setFont(small);
-//	        g.drawString(msg, (frameSizeX - metr.stringWidth(msg)) / 2, frameSizeY / 2);
-//	    }
+	    private void gameOver(Graphics g) {
+	        String msg = "ESC back to menu. Enter restart";
+	        Font small = new Font("Helvetica", Font.BOLD, 14);
+	        FontMetrics metr = getFontMetrics(small);
+
+	        g.setColor(Color.black);
+	        g.setFont(small);
+	        g.drawString(msg, (frameSizeX - metr.stringWidth(msg)) / 2, frameSizeY / 2);
+	    }
 
 	    private void move() {
 
@@ -447,7 +456,6 @@ public class SnakishController extends JPanel {
 	        }
 	        if(!inGame) {
 	            timer.stop();
-	            endGame();
 	        }
 	    }
 
@@ -493,6 +501,15 @@ public class SnakishController extends JPanel {
 	                down = true;
 	                right = false;
 	                left = false;
+	            }
+	            
+	            if (key == KeyEvent.VK_ESCAPE) {
+	            	System.out.println("exit");
+	            	clearAll();
+	            }
+	            
+	            if ((key == KeyEvent.VK_ENTER) && (!inGame)) {
+	            	initGame();
 	            }
 	        }
 	    }
