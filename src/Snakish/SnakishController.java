@@ -21,16 +21,16 @@ public class SnakishController extends JPanel implements ActionListener {
 	private int frameSizeX = 600;										// x size of the frame
 	private int frameSizeY = 600;										// y size of the frame
 	
-	public int up = 1;													// 4 directions of where the snake can move
-	public int right = 2;
-	public int down = 3;
-	public int left = 4;
+//	public int up = 1;													// 4 directions of where the snake can move
+//	public int right = 2;
+//	public int down = 3;
+//	public int left = 4;
 
 	static boolean esc, enter;
 	String name;														// Player's name
-    private Image player;
-    private Image pc;
-    private Image head;
+//    private Image player;
+//    private Image pc;
+//    private Image head;
 	
 	JTextField tfName = new JTextField("Enter Name");					// textfield for the player to enter name
 	private JButton btnSG = new JButton("Start Game");					// start game button
@@ -131,15 +131,24 @@ public class SnakishController extends JPanel implements ActionListener {
 	}
 	
     private void initGame() {
-        model.length = 1;
+        model.playerSnake.length = 1;
+        model.pcSnake.length = 1;
 
-        for (int z = 0; z < model.length; z++) {
-            model.x[z] = 50 - z * 10;
-            model.y[z] = 50;
+        for (int z = 0; z < model.playerSnake.length; z++) {
+            model.playerSnake.x[z] = 50 - z * 10;
+            model.playerSnake.y[z] = 50;
         }
-
-        model.timer = new Timer(model.DELAY, this);
-        model.timer.start();
+        
+        for (int z = 0; z < model.pcSnake.length; z++) {
+            model.pcSnake.x[z] = 50 - z * 10;
+            model.pcSnake.y[z] = 50;
+        }
+        
+        model.playerSnake.timer = new Timer(model.DELAY, this);
+        model.playerSnake.timer.start();
+        
+        model.pcSnake.timer = new Timer(model.DELAY, this);
+        model.pcSnake.timer.start();
     }
     
     @Override
