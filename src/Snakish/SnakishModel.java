@@ -62,8 +62,8 @@ public class SnakishModel {
     private Image pc;
     private Image head;
     
-    private Snake playerSnake;
-    private Snake pcSnake;
+    Snake playerSnake;
+    Snake pcSnake;
 	
 //	public Square[][] board = new Square[60][60];
 //	public Snake snakes[]=new Snake[2];
