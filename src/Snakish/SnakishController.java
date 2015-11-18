@@ -26,7 +26,7 @@ public class SnakishController extends JPanel {
 //	public int down = 3;
 //	public int left = 4;
 
-	static boolean esc, enter;
+//	static boolean esc, enter;
 	String name;														// Player's name
 //    private Image player;
 //    private Image pc;
@@ -120,7 +120,9 @@ public class SnakishController extends JPanel {
 	 */
 	private void startGame() {
 		clear();
-		frame.add(new Snake());
+		frame.setVisible(false);
+		frame.dispose();
+		frame.add(new Snake(model));
 		frame.setVisible(true);
 //		initGame();
 		
@@ -317,7 +319,7 @@ public class SnakishController extends JPanel {
 	/**
 	 * 
 	 */
-	private void endGame() {
+	void endGame() {
 		displayEndGame();
 		if (view.esc) {
 			checkEsc();
@@ -333,7 +335,7 @@ public class SnakishController extends JPanel {
 	/**
 	 * 
 	 */
-	private void displayEndGame() {
+	 void displayEndGame() {
 		if (model.getPlayingState() == PlayingState.PLAYER_WIN){
 			//display text on panel
 			displayText(model.name + " wins! \n \n"
@@ -392,14 +394,14 @@ public class SnakishController extends JPanel {
 //		}
 //	}
 	
-//	public class game extends JPanel {
+//	public class game extends JFrame {
 //	    public game() {
 //	        add(new Snake());
-////	        setResizable(false);
-////	        pack();
-////	        setTitle("Snake");
+//	        setResizable(false);
+//	        pack();
+//	        setTitle("Snakish");
 ////	        setLocationRelativeTo(null);
-////	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //	    }
 //	}
 }
