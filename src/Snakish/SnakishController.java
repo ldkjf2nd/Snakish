@@ -135,13 +135,12 @@ public class SnakishController {
 	 * 
 	 */
 	private void startGame() {
-		model.setGameState(GameState.NEW_GAME);
-		view.remakeJFrame();
-		frame = view.getJFrame();
-		model.start();
+		clear();
 		
-		frame.add(model.board[5][30]);
-		frame.add(model.board[55][30]);
+		frame = new game();
+		frame.setVisible(true);
+        
+        
 
 //		model.playerExists = true;
 //		model.playerSnake = model.snakes[0];
@@ -316,5 +315,59 @@ public class SnakishController {
 					+ "Press ESC to exit \n \n"
 					+ "Press ENTER to restart");
 		}
+	}
+
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void keyPressed(KeyEvent e){
+		int key=e.getKeyCode();
+		if (key == KeyEvent.VK_LEFT && !model.right) {
+			model.left = true;
+			model.up = false;
+			model.down = false;
+		}
+		else if (key == KeyEvent.VK_RIGHT && !model.left) {
+			model.right = true;
+			model.up = false;
+			model.down = false;
+		}
+		else if (key == KeyEvent.VK_UP && !model.down) {
+			model.up = true;
+			model.left = false;
+			model.right = false;
+		}
+		else if (key == KeyEvent.VK_DOWN && !model.up) {
+			model.down = true;
+			model.left = false;
+			model.right = false;
+		}
+		else if(key == KeyEvent.VK_ESCAPE) {
+			esc = true;
+		}
+		else if(key == KeyEvent.VK_ENTER) {
+			enter = true;
+		}
+	}
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public class game extends JFrame {
+
+	    public game() {
+
+	        add(new Board());
+	        
+	        setResizable(false);
+	        pack();
+	        
+	        setTitle("Snake");
+	        setLocationRelativeTo(null);
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    }
 	}
 }
