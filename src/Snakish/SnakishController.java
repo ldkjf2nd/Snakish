@@ -79,7 +79,7 @@ public class SnakishController extends JPanel {
 	 */
 	public void initialize(){
 
-		this.model.setGameState(GameState.TITLE_PAGE);
+		model.setGameState(GameState.TITLE_PAGE);
 		System.out.println("start");
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -465,54 +465,148 @@ public class SnakishController extends JPanel {
 //		        }
 //	    }
 	    
-	    private void aiMove() {
-            Random rn = new Random();
-            int answer = rn.nextInt(4) + 1;
-            if (answer == 1) {
-            	leftAI = true;
-            	rightAI = false;
-            	upAI = false;
-            	downAI = false;
-            }
-            else if (answer == 2) {
-            	rightAI = true;
-            	leftAI = false;
-            	upAI = false;
-            	downAI = false;
-            }
-            else if (answer == 3) {
-            	upAI = true;
-            	rightAI = false;
-            	leftAI = false;
-            	downAI = false;
-            }
-            else if (answer == 4) {
-            	downAI = true;
-            	upAI = false;
-            	rightAI = false;
-            	leftAI = false;
-            }
-	    }
-
+//	    /**
+//	     * 
+//	     */
+//	    private void aiMove() {
+//            Random rn = new Random();
+//            int answer = rn.nextInt(4) + 1;		// 1 represents left, 2 represents right, 3 represents up, 4 represents down
+//            if (verifyLegalMove(answer)) {
+//	            if (answer == 1) {
+//	            	leftAI = true;
+//	            	rightAI = false;
+//	            	upAI = false;
+//	            	downAI = false;
+//	            }
+//	            else if (answer == 2) {
+//	            	rightAI = true;
+//	            	leftAI = false;
+//	            	upAI = false;
+//	            	downAI = false;
+//	            }
+//	            else if (answer == 3) {
+//	            	upAI = true;
+//	            	rightAI = false;
+//	            	leftAI = false;
+//	            	downAI = false;
+//	            }
+//	            else if (answer == 4) {
+//	            	downAI = true;
+//	            	upAI = false;
+//	            	rightAI = false;
+//	            	leftAI = false;
+//	            }
+//            }
+//            else {
+//            	aiMove();
+//            }
+//	    }
+//		
+//		/**
+//		 * Checks whether the AIsnake's move is legal, return false if illegal, else true.
+//		 * @return boolean
+//		 */
+//		public boolean verifyLegalMove(int n) {
+//			if (n == 1 && rightAI) {
+//				return false;
+//			}
+//			else if (n == 2 && leftAI) {
+//				return false;
+//			}
+//			else if (n == 3 && downAI) {
+//				return false;
+//			}
+//			else if (n == 4 && upAI) {
+//				return false;
+//			}
+//			if (checkCollision(n)) {
+//				return false;
+//			}
+//			else {
+//				return true;
+//			}
+//		}
+//		
+//		private boolean checkCollision(int n) {
+//			if (n == 1) {				// left
+//				if ((a[0]-w) <= 0) {
+//					return true;
+//				}
+//				else {
+//					for (int z = 1; z < length; z++) {
+//			            if ((z > 4) && ((a[0]-w) == a[z]) || ((a[0]-w) == x[z])) {
+//			            	return true;
+//			            }
+//					}
+//				}
+//			}
+//			else if (n == 2) {			// right
+//				if ((a[0]+w) >= frameSizeX) {
+//					return true;
+//				}
+//				else {
+//					for (int z = 1; z < length; z++) {
+//			            if ((z > 4) && ((a[0]+w) == a[z]) || ((a[0]+w) == x[z])) {
+//			            	return true;
+//			            }
+//					}
+//				}
+//			}
+//			else if (n == 3) {			// up
+//				if ((b[0]+w) >= frameSizeY) {
+//					return true;
+//				}
+//				else {
+//					for (int z = 1; z < length; z++) {
+//			            if ((z > 4) && ((b[0]+w) == b[z]) || ((b[0]+w) == y[z])) {
+//			            	return true;
+//			            }
+//					}
+//				}
+//			}
+//			else if (n == 4) {			// down
+//				if ((b[0]-w) <= 0) {
+//					return true;
+//				}
+//				else {
+//					for (int z = 1; z < length; z++) {
+//			            if ((z > 4) && ((b[0]-w) == b[z]) || ((b[0]-w) == y[z])) {
+//			            	return true;
+//			            }
+//					}
+//				}
+//			}
+//			return false;
+//		}
+		
+		/**
+		 * 
+		 */
 	    private void checkCollision() {
 	        for (int z = 1; z < length; z++) {
 	            if ((z > 4) && ((x[0] == x[z]) && (y[0] == y[z])) || ((a[0] == a[z]) && (b[0] == b[z]))) {
+	            	model.setGameState(GameState.END_GAME);
 	                inGame = false;
 	            }
 	            else if (((x[0] == a[z]) && (y[0] == b[z])) || ((a[0] == x[z]) && (b[0] == y[z])) || ((x[0] == a[0]) && (y[0] == b[0])) || ((a[0] == x[0]) && (b[0] == y[0]))){
+	            	model.setGameState(GameState.END_GAME);
 	            	inGame = false;
 	            }
 	        }
 	        if ((y[0] >= frameSizeY) || (b[0] >= frameSizeY)) {
+	        	model.setGameState(GameState.END_GAME);
 	            inGame = false;
 	        }
 	        else if ((y[0] < 0) || (b[0] < 0)) {
+	        	model.setGameState(GameState.END_GAME);
 	            inGame = false;
 	        }
 	        else if ((x[0] >= frameSizeX) || (a[0] >= frameSizeX)) {
+	        	model.setGameState(GameState.END_GAME);
 	            inGame = false;
 	        }
 	        else if ((x[0] < 0) || (a[0] < 0)) {
+	        	model.setGameState(GameState.END_GAME);
 	            inGame = false;
 	        }
 	        if(!inGame) {
@@ -520,50 +614,49 @@ public class SnakishController extends JPanel {
 	        }
 	    }
 
+	    /**
+	     * 
+	     */
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-
 	        if (inGame) {
 	            length++;
 	            checkCollision();
 	            aiMove();
 	            move();
 	        }
-
 	        repaint();
 	    }
 
+	    /**
+	     * 
+	     * @author Tian Guo, Xin Tong Hu
+	     *
+	     */
 	    private class TAdapter extends KeyAdapter {
-
 	        @Override
 	        public void keyPressed(KeyEvent e) {
-
 	            int key = e.getKeyCode();
-
 	            if ((key == KeyEvent.VK_LEFT) && (!right)) {
 	                left = true;
 	                up = false;
 	                down = false;
 	            }
-
-	            if ((key == KeyEvent.VK_RIGHT) && (!left)) {
+	            else if ((key == KeyEvent.VK_RIGHT) && (!left)) {
 	                right = true;
 	                up = false;
 	                down = false;
 	            }
-
-	            if ((key == KeyEvent.VK_UP) && (!down)) {
+	            else if ((key == KeyEvent.VK_UP) && (!down)) {
 	                up = true;
 	                right = false;
 	                left = false;
 	            }
-
-	            if ((key == KeyEvent.VK_DOWN) && (!up)) {
+	            else if ((key == KeyEvent.VK_DOWN) && (!up)) {
 	                down = true;
 	                right = false;
 	                left = false;
 	            }
-	            
 	            if (key == KeyEvent.VK_ESCAPE && runGame) {
 	            	runGame = false;
 	            	if(inGame){
@@ -574,7 +667,6 @@ public class SnakishController extends JPanel {
 	            		System.exit(0);
 	            	}
 	            }
-	            
 	            if ((key == KeyEvent.VK_ENTER) && (!inGame) && runGame) {
 	            	runGame = false;
 	            	clearGame();

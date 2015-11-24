@@ -82,28 +82,6 @@ public class SnakishModel {
 //        head = iih.getImage();
 //    }
 	
-//	/**
-//	 * Checks whether the snake's move is legal, return false if illegal, else true.
-//	 * @param n
-//	 * @return boolean
-//	 */
-//	
-//	public boolean verifyLegalMove(int n) {
-//		if (n == up & dir1 == down) {
-//			return false;
-//		}
-//		else if (n == right & dir1 == left) {
-//			return false;
-//		}
-//		else if (n == down & dir1 == up) {
-//			return false;
-//		}
-//		else if (n == left & dir1 == right) {
-//			return false;
-//		}
-//		return true;
-//	}
-	
 //	public void gameBegin(int dire1, int dire2) {
 //		setGameState(GameState.IN_PROGRESS);
 //		dir1 = dire1;
