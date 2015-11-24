@@ -6,35 +6,39 @@ public class AI {
 	int left = 2;
 	int right = 3;
 	public int deterMove(int x, int y, boolean[] direction){
+		boolean[] poss= freeMoves(direction);
 		if(y-10 < 0){
 			direction[up] = false;
 		}
-		else if (y+10< 0){
+		else if (y+10> 600){
 			direction[down] = false;
 		}
 		else if (x-10< 0){
-			direction[down] = false;
+			direction[left] = false;
 		}
-		else if (x-10
+		else if (x+10>600) {
+			direction[right] = false;
+		}
+		
 	}
 	public boolean[] freeMoves(boolean[] direction){
-		boolean[] pos = direction;
-		if (pos[up] = true) {
-			pos[down] = false;
-			pos[left] = true;
-			pos[right] = true;
+		boolean[] possible = direction;
+		if (possible[up] = true) {
+			possible[down] = false;
+			possible[left] = true;
+			possible[right] = true;
 		}
 		else if (direction[down] = true){
-			pos[up] = false;
-			pos[left] = true;
-			pos[right] = true;
+			possible[up] = false;
+			possible[left] = true;
+			possible[right] = true;
 		}
-		else if (pos[left] = true) {
-			pos[right] = false;
-			pos[up] = true;
-			pos[down] = true;
+		else if (possible[left] = true) {
+			possible[right] = false;
+			possible[up] = true;
+			possible[down] = true;
 		}
-		return pos;
+		return possible;
 	}
 	public int generateMove(){
 		return 0;
