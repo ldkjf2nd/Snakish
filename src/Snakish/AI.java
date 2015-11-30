@@ -38,8 +38,8 @@ public class AI {
 		else if (x+w > frameSizeX) {
 			direction[rightAI] = false;
 		}
-		boolean[] possible = freeMoves();
-		int move = generateMove(possible);
+		freeMoves();
+		int move = generateMove();
 		return move;
 	}
 	
@@ -67,7 +67,7 @@ public class AI {
 		return direction;
 	}
 	
-	public int generateMove(boolean[] direction) {
+	public int generateMove() {
 		Random rn = new Random();
 		int answer = rn.nextInt(4);
 		if (direction[answer]) {
