@@ -1,15 +1,8 @@
 package Snakish;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.text.*;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -17,14 +10,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-
 import java.util.Random;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.Timer;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+
+
+//import javafx.scene.text.Font;
 import Snakish.SnakishModel.GameState;
 import Snakish.SnakishModel.PlayingState;
 
@@ -40,6 +40,7 @@ public class SnakishController extends JPanel {
 	private int frameSizeX = 600;										// x size of the frame
 	private int frameSizeY = 600;										// y size of the frame
 	private boolean runGame;
+	private String msg;
 	
 //	public int up = 1;													// 4 directions of where the snake can move
 //	public int right = 2;
@@ -246,48 +247,7 @@ public class SnakishController extends JPanel {
 		Text.setText(text);
 		Text.setBounds(100, tfName.getY(), 400, 200);
 		Text.setVisible(true);
-	}
-	
-	/**
-	 * 
-	 */
-	void endGame() {
-		model.setPlayingState(PlayingState.PLAYER_WIN);
-		model.setGameState(GameState.END_GAME);
-		frame.dispose();
-		frame = view.getJFrame();
-		displayEndGame();
-		if (view.esc) {
-			checkEsc();
-		}
-		else if (view.enter) {
-			if (model.getGameState() == GameState.END_GAME) {
-				clear();
-				startGame();
-			}
-		}
-	}
-	
-	/**
-	 * 
-	 */
-	 void displayEndGame() {
-		System.out.println("urgh");
-//		if (model.getPlayingState() == PlayingState.PLAYER_WIN){
-			//display text on panel
-			displayText(model.name + " wins! \n \n"
-					+ "Press ESC to exit \n \n"
-					+ "Press ENTER to restart");
-			frame.add(Text);
-//			frame.setVisible(true);
-			System.out.println("urghhhh");
-//		}
-//		else if (model.getPlayingState() == PlayingState.PC_WIN){
-//			displayText("PC wins! \n \n"
-//					+ "Press ESC to exit \n \n"
-//					+ "Press ENTER to restart");
-//			frame.add(Text);
-//		}
+		Text.setEditable(false);
 	}
 	
 	/**
@@ -336,7 +296,6 @@ public class SnakishController extends JPanel {
 	    private Image head;
 
 	    public Snake() {
-//	        addKeyListener(new TAdapter());
 	        setFocusable(true);
 	        setPreferredSize(new Dimension(frameSizeX, frameSizeY));
 	        loadImages();
@@ -355,7 +314,6 @@ public class SnakishController extends JPanel {
 	    }
 
 	    private void initGame() {
-//	    	addKeyListener(new TAdapter());
 	        x[0] = model.x1;
 	        y[0] = model.y1;
 	        a[0] = model.x2;
@@ -372,7 +330,6 @@ public class SnakishController extends JPanel {
 	    @Override
 	    public void paintComponent(Graphics g) {
 	        super.paintComponent(g);
-
 	        doDrawing(g);
 	    }
 	    
@@ -395,19 +352,87 @@ public class SnakishController extends JPanel {
 	            Toolkit.getDefaultToolkit().sync();
 	        }
 	        else {
-	            gameOver(g);;
+	            gameOver(g);
 	        }        
 	    }
 
 	    private void gameOver(Graphics g) {
-	        String msg = "press ESC to exit, press Enter to restart";
-	        Font small = new Font("Helvetica", Font.BOLD, 14);
-	        FontMetrics metr = getFontMetrics(small);
-
+	    	model.setPlayingState(PlayingState.PLAYER_WIN);
+			model.setGameState(GameState.END_GAME);
+			if (model.getPlayingState() == PlayingState.PLAYER_WIN){
+				//display text on panel
+				msg = model.name + " wins! \n \n"
+						+ "Press ESC to exit \n \n"
+						+ "Press ENTER to restart";
+			}
+			else if (model.getPlayingState() == PlayingState.PC_WIN){
+				msg = "PC wins! \n \n"
+						+ "Press ESC to exit \n \n"
+						+ "Press ENTER to restart";
+			}
+//	    	g.dispose();
+//	    	endGame();
+	        Font font = Text.getFont();
+//	        Font small = new Font("Helvetica", Font.BOLD, 14);
+//	        FontMetrics metr = getFontMetrics(small);
 	        g.setColor(Color.black);
-	        g.setFont(small);
-	        g.drawString(msg, (frameSizeX - metr.stringWidth(msg)) / 2, frameSizeY / 2);
+	        g.setFont(font);
+	        g.drawString(msg, tfName.getX() - 100, tfName.getY());
+			if (view.esc) {
+				checkEsc();
+			}
+			else if (view.enter) {
+				if (model.getGameState() == GameState.END_GAME) {
+					clear();
+					startGame();
+				}
+			}
 	    }
+	    
+//		/**
+//		 * 
+//		 */
+//		void endGame() {
+//			model.setPlayingState(PlayingState.PLAYER_WIN);
+//			model.setGameState(GameState.END_GAME);
+//			frame.dispose();
+//			frame = view.getJFrame();
+//			addKeyListener(new TAdapter());
+//			displayEndGame();
+//			if (view.esc) {
+//				checkEsc();
+//			}
+//			else if (view.enter) {
+//				if (model.getGameState() == GameState.END_GAME) {
+//					clear();
+//					startGame();
+//				}
+//			}
+//		}
+		
+//		/**
+//		 * 
+//		 */
+//		 void displayEndGame() {
+////			addKeyListener(new TAdapter());
+//			System.out.println("urgh");
+//			if (model.getPlayingState() == PlayingState.PLAYER_WIN){
+//				//display text on panel
+//				displayText(model.name + " wins! \n \n"
+//						+ "Press ESC to exit \n \n"
+//						+ "Press ENTER to restart");
+//				frame.add(Text);
+//				frame.setVisible(true);
+//				Text.addKeyListener(new TAdapter());
+//				System.out.println("urghhhh");
+//			}
+//			else if (model.getPlayingState() == PlayingState.PC_WIN){
+//				displayText("PC wins! \n \n"
+//						+ "Press ESC to exit \n \n"
+//						+ "Press ENTER to restart");
+//				frame.add(Text);
+//			}
+//		}
 
 	    private void move() {
 	        for (int z = length; z > 0; z--) {
@@ -599,7 +624,7 @@ public class SnakishController extends JPanel {
 	        if (inGame) {
 	            length++;
 	            checkCollision();
-	            aiMove();
+//	            aiMove();
 	            move();
 	        }
 	        repaint();
@@ -636,7 +661,7 @@ public class SnakishController extends JPanel {
 	            }
 	            if (key == KeyEvent.VK_ESCAPE && runGame) {
 	            	runGame = false;
-	            	if(inGame){
+	            	if(model.getPlayingState() == null) {
 		            	System.out.println("exit");
 		            	clearAll();
 	            	}
@@ -644,7 +669,7 @@ public class SnakishController extends JPanel {
 	            		System.exit(0);
 	            	}
 	            }
-	            if ((key == KeyEvent.VK_ENTER) && (!inGame) && runGame) {
+	            if ((key == KeyEvent.VK_ENTER) && (model.getPlayingState() != null) && runGame) {
 	            	runGame = false;
 	            	clearGame();
 	            }
