@@ -322,6 +322,7 @@ public class SnakishController extends JPanel {
 	        timer = new Timer(DELAY, this);
 	    	addKeyListener(new TAdapter());
 	    	model.setGameState(GameState.IN_PROGRESS);
+	    	model.setPlayingState(null);
 	        if (left == true || right == true || up == true || down == true) {
 	        	timer.start();
 	        }
@@ -611,7 +612,7 @@ public class SnakishController extends JPanel {
 	        	model.setGameState(GameState.END_GAME);
 	        	model.setPlayingState(PlayingState.PC_WIN);
 	        }
-	        if(model.getPlayingState() != null) {
+	        if (model.getPlayingState() != null) {
 	            timer.stop();
 	        }
 	    }
