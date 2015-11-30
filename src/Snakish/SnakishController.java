@@ -335,7 +335,7 @@ public class SnakishController extends JPanel {
 	    }
 	    
 	    private void doDrawing(Graphics g) {
-	        if (inGame) {
+	        if (model.getGameState() == GameState.IN_PROGRESS) {
 	            for (int z = 0; z < length; z++) {
 	                if (z == 0) {
 	                    g.drawImage(head, x[z], y[z], this);
@@ -612,7 +612,7 @@ public class SnakishController extends JPanel {
 	        	model.setGameState(GameState.END_GAME);
 	        	model.setPlayingState(PlayingState.PC_WIN);
 	        }
-	        if (model.getPlayingState() != null) {
+	        if (model.getGameState() == GameState.END_GAME) {
 	            timer.stop();
 	        }
 	    }
@@ -662,7 +662,7 @@ public class SnakishController extends JPanel {
 	            }
 	            if (key == KeyEvent.VK_ESCAPE && runGame) {
 	            	runGame = false;
-	            	if(model.getPlayingState() == null) {
+	            	if(model.getGameState() == GameState.IN_PROGRESS) {
 		            	System.out.println("exit");
 		            	clearAll();
 	            	}
@@ -670,7 +670,7 @@ public class SnakishController extends JPanel {
 	            		System.exit(0);
 	            	}
 	            }
-	            if ((key == KeyEvent.VK_ENTER) && (model.getPlayingState() != null) && runGame) {
+	            if ((key == KeyEvent.VK_ENTER) && (model.getGameState() == GameState.END_GAME) && runGame) {
 	            	runGame = false;
 	            	clearGame();
 	            }
