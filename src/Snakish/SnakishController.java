@@ -467,119 +467,119 @@ public class SnakishController extends JPanel {
 	        }
 	    }
 	    
-	    /**
-	     * 
-	     */
-	    private void aiMove() {
-            Random rn = new Random();
-            int answer = rn.nextInt(4) + 1;		// 1 represents left, 2 represents right, 3 represents up, 4 represents down
-            if (verifyLegalMove(answer)) {
-	            if (answer == 1) {
-	            	leftAI = true;
-	            	rightAI = false;
-	            	upAI = false;
-	            	downAI = false;
-	            }
-	            else if (answer == 2) {
-	            	rightAI = true;
-	            	leftAI = false;
-	            	upAI = false;
-	            	downAI = false;
-	            }
-	            else if (answer == 3) {
-	            	upAI = true;
-	            	rightAI = false;
-	            	leftAI = false;
-	            	downAI = false;
-	            }
-	            else if (answer == 4) {
-	            	downAI = true;
-	            	upAI = false;
-	            	rightAI = false;
-	            	leftAI = false;
-	            }
-            }
-            else {
-            	aiMove();
-            }
-	    }
-		
-		/**
-		 * Checks whether the AIsnake's move is legal, return false if illegal, else true.
-		 * @return boolean
-		 */
-		public boolean verifyLegalMove(int n) {
-			if (n == 1 && rightAI) {
-				return false;
-			}
-			else if (n == 2 && leftAI) {
-				return false;
-			}
-			else if (n == 3 && downAI) {
-				return false;
-			}
-			else if (n == 4 && upAI) {
-				return false;
-			}
-			if (checkCollision(n)) {
-				return false;
-			}
-			else {
-				return true;
-			}
-		}
-		
-		private boolean checkCollision(int n) {
-			if (n == 1) {				// left
-				if ((a[0]-w) <= 0) {
-					return true;
-				}
-				else {
-					for (int z = 1; z < length; z++) {
-			            if ((z > 4) && ((a[0]-w) == a[z]) || ((a[0]-w) == x[z])) {
-			            	return true;
-			            }
-					}
-				}
-			}
-			else if (n == 2) {			// right
-				if ((a[0]+w) >= frameSizeX) {
-					return true;
-				}
-				else {
-					for (int z = 1; z < length; z++) {
-			            if ((z > 4) && ((a[0]+w) == a[z]) || ((a[0]+w) == x[z])) {
-			            	return true;
-			            }
-					}
-				}
-			}
-			else if (n == 3) {			// up
-				if ((b[0]+w) >= frameSizeY) {
-					return true;
-				}
-				else {
-					for (int z = 1; z < length; z++) {
-			            if ((z > 4) && ((b[0]+w) == b[z]) || ((b[0]+w) == y[z])) {
-			            	return true;
-			            }
-					}
-				}
-			}
-			else if (n == 4) {			// down
-				if ((b[0]-w) <= 0) {
-					return true;
-				}
-				else {
-					for (int z = 1; z < length; z++) {
-			            if ((z > 4) && ((b[0]-w) == b[z]) || ((b[0]-w) == y[z])) {
-			            	return true;
-			            }
-					}
-				}
-			}
-			return false;
-		}
+//	    /**
+//	     * 
+//	     */
+//	    private void aiMove() {
+//            Random rn = new Random();
+//            int answer = rn.nextInt(4) + 1;		// 1 represents left, 2 represents right, 3 represents up, 4 represents down
+//            if (verifyLegalMove(answer)) {
+//	            if (answer == 1) {
+//	            	leftAI = true;
+//	            	rightAI = false;
+//	            	upAI = false;
+//	            	downAI = false;
+//	            }
+//	            else if (answer == 2) {
+//	            	rightAI = true;
+//	            	leftAI = false;
+//	            	upAI = false;
+//	            	downAI = false;
+//	            }
+//	            else if (answer == 3) {
+//	            	upAI = true;
+//	            	rightAI = false;
+//	            	leftAI = false;
+//	            	downAI = false;
+//	            }
+//	            else if (answer == 4) {
+//	            	downAI = true;
+//	            	upAI = false;
+//	            	rightAI = false;
+//	            	leftAI = false;
+//	            }
+//            }
+//            else {
+//            	aiMove();
+//            }
+//	    }
+//		
+//		/**
+//		 * Checks whether the AIsnake's move is legal, return false if illegal, else true.
+//		 * @return boolean
+//		 */
+//		public boolean verifyLegalMove(int n) {
+//			if (n == 1 && rightAI) {
+//				return false;
+//			}
+//			else if (n == 2 && leftAI) {
+//				return false;
+//			}
+//			else if (n == 3 && downAI) {
+//				return false;
+//			}
+//			else if (n == 4 && upAI) {
+//				return false;
+//			}
+//			if (checkCollision(n)) {
+//				return false;
+//			}
+//			else {
+//				return true;
+//			}
+//		}
+//		
+//		private boolean checkCollision(int n) {
+//			if (n == 1) {				// left
+//				if ((a[0]-w) <= 0) {
+//					return true;
+//				}
+//				else {
+//					for (int z = 1; z < length; z++) {
+//			            if ((z > 4) && ((a[0]-w) == a[z]) || ((a[0]-w) == x[z])) {
+//			            	return true;
+//			            }
+//					}
+//				}
+//			}
+//			else if (n == 2) {			// right
+//				if ((a[0]+w) >= frameSizeX) {
+//					return true;
+//				}
+//				else {
+//					for (int z = 1; z < length; z++) {
+//			            if ((z > 4) && ((a[0]+w) == a[z]) || ((a[0]+w) == x[z])) {
+//			            	return true;
+//			            }
+//					}
+//				}
+//			}
+//			else if (n == 3) {			// up
+//				if ((b[0]+w) >= frameSizeY) {
+//					return true;
+//				}
+//				else {
+//					for (int z = 1; z < length; z++) {
+//			            if ((z > 4) && ((b[0]+w) == b[z]) || ((b[0]+w) == y[z])) {
+//			            	return true;
+//			            }
+//					}
+//				}
+//			}
+//			else if (n == 4) {			// down
+//				if ((b[0]-w) <= 0) {
+//					return true;
+//				}
+//				else {
+//					for (int z = 1; z < length; z++) {
+//			            if ((z > 4) && ((b[0]-w) == b[z]) || ((b[0]-w) == y[z])) {
+//			            	return true;
+//			            }
+//					}
+//				}
+//			}
+//			return false;
+//		}
 		
 		/**
 		 * 
@@ -588,30 +588,30 @@ public class SnakishController extends JPanel {
 	        for (int z = 1; z < length; z++) {
 	            if ((z > 4) && ((x[0] == x[z]) && (y[0] == y[z])) || ((a[0] == a[z]) && (b[0] == b[z]))) {
 	            	model.setGameState(GameState.END_GAME);
-	                inGame = false;
+	                model.setPlayingState(PlayingState.PC_WIN);
 	            }
 	            else if (((x[0] == a[z]) && (y[0] == b[z])) || ((a[0] == x[z]) && (b[0] == y[z])) || ((x[0] == a[0]) && (y[0] == b[0])) || ((a[0] == x[0]) && (b[0] == y[0]))){
 	            	model.setGameState(GameState.END_GAME);
-	            	inGame = false;
+	            	model.setPlayingState(PlayingState.PC_WIN);
 	            }
 	        }
 	        if ((y[0] >= frameSizeY) || (b[0] >= frameSizeY)) {
 	        	model.setGameState(GameState.END_GAME);
-	            inGame = false;
+	        	model.setPlayingState(PlayingState.PC_WIN);
 	        }
 	        else if ((y[0] < 0) || (b[0] < 0)) {
 	        	model.setGameState(GameState.END_GAME);
-	            inGame = false;
+	        	model.setPlayingState(PlayingState.PC_WIN);
 	        }
 	        else if ((x[0] >= frameSizeX) || (a[0] >= frameSizeX)) {
 	        	model.setGameState(GameState.END_GAME);
-	            inGame = false;
+	        	model.setPlayingState(PlayingState.PC_WIN);
 	        }
 	        else if ((x[0] < 0) || (a[0] < 0)) {
 	        	model.setGameState(GameState.END_GAME);
-	            inGame = false;
+	        	model.setPlayingState(PlayingState.PC_WIN);
 	        }
-	        if(!inGame) {
+	        if(model.getPlayingState() != null) {
 	            timer.stop();
 	        }
 	    }
@@ -621,7 +621,7 @@ public class SnakishController extends JPanel {
 	     */
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
-	        if (inGame) {
+	        if (model.getPlayingState() == null) {
 	            length++;
 	            checkCollision();
 //	            aiMove();
