@@ -11,12 +11,13 @@ public class AI {
 	int frameSizeX = 600;
 	int frameSizeY = 600;
     private final int maxSize = 1800;
-    private final int x[] = new int[maxSize];
-    private final int y[] = new int[maxSize];
+    private final int xp[] = new int[maxSize];
+    private final int yp[] = new int[maxSize];
     private final int a[] = new int[maxSize];
     private final int b[] = new int[maxSize];
     private int length;
     private boolean[] direction = new boolean[4];
+    private boolean picked;
 	
 	/**
 	 * 
@@ -25,25 +26,38 @@ public class AI {
 	 * @param direction: an array of boolean representing the move-able directions
 	 * @return
 	 */
-	public int determineMove(int x, int y) {
-		if(y-w < 0){
+	public void determineMove(int x, int y) {
+		freeMoves();
+		if((y-w < 0) || ((x == xp[0]) && (y-w == yp[0]))){
 			direction[upAI] = false;
 		}
-		else if (y+w > frameSizeY){
+		if ((y+w > frameSizeY) || ((x == xp[0]) && (y+w == yp[0]))){
 			direction[downAI] = false;
 		}
-		else if (x-w < 0){
+		if ((x-w < 0) || ((x-w == xp[0]) && (y == yp[0]))){
 			direction[leftAI] = false;
 		}
-		else if (x+w > frameSizeX) {
+		if ((x+w > frameSizeX) || ((x+w == xp[0]) && (y == yp[0]))){
 			direction[rightAI] = false;
 		}
-		freeMoves();
-		int move = generateMove();
-		return move;
+		
+		for (int i = 1; i<maxSize; i++){
+			if(((x == xp[i]) && (y-w == yp[i])) || ((x == a[i]) && (y-w == a[i]))){
+				direction[upAI] = false;
+			}
+			if(((x == xp[i]) && (y+w == yp[0])) || ((x == xp[i]) && (y+w == yp[0]))){
+				direction[downAI] = false;
+			}
+			if(((x-w == xp[i]) && (y == yp[0])) || ((x == xp[i]) && (y+w == yp[0]))){
+				direction[leftAI] = false;
+			}
+			if(((x+w == xp[i]) && (y == yp[i])) || ((x == xp[i]) && (y+w == yp[0]))){
+				direction[rightAI] = false;
+			}
+		}
 	}
 	
-	public boolean[] freeMoves(){
+	public void freeMoves(){
 		if (direction[upAI] = true) {
 			direction[downAI] = false;
 			direction[leftAI] = true;
@@ -64,18 +78,48 @@ public class AI {
 			direction[upAI] = true;
 			direction[downAI] = true;
 		}
-		return direction;
 	}
 	
-	public int generateMove() {
-		Random rn = new Random();
-		int answer = rn.nextInt(4);
-		if (direction[answer]) {
-			if (checkCollision(answer)) {
-				return answer;
+	public void generateMove() {
+		int lastMove = 0;
+		for(int i = 0; i< 4; i++) {
+			if(direction[i] == true) {
+				lastMove = i;
+				break;
 			}
 		}
-		return 0;
+		determineMove(a[0],b[0]);
+		if(direction[lastMove]) {
+			Random rn = new Random();
+			
+			if (rn.nextBoolean()) {
+				direction[lastMove] = true;
+				for (int i = 0; i < 4; i++) {
+					if(i != lastMove){
+						direction[i] = false;
+					}
+				}
+			}
+			else {
+				Moving();
+			}
+		}
+		else {
+			Moving();
+		}
+	}
+	
+	public void Moving() {
+		for(int i = 0; i < 4; i++) {
+			if (!picked) {
+				if(direction[i] == true){
+					picked = true;
+				}
+			}
+			else {
+				direction[i] = false;
+			}
+		}
 	}
 	
 	private boolean checkCollision(int n) {
@@ -85,7 +129,7 @@ public class AI {
 			}
 			else {
 				for (int z = 1; z < length; z++) {
-		            if ((z > 4) && ((a[0]-w) == a[z]) || ((a[0]-w) == x[z])) {
+		            if ((z > 4) && ((a[0]-w) == a[z]) || ((a[0]-w) == xp[z])) {
 		            	return true;
 		            }
 				}
@@ -97,7 +141,7 @@ public class AI {
 			}
 			else {
 				for (int z = 1; z < length; z++) {
-		            if ((z > 4) && ((a[0]+w) == a[z]) || ((a[0]+w) == x[z])) {
+		            if ((z > 4) && ((a[0]+w) == a[z]) || ((a[0]+w) == xp[z])) {
 		            	return true;
 		            }
 				}
@@ -109,7 +153,7 @@ public class AI {
 			}
 			else {
 				for (int z = 1; z < length; z++) {
-		            if ((z > 4) && ((b[0]+w) == b[z]) || ((b[0]+w) == y[z])) {
+		            if ((z > 4) && ((b[0]+w) == b[z]) || ((b[0]+w) == yp[z])) {
 		            	return true;
 		            }
 				}
@@ -121,7 +165,7 @@ public class AI {
 			}
 			else {
 				for (int z = 1; z < length; z++) {
-		            if ((z > 4) && ((b[0]-w) == b[z]) || ((b[0]-w) == y[z])) {
+		            if ((z > 4) && ((b[0]-w) == b[z]) || ((b[0]-w) == yp[z])) {
 		            	return true;
 		            }
 				}
