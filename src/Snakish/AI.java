@@ -20,7 +20,7 @@ public class AI {
     private final int a[] = new int[maxSize];
     private final int b[] = new int[maxSize];
     private int length;
-    private static boolean[] ai = new boolean[4];
+    private boolean[] ai = new boolean[4];
     private boolean picked;
 	
 	/**
@@ -62,22 +62,22 @@ public class AI {
 	}
 	
 	public void freeMoves(){
-		if (ai[upAI] = true) {
+		if (ai[upAI] == true) {
 			ai[downAI] = false;
 			ai[leftAI] = true;
 			ai[rightAI] = true;
 		}
-		else if (ai[downAI] = true){
+		else if (ai[downAI] == true){
 			ai[upAI] = false;
 			ai[leftAI] = true;
 			ai[rightAI] = true;
 		}
-		else if (ai[leftAI] = true) {
+		else if (ai[leftAI] == true) {
 			ai[rightAI] = false;
 			ai[upAI] = true;
 			ai[downAI] = true;
 		}
-		else {
+		else if(ai[rightAI] == false) {
 			ai[leftAI] = false;
 			ai[upAI] = true;
 			ai[downAI] = true;
