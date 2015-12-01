@@ -80,7 +80,6 @@ public class SnakishController extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				model.setGameState(GameState.NEW_GAME);
 				view.remakeJFrame();
-				// clear();
 				startGame();
 			}
 		});
@@ -97,6 +96,7 @@ public class SnakishController extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if (model.getGameState() == GameState.ABOUT) {
 					clear();
+					frame.remove(menuPanel);
 					menuPanel = new JPanel();
 					initializeMenu();
 				} else if (model.getGameState() == GameState.TITLE_PAGE) {
@@ -133,17 +133,19 @@ public class SnakishController extends JPanel {
 	 * 
 	 */
 	private void startGame() {
+//		setDoubleBuffered(true);
 		model.setGameState(GameState.IN_PROGRESS);
 		name = tfName.getText();
 		if (name.equals("Name")) {
 			name = "Player";
 		}
-		// runGame = true;
 		clear();
+		frame.remove(menuPanel);
+//		menuPanel.setVisible(false);
 		frame.setVisible(false);
 		frame.dispose();
-		// view.getJFrame();
-		// view.remakeJFrame();
+//		view.remakeJFrame();
+//		view.getJFrame();
 		s = new Snake();
 		frame.add(s);
 		frame.setVisible(true);
@@ -213,15 +215,6 @@ public class SnakishController extends JPanel {
 	// model.counter=0;
 	// model.setGameState(GameState.DEMO);
 	// demo();
-	// }
-	// }
-	// else if (model.getGameState() == GameState.IN_PROGRESS) {
-	// if (!model.snakes[0].isCrashed && !model.snakes[1].isCrashed) {
-	// // model.verifyLegalMove(model.dir1);
-	// }
-	// else {
-	// model.setGameState(GameState.END_GAME);
-	// endGame();
 	// }
 	// }
 	// }
@@ -579,6 +572,7 @@ public class SnakishController extends JPanel {
 				move();
 			}
 			repaint();
+			setDoubleBuffered(true);
 		}
 
 		/**
