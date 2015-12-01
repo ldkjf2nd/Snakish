@@ -3,6 +3,10 @@ package Snakish;
 import java.util.Random;
 
 public class AI {
+	private boolean left = false;
+	private boolean right = false;
+	private boolean up = false;
+	private boolean down = true;
 	int upAI = 0;
 	int downAI = 1;
 	int leftAI = 2;
@@ -16,7 +20,7 @@ public class AI {
     private final int a[] = new int[maxSize];
     private final int b[] = new int[maxSize];
     private int length;
-    private boolean[] direction = new boolean[4];
+    private static boolean[] ai = new boolean[4];
     private boolean picked;
 	
 	/**
@@ -29,74 +33,74 @@ public class AI {
 	public void determineMove(int xi, int yi) {
 		freeMoves();
 		if((yi-w < 0) || ((xi == x[0]) && (yi-w == y[0]))){
-			direction[upAI] = false;
+			ai[upAI] = false;
 		}
 		if ((yi+w > frameSizeY) || ((xi == x[0]) && (yi+w == y[0]))){
-			direction[downAI] = false;
+			ai[downAI] = false;
 		}
 		if ((xi-w < 0) || ((xi-w == x[0]) && (yi == y[0]))){
-			direction[leftAI] = false;
+			ai[leftAI] = false;
 		}
 		if ((xi+w > frameSizeX) || ((xi+w == x[0]) && (yi == y[0]))){
-			direction[rightAI] = false;
+			ai[rightAI] = false;
 		}
 		
 		for (int i = 1; i<maxSize; i++){
-			if(((xi == x[i]) && (yi-w == y[i])) || ((xi == a[i]) && (yi-w == a[i]))){
-				direction[upAI] = false;
+			if(((xi == x[i]) && (yi-w == y[i])) || ((xi == a[i]) && (yi-w == b[i]))){
+				ai[upAI] = false;
 			}
-			if(((xi == x[i]) && (yi+w == y[0])) || ((xi == x[i]) && (yi+w == y[0]))){
-				direction[downAI] = false;
+			if(((xi == x[i]) && (yi+w == y[i])) || ((xi == a[i]) && (yi+w == b[i]))){
+				ai[downAI] = false;
 			}
-			if(((xi-w == x[i]) && (yi == y[0])) || ((xi == x[i]) && (yi+w == y[0]))){
-				direction[leftAI] = false;
+			if(((xi-w == x[i]) && (yi == y[i])) || ((xi-w == a[i]) && (yi == b[i]))){
+				ai[leftAI] = false;
 			}
-			if(((xi+w == x[i]) && (yi == y[i])) || ((xi == x[i]) && (yi+w == y[0]))){
-				direction[rightAI] = false;
+			if(((xi+w == x[i]) && (yi == y[i])) || ((xi+w == a[i]) && (yi == b[i]))){
+				ai[rightAI] = false;
 			}
 		}
 	}
 	
 	public void freeMoves(){
-		if (direction[upAI] = true) {
-			direction[downAI] = false;
-			direction[leftAI] = true;
-			direction[rightAI] = true;
+		if (ai[upAI] = true) {
+			ai[downAI] = false;
+			ai[leftAI] = true;
+			ai[rightAI] = true;
 		}
-		else if (direction[downAI] = true){
-			direction[upAI] = false;
-			direction[leftAI] = true;
-			direction[rightAI] = true;
+		else if (ai[downAI] = true){
+			ai[upAI] = false;
+			ai[leftAI] = true;
+			ai[rightAI] = true;
 		}
-		else if (direction[leftAI] = true) {
-			direction[rightAI] = false;
-			direction[upAI] = true;
-			direction[downAI] = true;
+		else if (ai[leftAI] = true) {
+			ai[rightAI] = false;
+			ai[upAI] = true;
+			ai[downAI] = true;
 		}
 		else {
-			direction[leftAI] = false;
-			direction[upAI] = true;
-			direction[downAI] = true;
+			ai[leftAI] = false;
+			ai[upAI] = true;
+			ai[downAI] = true;
 		}
 	}
 	
 	public void generateMove() {
 		int lastMove = 0;
 		for(int i = 0; i< 4; i++) {
-			if(direction[i] == true) {
+			if(ai[i] == true) {
 				lastMove = i;
 				break;
 			}
 		}
 		determineMove(a[0],b[0]);
-		if(direction[lastMove]) {
+		if(ai[lastMove]) {
 			Random rn = new Random();
 			
 			if (rn.nextBoolean()) {
-				direction[lastMove] = true;
+//				ai[lastMove] = true;
 				for (int i = 0; i < 4; i++) {
 					if(i != lastMove){
-						direction[i] = false;
+						ai[i] = false;
 					}
 				}
 			}
@@ -110,15 +114,73 @@ public class AI {
 	}
 	
 	public void Moving() {
+		picked = false;
 		for(int i = 0; i < 4; i++) {
 			if (!picked) {
-				if(direction[i] == true){
+				if(ai[i] == true){
 					picked = true;
 				}
 			}
 			else {
-				direction[i] = false;
+				ai[i] = false;
 			}
 		}
+//		picked = false;
+	}
+	private void move() {
+		generateMove();
+		for (int z = length; z > 0; z--) {
+			x[z] = x[(z - 1)];
+			y[z] = y[(z - 1)];
+			a[z] = a[(z - 1)];
+			b[z] = b[(z - 1)];
+		}
+		if (left) {
+			x[0] -= w;
+		} else if (right) {
+			x[0] += w;
+		} else if (up) {
+			y[0] -= w;
+		} else if (down) {
+			y[0] += w;
+		}
+		if (ai[leftAI]) {
+			a[0] -= w;
+		} else if (ai[rightAI]) {
+			a[0] += w;
+		} else if (ai[upAI]) {
+			b[0] -= w;
+		} else if (ai[downAI]) {
+			b[0] += w;
+		}
+	}
+	public static void main(String[] args) {
+		//Start Connect Four Program
+		AI test = new AI();
+		test.x[0] = 550;
+		test.y[0] = 320;
+		test.a[0] = 550;
+		test.b[0] = 300;
+		test.ai[1] = true;
+		test.move();
+		System.out.println(test.ai[0]);
+		System.out.println(test.ai[1]);
+		System.out.println(test.ai[2]);
+		System.out.println(test.ai[3]);
+		test.move();
+		System.out.println(test.ai[0]);
+		System.out.println(test.ai[1]);
+		System.out.println(test.ai[2]);
+		System.out.println(test.ai[3]);
+		test.move();
+		System.out.println(test.ai[0]);
+		System.out.println(test.ai[1]);
+		System.out.println(test.ai[2]);
+		System.out.println(test.ai[3]);
+		test.move();
+		System.out.println(test.ai[0]);
+		System.out.println(test.ai[1]);
+		System.out.println(test.ai[2]);
+		System.out.println(test.ai[3]);
 	}
 }
