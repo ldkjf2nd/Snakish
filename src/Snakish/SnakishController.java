@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -286,13 +287,19 @@ public class SnakishController extends JPanel {
 		 * 
 		 */
 		private void loadImages() {
-			ImageIcon iip = new ImageIcon("src/player.png");
+			URL playerUrl = SnakishController.class.getResource(
+                    "/player.png");
+			ImageIcon iip = new ImageIcon(playerUrl);
 			player = iip.getImage();
 
-			ImageIcon iia = new ImageIcon("src/pc.png");
+			URL pcUrl = SnakishController.class.getResource(
+                    "/pc.png");
+			ImageIcon iia = new ImageIcon(pcUrl);
 			AI = iia.getImage();
 
-			ImageIcon iih = new ImageIcon("src/head.png");
+			URL headUrl = SnakishController.class.getResource(
+                    "/head.png");
+			ImageIcon iih = new ImageIcon(headUrl);
 			head = iih.getImage();
 		}
 
