@@ -37,7 +37,6 @@ public class SnakishModel {
 //	private int player = 1;
 //	private int pc = 2;
 	
-	String name;							// Player's name
 //	boolean playerExists;
 //	boolean demo;
 	

@@ -12,7 +12,7 @@ import javax.swing.*;
  */
 public class SnakishView extends JFrame {
 	private SnakishModel model;
-	private JFrame frame;
+	JFrame frame;
 	private int frameSizeX = 600;			// x size of the frame
 	private int frameSizeY = 600;			// y size of the frame
 	Container cp = getContentPane();

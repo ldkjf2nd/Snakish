@@ -52,7 +52,7 @@ public class SnakishController extends JPanel {
 	// private Image pc;
 	// private Image head;
 
-	JTextField tfName = new JTextField("Enter Name"); // textfield for the
+	JTextField tfName = new JTextField("Name"); // textfield for the
 														// player to enter name
 	private JButton btnSG = new JButton("Start Game"); // start game button
 	private JButton btnA = new JButton("About"); // about button
@@ -83,10 +83,8 @@ public class SnakishController extends JPanel {
 	 * initializes main menu
 	 */
 	public void initialize() {
-
-		model.setGameState(GameState.TITLE_PAGE);
-		System.out.println("start");
-		frame = new JFrame();
+//		System.out.println("start");
+		frame = view.frame;
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(frameSizeX, frameSizeY);
 		initializeMenu();
@@ -96,12 +94,13 @@ public class SnakishController extends JPanel {
 	 * creates buttons and textfield for main menu
 	 */
 	private void initializeMenu() {
-		// Setting button function
-		System.out.println("menu");
+		model.setGameState(GameState.TITLE_PAGE);
+//		System.out.println("menu");
 		btnSG.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.setGameState(GameState.NEW_GAME);
-				clear();
+				view.remakeJFrame();
+//				clear();
 				startGame();
 			}
 		});
@@ -118,7 +117,7 @@ public class SnakishController extends JPanel {
 		btnE.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (model.getGameState() == GameState.ABOUT) {
-					model.setGameState(GameState.TITLE_PAGE);
+//					model.setGameState(GameState.TITLE_PAGE);
 					clear();
 					menuPanel = new JPanel();
 					initializeMenu();
@@ -128,7 +127,6 @@ public class SnakishController extends JPanel {
 				}
 			}
 		});
-
 		tfName.setBounds(frameSizeX / 2 - 60, 200, 120, 30); // location of the
 																// textfield
 		tfName.setEditable(true); // should be editable for player to enter name
@@ -148,7 +146,6 @@ public class SnakishController extends JPanel {
 																		// the
 																		// button
 		menuPanel.add(btnE);
-
 		menuPanel.setLayout(null);
 		frame.add(menuPanel);
 		frame.setVisible(true);
@@ -160,10 +157,16 @@ public class SnakishController extends JPanel {
 	 */
 	private void startGame() {
 		model.setGameState(GameState.IN_PROGRESS);
+		name = tfName.getText();
+		if (name.equals("Name")) {
+			name = "Player";
+		}
 		runGame = true;
 		clear();
 		frame.setVisible(false);
 		frame.dispose();
+//		view.getJFrame();
+//		view.remakeJFrame();
 		s = new Snake();
 		frame.add(s);
 		frame.setVisible(true);
@@ -332,7 +335,7 @@ public class SnakishController extends JPanel {
 			y[0] = model.y1;
 			a[0] = model.x2;
 			b[0] = model.y2;
-			
+
 			ai[1] = true;
 
 			timer = new Timer(DELAY, this);
@@ -377,7 +380,7 @@ public class SnakishController extends JPanel {
 			model.setGameState(GameState.END_GAME);
 			if (model.getPlayingState() == PlayingState.PLAYER_WIN) {
 				// display text on panel
-				msg = model.name + " wins! \n \n" + "Press ESC to exit \n \n"
+				msg = name + " wins! \n \n" + "Press ESC to exit \n \n"
 						+ "Press ENTER to restart";
 			} else if (model.getPlayingState() == PlayingState.PC_WIN) {
 				msg = "PC wins! \n \n" + "Press ESC to exit \n \n"
@@ -401,110 +404,112 @@ public class SnakishController extends JPanel {
 			}
 		}
 
-
 		/**
 		 * 
-		 * @param x: x coordinate of the head of the snake
-		 * @param y: y coordinate of the head of the snake
-		 * @param direction: an array of boolean representing the move-able directions
+		 * @param x
+		 *            : x coordinate of the head of the snake
+		 * @param y
+		 *            : y coordinate of the head of the snake
+		 * @param direction
+		 *            : an array of boolean representing the move-able
+		 *            directions
 		 * @return
 		 */
 		public void determineMove(int xi, int yi) {
 			freeMoves();
-			if((yi-w <= 0) || ((xi == x[0]) && (yi-w == y[0]))){
+			if ((yi - w <= 0) || ((xi == x[0]) && (yi - w == y[0]))) {
 				ai[upAI] = false;
 			}
-			if ((yi+w >= frameSizeY) || ((xi == x[0]) && (yi+w == y[0]))){
+			if ((yi + w >= frameSizeY) || ((xi == x[0]) && (yi + w == y[0]))) {
 				ai[downAI] = false;
 			}
-			if ((xi-w <= 0) || ((xi-w == x[0]) && (yi == y[0]))){
+			if ((xi - w <= 0) || ((xi - w == x[0]) && (yi == y[0]))) {
 				ai[leftAI] = false;
 			}
-			if ((xi+w >= frameSizeX) || ((xi+w == x[0]) && (yi == y[0]))){
+			if ((xi + w >= frameSizeX) || ((xi + w == x[0]) && (yi == y[0]))) {
 				ai[rightAI] = false;
 			}
-			
-			for (int i = 1; i<maxSize; i++){
-				if(((xi == x[i]) && (yi-w == y[i])) || ((xi == a[i]) && (yi-w == b[i]))){
+
+			for (int i = 1; i < maxSize; i++) {
+				if (((xi == x[i]) && (yi - w == y[i]))
+						|| ((xi == a[i]) && (yi - w == b[i]))) {
 					ai[upAI] = false;
 				}
-				if(((xi == x[i]) && (yi+w == y[i])) || ((xi == a[i]) && (yi+w == b[i]))){
+				if (((xi == x[i]) && (yi + w == y[i]))
+						|| ((xi == a[i]) && (yi + w == b[i]))) {
 					ai[downAI] = false;
 				}
-				if(((xi-w == x[i]) && (yi == y[i])) || ((xi-w == a[i]) && (yi == b[i]))){
+				if (((xi - w == x[i]) && (yi == y[i]))
+						|| ((xi - w == a[i]) && (yi == b[i]))) {
 					ai[leftAI] = false;
 				}
-				if(((xi+w == x[i]) && (yi == y[i])) || ((xi+w == a[i]) && (yi == b[i]))){
+				if (((xi + w == x[i]) && (yi == y[i]))
+						|| ((xi + w == a[i]) && (yi == b[i]))) {
 					ai[rightAI] = false;
 				}
 			}
 		}
-		
-		public void freeMoves(){
+
+		public void freeMoves() {
 			if (ai[upAI] = true) {
 				ai[downAI] = false;
 				ai[leftAI] = true;
 				ai[rightAI] = true;
-			}
-			else if (ai[downAI] = true){
+			} else if (ai[downAI] = true) {
 				ai[upAI] = false;
 				ai[leftAI] = true;
 				ai[rightAI] = true;
-			}
-			else if (ai[leftAI] = true) {
+			} else if (ai[leftAI] = true) {
 				ai[rightAI] = false;
 				ai[upAI] = true;
 				ai[downAI] = true;
-			}
-			else {
+			} else {
 				ai[leftAI] = false;
 				ai[upAI] = true;
 				ai[downAI] = true;
 			}
 		}
-		
+
 		public void generateMove() {
 			int lastMove = 0;
-			for(int i = 0; i< 4; i++) {
-				if(ai[i] == true) {
+			for (int i = 0; i < 4; i++) {
+				if (ai[i] == true) {
 					lastMove = i;
 					break;
 				}
 			}
-			determineMove(a[0],b[0]);
-			if(ai[lastMove]) {
+			determineMove(a[0], b[0]);
+			if (ai[lastMove]) {
 				Random rn = new Random();
-				
+
 				if (rn.nextBoolean()) {
 					ai[lastMove] = true;
 					for (int i = 0; i < 4; i++) {
-						if(i != lastMove){
+						if (i != lastMove) {
 							ai[i] = false;
 						}
 					}
-				}
-				else {
+				} else {
 					aiMakeMove();
 				}
-			}
-			else {
+			} else {
 				aiMakeMove();
 			}
 		}
-		
+
 		public void aiMakeMove() {
-			for(int i = 0; i < 4; i++) {
+			for (int i = 0; i < 4; i++) {
 				if (!picked) {
-					if(ai[i] == true){
+					if (ai[i] == true) {
 						picked = true;
 					}
-				}
-				else {
+				} else {
 					ai[i] = false;
 				}
 			}
 			picked = false;
 		}
+
 		private void move() {
 			generateMove();
 			for (int z = length; z > 0; z--) {
