@@ -264,9 +264,9 @@ public class SnakishController extends JPanel {
 		private int length;
 
 		private boolean left = false;
-		private boolean right = false;
+		private boolean right = true;
 		private boolean up = false;
-		private boolean down = true;
+		private boolean down = false;
 		private int leftAI = 2;
 		private int rightAI = 3;
 		private int upAI = 0;
@@ -312,7 +312,7 @@ public class SnakishController extends JPanel {
 			a[0] = model.x2;
 			b[0] = model.y2;
 
-			ai[1] = true;
+			ai[2] = true;
 
 			timer = new Timer(DELAY, this);
 			addKeyListener(new TAdapter());
@@ -402,16 +402,16 @@ public class SnakishController extends JPanel {
 		 */
 		public void determineMove(int xi, int yi) {
 			freeMoves();
-			if ((yi - w <= 0) || ((xi == x[0]) && (yi - w == y[0]))) {
+			if ((yi - w < 0) || ((xi == x[0]) && (yi - w == y[0]))) {
 				ai[upAI] = false;
 			}
-			if ((yi + w > frameSizeY) || ((xi == x[0]) && (yi + w == y[0]))) {
+			if ((yi + w > frameSizeY - 30) || ((xi == x[0]) && (yi + w == y[0]))) {
 				ai[downAI] = false;
 			}
 			if ((xi - w <= 0) || ((xi - w == x[0]) && (yi == y[0]))) {
 				ai[leftAI] = false;
 			}
-			if ((xi + w > frameSizeX) || ((xi + w == x[0]) && (yi == y[0]))) {
+			if ((xi + w > frameSizeX - 30) || ((xi + w == x[0]) && (yi == y[0]))) {
 				ai[rightAI] = false;
 			}
 
@@ -554,11 +554,11 @@ public class SnakishController extends JPanel {
 					model.setPlayingState(PlayingState.TIE);
 				}
 			}
-			if ((x[0] > frameSizeX - w) || (y[0] > frameSizeY - w)
+			if ((x[0] > frameSizeX - w) || (y[0] > frameSizeY - 30)
 					|| (x[0] < -w) || (y[0] < -w)) {
 				model.setGameState(GameState.END_GAME);
 				model.setPlayingState(PlayingState.PC_WIN);
-			} else if ((a[0] > frameSizeX - w) || (b[0] > frameSizeY - w)
+			} else if ((a[0] > frameSizeX - w) || (b[0] > frameSizeY - 30)
 					|| (a[0] < -w) || (b[0] < -w)) {
 				model.setGameState(GameState.END_GAME);
 				model.setPlayingState(PlayingState.PLAYER_WIN);
