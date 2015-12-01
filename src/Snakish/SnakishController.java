@@ -449,6 +449,7 @@ public class SnakishController extends JPanel {
 				}
 			}
 		}
+<<<<<<< HEAD
 
 		public void freeMoves() {
 			if (ai[upAI] = true) {
@@ -460,6 +461,21 @@ public class SnakishController extends JPanel {
 				ai[leftAI] = true;
 				ai[rightAI] = true;
 			} else if (ai[leftAI] = true) {
+=======
+		
+		public void freeMoves(){
+			if (ai[upAI] == true) {
+				ai[downAI] = false;
+				ai[leftAI] = true;
+				ai[rightAI] = true;
+			}
+			else if (ai[downAI] == true){
+				ai[upAI] = false;
+				ai[leftAI] = true;
+				ai[rightAI] = true;
+			}
+			else if (ai[leftAI] == true) {
+>>>>>>> master
 				ai[rightAI] = false;
 				ai[upAI] = true;
 				ai[downAI] = true;
