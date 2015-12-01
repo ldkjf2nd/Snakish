@@ -62,9 +62,6 @@ public class SnakishController extends JPanel {
 	private JTextPane Text = new JTextPane(); // JTextPane to display text
 	private Snake s;
 
-	// Graphics2D buffer,bground,gr;
-	// Image ibuffer,head,grass,ibground;
-
 	/**
 	 * Constructor for SnakishController.
 	 * 
@@ -83,10 +80,7 @@ public class SnakishController extends JPanel {
 	 * initializes main menu
 	 */
 	public void initialize() {
-//		System.out.println("start");
 		frame = view.frame;
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(frameSizeX, frameSizeY);
 		initializeMenu();
 	}
 
@@ -95,7 +89,6 @@ public class SnakishController extends JPanel {
 	 */
 	private void initializeMenu() {
 		model.setGameState(GameState.TITLE_PAGE);
-//		System.out.println("menu");
 		btnSG.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.setGameState(GameState.NEW_GAME);
@@ -108,7 +101,6 @@ public class SnakishController extends JPanel {
 		btnA.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				model.setGameState(GameState.ABOUT);
-				// System.out.println("about peacefully");
 				clear();
 				about();
 			}
@@ -117,12 +109,10 @@ public class SnakishController extends JPanel {
 		btnE.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (model.getGameState() == GameState.ABOUT) {
-//					model.setGameState(GameState.TITLE_PAGE);
 					clear();
 					menuPanel = new JPanel();
 					initializeMenu();
 				} else if (model.getGameState() == GameState.TITLE_PAGE) {
-					// System.out.println("exited peacefully");
 					System.exit(0);
 				}
 			}
@@ -376,7 +366,7 @@ public class SnakishController extends JPanel {
 		}
 
 		private void gameOver(Graphics g) {
-			model.setPlayingState(PlayingState.PLAYER_WIN);
+//			model.setPlayingState(PlayingState.PLAYER_WIN);
 			model.setGameState(GameState.END_GAME);
 			if (model.getPlayingState() == PlayingState.PLAYER_WIN) {
 				// display text on panel
@@ -420,13 +410,13 @@ public class SnakishController extends JPanel {
 			if ((yi - w <= 0) || ((xi == x[0]) && (yi - w == y[0]))) {
 				ai[upAI] = false;
 			}
-			if ((yi + w >= frameSizeY) || ((xi == x[0]) && (yi + w == y[0]))) {
+			if ((yi + w > frameSizeY) || ((xi == x[0]) && (yi + w == y[0]))) {
 				ai[downAI] = false;
 			}
 			if ((xi - w <= 0) || ((xi - w == x[0]) && (yi == y[0]))) {
 				ai[leftAI] = false;
 			}
-			if ((xi + w >= frameSizeX) || ((xi + w == x[0]) && (yi == y[0]))) {
+			if ((xi + w > frameSizeX) || ((xi + w == x[0]) && (yi == y[0]))) {
 				ai[rightAI] = false;
 			}
 
@@ -673,13 +663,13 @@ public class SnakishController extends JPanel {
 					model.setPlayingState(PlayingState.PC_WIN);
 				}
 			}
-			if ((y[0] >= frameSizeY) || (b[0] >= frameSizeY)) {
+			if ((y[0] > frameSizeY) || (b[0] > frameSizeY)) {
 				model.setGameState(GameState.END_GAME);
 				model.setPlayingState(PlayingState.PC_WIN);
 			} else if ((y[0] < 0) || (b[0] < 0)) {
 				model.setGameState(GameState.END_GAME);
 				model.setPlayingState(PlayingState.PC_WIN);
-			} else if ((x[0] >= frameSizeX) || (a[0] >= frameSizeX)) {
+			} else if ((x[0] > frameSizeX) || (a[0] > frameSizeX)) {
 				model.setGameState(GameState.END_GAME);
 				model.setPlayingState(PlayingState.PC_WIN);
 			} else if ((x[0] < 0) || (a[0] < 0)) {
