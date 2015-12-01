@@ -11,8 +11,8 @@ public class AI {
 	int frameSizeX = 600;
 	int frameSizeY = 600;
     private final int maxSize = 1800;
-    private final int xp[] = new int[maxSize];
-    private final int yp[] = new int[maxSize];
+    private final int x[] = new int[maxSize];
+    private final int y[] = new int[maxSize];
     private final int a[] = new int[maxSize];
     private final int b[] = new int[maxSize];
     private int length;
@@ -26,32 +26,32 @@ public class AI {
 	 * @param direction: an array of boolean representing the move-able directions
 	 * @return
 	 */
-	public void determineMove(int x, int y) {
+	public void determineMove(int xi, int yi) {
 		freeMoves();
-		if((y-w < 0) || ((x == xp[0]) && (y-w == yp[0]))){
+		if((yi-w < 0) || ((xi == x[0]) && (yi-w == y[0]))){
 			direction[upAI] = false;
 		}
-		if ((y+w > frameSizeY) || ((x == xp[0]) && (y+w == yp[0]))){
+		if ((yi+w > frameSizeY) || ((xi == x[0]) && (yi+w == y[0]))){
 			direction[downAI] = false;
 		}
-		if ((x-w < 0) || ((x-w == xp[0]) && (y == yp[0]))){
+		if ((xi-w < 0) || ((xi-w == x[0]) && (yi == y[0]))){
 			direction[leftAI] = false;
 		}
-		if ((x+w > frameSizeX) || ((x+w == xp[0]) && (y == yp[0]))){
+		if ((xi+w > frameSizeX) || ((xi+w == x[0]) && (yi == y[0]))){
 			direction[rightAI] = false;
 		}
 		
 		for (int i = 1; i<maxSize; i++){
-			if(((x == xp[i]) && (y-w == yp[i])) || ((x == a[i]) && (y-w == a[i]))){
+			if(((xi == x[i]) && (yi-w == y[i])) || ((xi == a[i]) && (yi-w == a[i]))){
 				direction[upAI] = false;
 			}
-			if(((x == xp[i]) && (y+w == yp[0])) || ((x == xp[i]) && (y+w == yp[0]))){
+			if(((xi == x[i]) && (yi+w == y[0])) || ((xi == x[i]) && (yi+w == y[0]))){
 				direction[downAI] = false;
 			}
-			if(((x-w == xp[i]) && (y == yp[0])) || ((x == xp[i]) && (y+w == yp[0]))){
+			if(((xi-w == x[i]) && (yi == y[0])) || ((xi == x[i]) && (yi+w == y[0]))){
 				direction[leftAI] = false;
 			}
-			if(((x+w == xp[i]) && (y == yp[i])) || ((x == xp[i]) && (y+w == yp[0]))){
+			if(((xi+w == x[i]) && (yi == y[i])) || ((xi == x[i]) && (yi+w == y[0]))){
 				direction[rightAI] = false;
 			}
 		}
@@ -120,57 +120,5 @@ public class AI {
 				direction[i] = false;
 			}
 		}
-	}
-	
-	private boolean checkCollision(int n) {
-		if (n == 1) {				// left
-			if ((a[0]-w) <= 0) {
-				return true;
-			}
-			else {
-				for (int z = 1; z < length; z++) {
-		            if ((z > 4) && ((a[0]-w) == a[z]) || ((a[0]-w) == xp[z])) {
-		            	return true;
-		            }
-				}
-			}
-		}
-		else if (n == 2) {			// right
-			if ((a[0]+w) >= frameSizeX) {
-				return true;
-			}
-			else {
-				for (int z = 1; z < length; z++) {
-		            if ((z > 4) && ((a[0]+w) == a[z]) || ((a[0]+w) == xp[z])) {
-		            	return true;
-		            }
-				}
-			}
-		}
-		else if (n == 3) {			// up
-			if ((b[0]+w) >= frameSizeY) {
-				return true;
-			}
-			else {
-				for (int z = 1; z < length; z++) {
-		            if ((z > 4) && ((b[0]+w) == b[z]) || ((b[0]+w) == yp[z])) {
-		            	return true;
-		            }
-				}
-			}
-		}
-		else if (n == 4) {			// down
-			if ((b[0]-w) <= 0) {
-				return true;
-			}
-			else {
-				for (int z = 1; z < length; z++) {
-		            if ((z > 4) && ((b[0]-w) == b[z]) || ((b[0]-w) == yp[z])) {
-		            	return true;
-		            }
-				}
-			}
-		}
-		return false;
 	}
 }
