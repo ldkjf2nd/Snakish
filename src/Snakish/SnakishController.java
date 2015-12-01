@@ -485,16 +485,22 @@ public class SnakishController extends JPanel {
 		 * 
 		 */
 		public void aiMakeMove() {
-			for (int i = 0; i < 4; i++) {
-				if (!picked) {
-					if (ai[i] == true) {
-						picked = true;
+//			picked = false;
+			boolean temp = true;
+			Random rnd = new Random();
+			int j;
+			while(temp) {
+				j = rnd.nextInt(ai.length);
+				if (ai[j]) {
+					for(int i = 0; i < 4; i++) {
+						if (i!=j){
+							ai[i] = false;
+						}
 					}
-				} else {
-					ai[i] = false;
 				}
+				temp = false;
 			}
-			picked = false;
+			// picked = false;
 		}
 
 		/**
