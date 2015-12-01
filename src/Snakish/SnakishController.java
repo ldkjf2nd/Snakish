@@ -463,21 +463,15 @@ public class SnakishController extends JPanel {
 				}
 			}
 			determineMove(a[0], b[0]);
-			if (ai[lastMove]) {
-				Random rn = new Random();
-
-				if (rn.nextBoolean()) {
-					ai[lastMove] = true;
-					for (int i = 0; i < 4; i++) {
-						if (i != lastMove) {
-							ai[i] = false;
-						}
-					}
-				} else {
-					aiMakeMove();
-				}
-			} else {
+			if (!ai[lastMove]) {
 				aiMakeMove();
+			}
+			else {
+				for(int i = 0; i < 4; i++) {
+					if (i!=lastMove){
+						ai[i] = false;
+					}
+				}
 			}
 		}
 

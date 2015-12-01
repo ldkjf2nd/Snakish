@@ -97,20 +97,7 @@ public class AI {
 			}
 		}
 		determineMove(a[0], b[0]);
-		if (ai[lastMove]) {
-			Random rn = new Random();
-
-			if (rn.nextBoolean()) {
-				// ai[lastMove] = true;
-				for (int i = 0; i < 4; i++) {
-					if (i != lastMove) {
-						ai[i] = false;
-					}
-				}
-			} else {
-				Moving();
-			}
-		} else {
+		if (!ai[lastMove]) {
 			Moving();
 		}
 	}
